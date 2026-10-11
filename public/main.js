@@ -4,28 +4,28 @@ const pricing = [
     band: 'Up to 5 employees',
     summary: 'A complete workforce workspace for small teams.',
     employeeLimit: 5,
-    annualPrice: 399.99,
+    annualPrice: 299.99,
   },
   {
     name: 'Team',
     band: 'Up to 15 employees',
     summary: 'Room for a growing team and a busier rota.',
     employeeLimit: 15,
-    annualPrice: 749.99,
+    annualPrice: 649.99,
   },
   {
     name: 'Business',
     band: 'Up to 30 employees',
     summary: 'More headroom for established teams.',
     employeeLimit: 30,
-    annualPrice: 1249.99,
+    annualPrice: 1149.99,
   },
   {
     name: 'Scale',
     band: 'Up to 50 employees',
     summary: 'Support for larger, multi-role teams.',
     employeeLimit: 50,
-    annualPrice: 1999.99,
+    annualPrice: 1899.99,
   },
 ]
 
@@ -46,7 +46,7 @@ if (pricingGrid) {
       <ul>
         <li><span>✓</span> All ClockLio workforce features</li>
         <li><span>✓</span> Up to ${plan.employeeLimit} active employees</li>
-        <li><span>✓</span> Manager accounts included</li>
+        <li><span>✓</span> Manager access included</li>
       </ul>
     </article>
   `).join('')
