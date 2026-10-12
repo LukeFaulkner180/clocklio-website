@@ -1,6 +1,6 @@
-# ClockLio Website
+# ClockNexa Website
 
-This repository contains the standalone public marketing website for ClockLio.
+This repository contains the standalone public marketing website for ClockNexa.
 The signed-in workforce app is maintained separately in
 [`LukeFaulkner180/clocklio`](https://github.com/LukeFaulkner180/clocklio).
 
@@ -23,7 +23,7 @@ Connect this repository to a separate Cloudflare Pages project and use:
 - Build command: leave blank
 - Build output directory: `public`
 
-The sign-in links use the app URL in the `clocklio-app-url` meta tag in
+The sign-in links use the app URL in the `clocknexa-app-url` meta tag in
 `public/index.html`. Update it if the app moves to a custom domain.
 
 The public plan amounts in `public/main.js` mirror the platform admin's plan
