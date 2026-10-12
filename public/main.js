@@ -54,7 +54,7 @@ if (pricingGrid) {
 
 const appUrl = document.querySelector('meta[name="clocknexa-app-url"]')?.content?.trim()
 if (appUrl) {
-  document.querySelectorAll('a[href="https://clocklio.pages.dev/"]').forEach((link) => {
+  document.querySelectorAll('a[href="https://app.clocknexa.co.uk/"]').forEach((link) => {
     link.href = appUrl
   })
 }

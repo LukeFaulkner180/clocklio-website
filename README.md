@@ -23,8 +23,11 @@ Connect this repository to a separate Cloudflare Pages project and use:
 - Build command: leave blank
 - Build output directory: `public`
 
-The sign-in links use the app URL in the `clocknexa-app-url` meta tag in
-`public/index.html`. Update it if the app moves to a custom domain.
+The public site is intended for `https://clocknexa.co.uk` and its sign-in
+links open the app at `https://app.clocknexa.co.uk/`. Connect the custom domain
+to this Cloudflare Pages project and the app subdomain to the separate app
+project. The sign-in URL is set by the `clocknexa-app-url` meta tag in
+`public/index.html`.
 
 The public plan amounts in `public/main.js` mirror the platform admin's plan
 list in the app repository at `src/lib/pricing.ts`. Keep both copies aligned
