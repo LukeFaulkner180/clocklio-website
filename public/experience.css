@@ -52,8 +52,9 @@ body { background: var(--paper); }
 .hero-purple {
   background: linear-gradient(110deg, #6747dc, #a66feb 46%, #6a4bdb 75%, #5843b9);
   background-size: 180% 100%; background-clip: text; -webkit-background-clip: text;
-  color: transparent; white-space: normal;
+  color: transparent; white-space: nowrap; font-size: .9em;
 }
+.hero-line:last-child { overflow: visible; }
 .hero-copy > p { max-width: 445px; font-size: 17px; margin-top: 30px; color: #73717f; }
 .hero-actions { gap: 22px; margin-top: 32px; }
 .hero-actions > .quiet-link { font-size: 13px; }
@@ -194,7 +195,7 @@ body { background: var(--paper); }
 .footer-eyebrow i { display: block; width: 6px; height: 6px; background: #a2e3bc; border-radius: 50%; }
 .footer-lead { display: grid; grid-template-columns: 1.3fr 1fr; gap: 70px; align-items: center; padding: 62px 0 56px; }
 .footer-lead h2 { font-size: clamp(52px, 6.7vw, 100px); font-weight: 550; line-height: 1.04; letter-spacing: -.07em; }
-.footer-lead h2 em { font-style: normal; color: #cfbaf8; }
+.footer-lead h2 em { display: inline-block; margin-left: .1em; font-style: normal; color: #cfbaf8; }
 .footer-lead-copy { max-width: 345px; justify-self: end; }
 .footer-lead-copy p { font-size: 15px; line-height: 1.85; color: #b2a6c0; margin-bottom: 27px; }
 .footer-lead-copy .button { background: #d8c5fc; color: #2e2046; min-height: 57px; padding: 14px 22px 14px 27px; gap: 30px; box-shadow: 0 0 0 5px #d8c5fc08; }
