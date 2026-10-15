@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://clocknexa.co.uk/sitemap.xml
