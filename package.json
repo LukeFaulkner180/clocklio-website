@@ -1,0 +1,13 @@
+{
+  "name": "clocknexa-showcase",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check public/main.js && node scripts/check.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
