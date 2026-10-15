@@ -24,9 +24,9 @@ async function text(page, selector, expected) {
   const actual = (await page.locator(selector).textContent()).trim();
   if (expected instanceof RegExp) assert.match(actual, expected); else assert.equal(actual, expected);
 }
-async function noOverflow(page, label) {
+async function noOverflow(page, label, errors) {
   const width = await page.evaluate(() => ({ content: document.documentElement.scrollWidth, viewport: innerWidth }));
-  assert.ok(width.content <= width.viewport + 1, label + ': overflow ' + JSON.stringify(width));
+  if (width.content > width.viewport + 1) errors.push(label + ': overflow ' + JSON.stringify(width));
 }
 try {
   for (const [name, engine] of Object.entries({ chromium, webkit })) {
@@ -137,7 +137,7 @@ try {
         for (const route of routes) {
           await page.goto(origin + '/' + route);
           await page.evaluate(() => document.fonts.ready);
-          await noOverflow(page, name + ' ' + width + ' ' + route);
+          await noOverflow(page, name + ' ' + width + ' ' + route, errors);
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
             await page.screenshot({ path: 'artifacts/' + slug + '-' + width + '.png', fullPage: true });
@@ -145,7 +145,12 @@ try {
           }
         }
       }
-      assert.deepEqual(errors, [], 'No JavaScript errors or missing local resources');
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await page.goto(origin);
+      await page.waitForFunction(() => document.querySelector('.hero-copy').classList.contains('is-visible'));
+      await page.locator('.roles-section').scrollIntoViewIfNeeded();
+      await page.waitForFunction(() => [...document.querySelectorAll('.roles-section [data-reveal]')].every(el => el.classList.contains('is-visible')));
+      assert.deepEqual(errors, [], 'No JavaScript errors, missing local resources or responsive overflow');
       findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');
     } catch (error) {
