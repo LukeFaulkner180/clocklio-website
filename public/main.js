@@ -130,7 +130,9 @@ if (featureCards.length) {
     const term = search.value.trim().toLocaleLowerCase('en-GB');
     let count = 0;
     featureCards.forEach(card => {
-      const visible = (category === 'all' || card.dataset.category === category) && (role.value === 'all' || card.dataset.roles.split(' ').includes(role.value)) && card.dataset.search.includes(term);
+      const allowedRoles = card.dataset.roles.split(' ');
+      const roleMatches = role.value === 'all' || allowedRoles.includes(role.value) || (role.value === 'owner' && allowedRoles.includes('manager'));
+      const visible = (category === 'all' || card.dataset.category === category) && roleMatches && card.dataset.search.includes(term);
       card.hidden = !visible;
       if (visible) count++;
     });

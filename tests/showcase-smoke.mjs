@@ -67,6 +67,8 @@ try {
       await page.goto(origin + '/features/?role=owner&category=addons');
       assert.equal(await page.locator('[data-feature-role]').inputValue(), 'owner');
       assert.equal(await page.locator('[data-feature]:visible:not([data-category="addons"])').count(), 0);
+      await page.locator('[data-category-filter="planning"]').click();
+      assert.ok(await page.locator('[data-feature]:visible').count() > 0, 'Business Owners also have Manager planning features');
 
       await page.goto(origin + '/pricing/');
       for (const [size, plan, amount] of [[5, 'Starter', '£299.99'], [6, 'Team', '£649.99'], [15, 'Team', '£649.99'], [16, 'Business', '£1,149.99'], [30, 'Business', '£1,149.99'], [31, 'Scale', '£1,899.99'], [50, 'Scale', '£1,899.99'], [51, 'Custom', 'Let’s talk']]) {
