@@ -43,6 +43,10 @@ try {
     page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
       await page.goto(origin);
+      assert.equal(await page.locator('[data-motion-toggle]').first().isDisabled(), true, 'Device reduced-motion preference is respected');
+      await text(page, '.demo-caption [data-motion-label]', 'Reduced motion');
+      assert.equal(await page.locator('.site-footer .footer-wordmark').count(), 0);
+      assert.equal(await page.locator('.site-footer nav').count(), 3);
       await page.locator('[data-preview="stock"]').click();
       assert.equal(await page.locator('#preview-stock').isVisible(), true);
       await page.locator('[data-preview="stock"]').press('Home');
@@ -149,7 +153,10 @@ try {
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
             await page.screenshot({ path: artifactDirectory + '/' + slug + '-' + width + '.png', fullPage: true });
-            if (!route) await page.screenshot({ path: artifactDirectory + '/home-viewport-' + width + '.png' });
+            if (!route) {
+              await page.screenshot({ path: artifactDirectory + '/home-viewport-' + width + '.png' });
+              await page.locator('.site-footer').screenshot({ path: artifactDirectory + '/footer-' + width + '.png' });
+            }
           }
         }
       }
@@ -158,6 +165,18 @@ try {
       await page.waitForFunction(() => document.querySelector('.hero-copy').classList.contains('is-visible'));
       await page.locator('.roles-section').scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.querySelectorAll('.roles-section [data-reveal]')].every(el => el.classList.contains('is-visible')));
+      await page.locator('[data-map-node]').first().focus();
+      await text(page, '[data-map-detail]', /Plan shifts/);
+      await page.locator('[data-motion-toggle]').first().click();
+      assert.equal(await page.locator('[data-motion-toggle]').first().getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('[data-motion-toggle]').last().getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationPlayState), 'paused');
+      await page.locator('[data-back-top]').click();
+      await page.waitForFunction(() => scrollY < 2);
+      await page.locator('[data-motion-toggle]').first().click();
+      assert.equal(await page.locator('[data-motion-toggle]').first().getAttribute('aria-pressed'), 'false');
+      await page.waitForFunction(() => document.getAnimations().filter(animation => animation.effect?.target?.closest('.hero-line') && animation.playState === 'running').length === 0);
+      if (name === 'chromium') await page.screenshot({ path: artifactDirectory + '/home-motion.png' });
       assert.deepEqual(errors, [], 'No JavaScript errors, missing local resources or responsive overflow');
       findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');
