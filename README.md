@@ -8,9 +8,13 @@ Home, Features, Pricing, Add-ons, Contact, Website Privacy and a custom 404 page
 
 ## Hosting
 
-All production files are in `public/`. For Cloudflare Pages, use root `/`, no build command, and output directory `public`. The optional `npm run build` copies the files to `dist/` for the hosted review preview.
+All source files are in `public/`. GitHub Pages is deployed by `.github/workflows/deploy-pages.yml` on each push to `main`. Enable it once in the repository under **Settings → Pages → Build and deployment → Source: GitHub Actions**. Repository settings are managed by the owner; the workflow does not change repository visibility.
 
-Run `npm run check` for source validation. GitHub Actions checks real Chromium and WebKit interactions and uploads desktop/mobile screenshots. Playwright is used only in CI, not shipped to visitors.
+The workflow gets the publishing URL and project path from GitHub, builds `dist/`, verifies links and publishes only those static files. Its deployment job reports the live URL. With the default GitHub domain, the project URL is `https://lukefaulkner180.github.io/clocklio-website/` once Pages is enabled and deployment succeeds.
+
+The build supports `SITE_BASE_PATH` and `SITE_URL`, so navigation, images, dynamic calculator links, canonical metadata and the sitemap work under a project path. For example: `SITE_BASE_PATH=/clocklio-website SITE_URL=https://lukefaulkner180.github.io/clocklio-website/ npm run build`. Without those variables, `npm run build` makes a root-hosted version for the review preview. Cloudflare Pages can still serve `public/` directly.
+
+Run `npm run check` for source validation. GitHub Actions checks real Chromium and WebKit interactions at both the root and the GitHub Pages project path, and uploads desktop/mobile screenshots. Playwright is used only in CI, not shipped to visitors.
 
 ## Content
 
