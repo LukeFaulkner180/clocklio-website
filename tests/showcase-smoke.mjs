@@ -99,11 +99,12 @@ try {
       await page.locator('#contact-form button[type="submit"]').click();
       assert.equal(await page.locator('[data-email-draft-panel]').isVisible(), true);
       await text(page, '[data-draft-status]', /has not been sent/);
-      const mailto = new URL(await page.locator('[data-email-draft]').getAttribute('href'));
-      assert.equal(mailto.protocol, 'mailto:');
-      assert.equal(mailto.pathname, 'ambitionit.business@gmail.com');
-      assert.match(mailto.searchParams.get('body'), /Example Café/);
+      assert.equal(await page.locator('a[href^="mailto:"]').count(), 0, 'No recipient is configured while contact details are pending');
+      await text(page, '.contact-email', /Coming soon/);
+      await text(page, '[data-email-preview]', /Example Café/);
       assert.equal(await page.locator('[data-email-preview] script').count(), 0);
+      await page.locator('[data-copy-enquiry]').click();
+      await page.waitForFunction(() => /Enquiry copied|Select and copy/.test(document.querySelector('[data-draft-status]').textContent));
       await page.locator('[name="message"]').fill('A revised message');
       assert.equal(await page.locator('[data-email-draft-panel]').isVisible(), false);
 
