@@ -2,6 +2,8 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = pence => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const siteRoot = new URL('./', import.meta.url).pathname;
+const sitePath = relativePath => siteRoot + relativePath.replace(/^\/+/, '');
 
 // Navigation works with pointer, keyboard and touch.
 const menuToggle = $('[data-menu-toggle]');
@@ -113,7 +115,7 @@ setupTabs(roleTabs, selected => {
   $$('.role-preview-list > div > span').forEach((span, index) => { span.textContent = role.items[index]; });
   const link = $('[data-role-link]');
   link.firstChild.textContent = role.link + ' ';
-  link.href = '/features/?role=' + key;
+  link.href = sitePath('/features/?role=' + key);
   $('#role-preview').setAttribute('aria-labelledby', selected.id);
 });
 
@@ -177,7 +179,7 @@ if ($('[data-team-number]')) {
     $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (plan ? plan.name + ' fits ' + size + ' employees. ' : 'A custom core quote fits teams over 50. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
     const params = new URLSearchParams({ topic: valid && !plan ? 'custom' : 'plan' });
     if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); }
-    $('[data-quote-contact]').href = '/contact/?' + params;
+    $('[data-quote-contact]').href = sitePath('/contact/?' + params);
   }
   range.addEventListener('input', () => { number.value = range.value; quote(); });
   number.addEventListener('input', () => { range.value = String(Math.min(60, Math.max(1, Number(number.value) || 1))); quote(); });

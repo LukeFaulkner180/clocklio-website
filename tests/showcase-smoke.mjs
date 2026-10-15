@@ -4,11 +4,15 @@ import { readFile, stat, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium, webkit } from 'playwright';
 
-const root = path.resolve('public');
+const root = path.resolve(process.env.QA_SITE_DIRECTORY || 'public');
+const basePath = (process.env.QA_BASE_PATH || '').replace(/\/+$/, '');
+const artifactDirectory = process.env.QA_ARTIFACT_DIRECTORY || 'artifacts';
 const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.txt': 'text/plain' };
 const server = createServer(async (request, response) => {
   try {
-    const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+    const requestedPath = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+    if (basePath && requestedPath !== basePath && !requestedPath.startsWith(basePath + '/')) throw new Error('Outside project site');
+    const pathname = requestedPath.slice(basePath.length) || '/';
     let file = path.resolve(root, '.' + pathname);
     if (!file.startsWith(root + path.sep) && file !== root) throw new Error('Invalid path');
     if ((await stat(file)).isDirectory()) file = path.join(file, 'index.html');
@@ -17,8 +21,9 @@ const server = createServer(async (request, response) => {
   } catch { response.writeHead(404); response.end('Not found'); }
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-const origin = 'http://127.0.0.1:' + server.address().port;
-await mkdir('artifacts', { recursive: true });
+const hostOrigin = 'http://127.0.0.1:' + server.address().port;
+const origin = hostOrigin + basePath;
+await mkdir(artifactDirectory, { recursive: true });
 const findings = [];
 async function text(page, selector, expected) {
   const actual = (await page.locator(selector).textContent()).trim();
@@ -35,7 +40,7 @@ try {
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
-    page.on('response', response => { if (response.url().startsWith(origin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
+    page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
       await page.goto(origin);
       await page.locator('[data-preview="stock"]').click();
@@ -89,7 +94,7 @@ try {
       await text(page, '[data-quote-status]', /Enter a whole employee count/);
       await page.locator('[data-team-number]').fill('16');
       const contactPath = await page.locator('[data-quote-contact]').getAttribute('href');
-      await page.goto(origin + contactPath);
+      await page.goto(new URL(contactPath, hostOrigin).href);
       assert.equal(await page.locator('[name="employees"]').inputValue(), '16–30');
       assert.match(await page.locator('[name="message"]').inputValue(), /Tasks add-on: 5/);
       await page.locator('[name="name"]').fill('Test Visitor');
@@ -130,7 +135,7 @@ try {
       assert.equal(await page.locator('#site-navigation').isVisible(), false);
       assert.equal(await page.locator('[data-menu-toggle]').evaluate(el => el === document.activeElement), true);
       await page.locator('[data-menu-toggle]').click();
-      await page.locator('#site-navigation a[href="/pricing/"]').click();
+      await page.locator('#site-navigation').getByRole('link', { name: 'Pricing', exact: true }).click();
       await page.waitForURL('**/pricing/');
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
 
@@ -143,8 +148,8 @@ try {
           await noOverflow(page, name + ' ' + width + ' ' + route, errors);
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
-            await page.screenshot({ path: 'artifacts/' + slug + '-' + width + '.png', fullPage: true });
-            if (!route) await page.screenshot({ path: 'artifacts/home-viewport-' + width + '.png' });
+            await page.screenshot({ path: artifactDirectory + '/' + slug + '-' + width + '.png', fullPage: true });
+            if (!route) await page.screenshot({ path: artifactDirectory + '/home-viewport-' + width + '.png' });
           }
         }
       }
@@ -157,10 +162,10 @@ try {
       findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');
     } catch (error) {
-      await page.screenshot({ path: 'artifacts/failure-' + name + '.png', fullPage: true }).catch(() => {});
-      await writeFile('artifacts/failure-' + name + '.txt', String(error.stack));
+      await page.screenshot({ path: artifactDirectory + '/failure-' + name + '.png', fullPage: true }).catch(() => {});
+      await writeFile(artifactDirectory + '/failure-' + name + '.txt', String(error.stack));
       throw error;
     } finally { await context.close(); await browser.close(); }
   }
-  await writeFile('artifacts/results.json', JSON.stringify(findings, null, 2));
+  await writeFile(artifactDirectory + '/results.json', JSON.stringify(findings, null, 2));
 } finally { await new Promise(resolve => server.close(resolve)); }

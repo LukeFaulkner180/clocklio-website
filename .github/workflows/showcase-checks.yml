@@ -22,6 +22,18 @@ jobs:
         run: npx playwright install --with-deps chromium webkit
       - name: Exercise website and capture previews
         run: node tests/showcase-smoke.mjs
+      - name: Build and check GitHub Pages project paths
+        run: npm run build && node scripts/check.mjs
+        env:
+          SITE_BASE_PATH: /clocklio-website
+          SITE_URL: https://lukefaulkner180.github.io/clocklio-website/
+          SITE_CHECK_DIRECTORY: dist
+      - name: Exercise GitHub Pages navigation and calculators
+        run: node tests/showcase-smoke.mjs
+        env:
+          QA_BASE_PATH: /clocklio-website
+          QA_SITE_DIRECTORY: dist
+          QA_ARTIFACT_DIRECTORY: artifacts/pages
       - uses: actions/upload-artifact@v4
         if: always()
         with:
