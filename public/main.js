@@ -5,6 +5,40 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const siteRoot = new URL('./', import.meta.url).pathname;
 const sitePath = relativePath => siteRoot + relativePath.replace(/^\/+/, '');
 
+// Continuous decorative motion can be paused without hiding any content.
+let userPausedMotion = false;
+const motionDisabled = () => reducedMotion.matches || userPausedMotion;
+const motionButtons = $$('[data-motion-toggle]');
+function updateMotion() {
+  const paused = motionDisabled();
+  document.documentElement.classList.toggle('motion-paused', paused);
+  motionButtons.forEach(button => {
+    button.hidden = false;
+    button.disabled = reducedMotion.matches;
+    button.setAttribute('aria-pressed', String(paused));
+    $('[data-motion-label]', button).textContent = reducedMotion.matches ? 'Reduced motion' : paused ? 'Resume animations' : 'Pause animations';
+    $('[data-motion-glyph]', button).setAttribute('d', paused ? 'm9 5 10 7-10 7V5Z' : 'M9 5v14M15 5v14');
+  });
+  if (paused) {
+    $$('[data-reveal]').forEach(element => element.classList.add('is-visible'));
+    $$('[data-tilt]').forEach(element => { element.style.transform = ''; });
+    document.getAnimations().forEach(animation => { if (animation.effect?.target?.closest('[role="tabpanel"]')) animation.cancel(); });
+  }
+}
+motionButtons.forEach(button => button.addEventListener('click', () => { userPausedMotion = !userPausedMotion; updateMotion(); }));
+reducedMotion.addEventListener('change', updateMotion);
+document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('motion-suspended', document.hidden));
+updateMotion();
+$$('[data-back-top]').forEach(button => {
+  button.hidden = false;
+  button.addEventListener('click', () => scrollTo({ top: 0, behavior: motionDisabled() ? 'instant' : 'smooth' }));
+});
+function animatePanel(panel) {
+  if (motionDisabled()) return;
+  panel.getAnimations().forEach(animation => animation.cancel());
+  panel.animate([{ opacity: .25, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.16,1,.3,1)' });
+}
+
 // Navigation works with pointer, keyboard and touch.
 const menuToggle = $('[data-menu-toggle]');
 const navigation = $('#site-navigation');
@@ -82,16 +116,21 @@ function setupTabs(buttons, activate) {
   });
 }
 const previewTabs = $$('[data-preview]');
-setupTabs(previewTabs, selected => previewTabs.forEach(button => {
+setupTabs(previewTabs, selected => {
+  previewTabs.forEach(button => {
   const active = button === selected;
   button.setAttribute('aria-selected', String(active));
   button.tabIndex = active ? 0 : -1;
   document.getElementById(button.getAttribute('aria-controls')).hidden = !active;
-}));
+  });
+  const nav = $$('.demo-sidebar .demo-nav');
+  nav.forEach((item, index) => item.classList.toggle('active', index === { rota: 0, time: 1, stock: 4 }[selected.dataset.preview]));
+  animatePanel(document.getElementById(selected.getAttribute('aria-controls')));
+});
 const stage = $('[data-tilt]');
 if (stage && matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotion.matches) {
   stage.addEventListener('pointermove', event => {
-    if (reducedMotion.matches) return;
+    if (motionDisabled()) return;
     const box = stage.getBoundingClientRect();
     const x = ((event.clientX - box.left) / box.width - 0.5) * 3;
     const y = ((event.clientY - box.top) / box.height - 0.5) * -3;
@@ -117,7 +156,41 @@ setupTabs(roleTabs, selected => {
   link.firstChild.textContent = role.link + ' ';
   link.href = sitePath('/features/?role=' + key);
   $('#role-preview').setAttribute('aria-labelledby', selected.id);
+  animatePanel($('#role-preview'));
 });
+
+// Hover light follows a pointer without replacing native touch scrolling.
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  $$('.bento, .addon-teaser, .industry-grid article').forEach(card => {
+    card.classList.add('spotlight');
+    let pointerFrame = 0;
+    card.addEventListener('pointermove', event => {
+      if (motionDisabled() || pointerFrame) return;
+      const { clientX, clientY } = event;
+      pointerFrame = requestAnimationFrame(() => {
+        const bounds = card.getBoundingClientRect();
+        card.style.setProperty('--pointer-x', clientX - bounds.left + 'px');
+        card.style.setProperty('--pointer-y', clientY - bounds.top + 'px');
+        pointerFrame = 0;
+      });
+    });
+  });
+}
+const mapDetail = $('[data-map-detail]');
+if (mapDetail) {
+  const defaultDetail = mapDetail.textContent;
+  $$('[data-map-node]').forEach(node => {
+    const describe = () => { mapDetail.textContent = node.dataset.mapDescription; };
+    node.addEventListener('pointerenter', describe);
+    node.addEventListener('focus', describe);
+    const clear = () => {
+      const focused = document.activeElement.closest('[data-map-node]');
+      mapDetail.textContent = focused ? focused.dataset.mapDescription : defaultDetail;
+    };
+    node.addEventListener('pointerleave', clear);
+    node.addEventListener('blur', () => requestAnimationFrame(clear));
+  });
+}
 
 // Static feature content is searchable without any remote service.
 const featureCards = $$('[data-feature]');
