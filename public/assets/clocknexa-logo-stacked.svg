@@ -1,13 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1180" viewBox="0 0 1100 1180">
-<rect width="1100" height="1180" fill="#fff"/><g transform="translate(340 187) scale(1.64062500)">
-<circle cx="128" cy="128" r="91" fill="none" stroke="#10234b" stroke-width="13"/>
-<circle cx="128" cy="91" r="27" fill="#10234b"/>
-<path d="M77 180c0-28 19-47 51-47s51 19 51 47v10c-17 9-34 14-51 14s-34-5-51-14z" fill="#5636df"/>
-<path d="M128 138v62" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-<path d="M128 137c13-5 25-1 36 8 10 9 15 21 15 35v10c-17 9-34 14-51 17z" fill="#3b1bc5"/>
-<circle cx="31" cy="128" r="20" fill="#6047e8"/><circle cx="225" cy="128" r="20" fill="#6047e8"/><circle cx="128" cy="28" r="20" fill="#6047e8"/>
-<circle cx="128" cy="210" r="33" fill="#42e7a1" stroke="#fff" stroke-width="6"/>
-<path d="m112 210 11 11 23-25" fill="none" stroke="#10234b" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<rect width="1100" height="1180" fill="#fff"/><g transform="translate(340 187) scale(6.5625)" fill="none">
+<defs>
+    <linearGradient id="tile" x1="7" y1="4" x2="58" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B7AF1"/>
+      <stop offset="1" stop-color="#5949C5"/>
+    </linearGradient>
+    <linearGradient id="check" x1="34" y1="43" x2="49" y2="29" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#73E0BD"/>
+      <stop offset="1" stop-color="#9CF0D3"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="19" fill="url(#tile)"/>
+  <rect x="4" y="4" width="56" height="56" rx="18" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>
+  <path d="M14.4 43.7c1.05-7.45 5.23-11.7 11.45-11.7 5.53 0 9.28 3.16 11.02 8.73" stroke="#fff" stroke-width="4.1" stroke-linecap="round"/>
+  <circle cx="25.6" cy="22.5" r="6.25" fill="#fff"/>
+  <circle cx="42.4" cy="22.3" r="4.45" fill="#fff" fill-opacity=".94"/>
+  <path d="m35.3 41.2 5.5 5.25 10.75-12.1" stroke="url(#check)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <text x="550" y="885" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="116" font-weight="700" letter-spacing="-3"><tspan fill="#10234b">Clock</tspan><tspan fill="#6047e8">Nexa</tspan></text>
 <text x="550" y="975" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" letter-spacing="3" fill="#5c667d">SHIFT MANAGEMENT, SIMPLIFIED</text></svg>
