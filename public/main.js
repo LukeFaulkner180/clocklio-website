@@ -210,10 +210,10 @@ if (stockInputs.length) {
   reconcile();
 }
 
-// This form prepares an email. Only the visitor can send it from their email app.
+// Contact details are pending. Visitors can prepare and copy a local draft.
 const contactForm = $('#contact-form');
 if (contactForm) {
-  const panel = $('[data-email-draft-panel]'), preview = $('[data-email-preview]'), draft = $('[data-email-draft]'), status = $('[data-draft-status]');
+  const panel = $('[data-email-draft-panel]'), preview = $('[data-email-preview]'), status = $('[data-draft-status]');
   const query = new URLSearchParams(location.search);
   const field = name => contactForm.elements.namedItem(name);
   const topic = query.get('topic');
@@ -238,15 +238,14 @@ if (contactForm) {
     const topicName = field('topic').selectedOptions[0].textContent;
     enquiry = 'Hello ClockNexa,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nEnquiry: ' + topicName;
     preview.textContent = enquiry;
-    draft.href = 'mailto:ambitionit.business@gmail.com?subject=' + encodeURIComponent('ClockNexa enquiry — ' + topicName) + '&body=' + encodeURIComponent(enquiry);
-    status.textContent = 'Your enquiry is ready to review. It has not been sent.';
+    status.textContent = 'Your enquiry is ready to copy. It has not been sent. Contact details are coming soon.';
     panel.hidden = false; panel.focus({ preventScroll: true });
     panel.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'nearest' });
   });
   contactForm.addEventListener('input', event => { if (event.target.setCustomValidity) event.target.setCustomValidity(''); });
   $('[data-copy-enquiry]').addEventListener('click', async () => {
     if (!enquiry) return;
-    try { await navigator.clipboard.writeText(enquiry); status.textContent = 'Enquiry copied. Paste it into your email app and send it to ambitionit.business@gmail.com.'; }
-    catch { const range = document.createRange(); range.selectNodeContents(preview); const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range); status.textContent = 'Select and copy the enquiry above, then paste it into your email app.'; }
+    try { await navigator.clipboard.writeText(enquiry); status.textContent = 'Enquiry copied. Keep it ready for when our contact details are available.'; }
+    catch { const range = document.createRange(); range.selectNodeContents(preview); const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range); status.textContent = 'Select and copy the enquiry above to keep for later.'; }
   });
 }
