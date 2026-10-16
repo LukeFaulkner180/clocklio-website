@@ -1,4 +1,4 @@
-import { fullWorkspaceAnnualPence } from './pricing.js';
+import { fullWorkspacePlan } from './pricing.js?v=2';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = pence => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
@@ -230,7 +230,7 @@ if ($('[data-team-number]')) {
     const valid = number.value !== '' && Number.isInteger(size) && size >= 1 && size <= 10000;
     const validUsers = !tasks.checked || (taskUsers.value !== '' && Number.isInteger(users) && users >= 0 && users <= 10000);
     $('[data-tasks-users-wrap]').hidden = !tasks.checked;
-    const plan = valid ? { name: 'Full workspace', price: fullWorkspaceAnnualPence(size), code: size <= 5 ? 'starter' : size === 10 ? 'team' : size === 20 ? 'business' : size === 50 ? 'scale' : '' } : null;
+    const plan = valid ? fullWorkspacePlan(size) : null;
     $$('[data-plan-card]').forEach(card => {
       const selected = valid && plan && card.dataset.planCard === plan.code;
       card.classList.toggle('is-recommended', Boolean(selected));
@@ -247,7 +247,7 @@ if ($('[data-team-number]')) {
     $('[data-quote-tasks-total]').textContent = validUsers ? (tasks.checked ? money(tasksTotal) : 'Not selected') : 'Check user count';
     $('[data-quote-stock-total]').textContent = stock.checked ? money(stockTotal) : 'Not selected';
     $('[data-quote-monthly]').textContent = valid && validUsers ? money(tasksTotal + stockTotal) : '—';
-    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : ('Full workspace: five employees included, plus ' + Math.max(0, size - 5) + ' additional employee places at £45 per year. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
+    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
     const params = new URLSearchParams({ topic: 'plan', package: 'full' });
     if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); }
     $('[data-quote-contact]').href = sitePath('/contact/?' + params);
@@ -292,9 +292,9 @@ if (contactForm) {
   const topic = query.get('topic');
   if ([...field('topic').options].some(option => option.value === topic)) field('topic').value = topic;
   const size = Number(query.get('employees'));
-  if (Number.isInteger(size) && size >= 1 && size <= 10000) field('employees').value = size <= 5 ? '1–5' : size <= 10 ? '6–10' : size <= 20 ? '11–20' : size <= 50 ? '21–50' : '51+';
+  if (Number.isInteger(size) && size >= 1 && size <= 10000) field('employees').value = size <= 5 ? '1–5' : size <= 9 ? '6–9' : size <= 15 ? '10–15' : size <= 30 ? '16–30' : size <= 50 ? '31–50' : '51+';
   const packageCode = query.get('package');
-  if (['full','rota_time','clocking'].includes(packageCode)) field('package').value = packageCode;
+  if (['full','rota_time','clocking'].includes(packageCode)) field('package').value = packageCode === 'rota_time' ? 'clocking' : packageCode;
   const plan = query.get('plan');
   if (['Starter', 'Team', 'Business', 'Scale', 'Custom', 'Full workspace'].includes(plan)) {
     let message = 'I’d like to discuss the ' + plan + ' plan for ' + size + ' active employees.';
