@@ -9,6 +9,7 @@ h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 .eyebrow { font-size: 11px; letter-spacing: .11em; }
 .label { letter-spacing: .1em; }
+.text-shortfall { color: #b34355 !important; }
 .button { font-size: 14px; font-weight: 600; min-height: 54px; }
 .button-outline { border-color: #d6cbe6; background: #ffffff70; }
 .quiet-link { min-height: 40px; }
