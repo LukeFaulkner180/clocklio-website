@@ -531,3 +531,31 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Focused annual packages share the existing paper, lilac and purple palette. */
+.package-pricing { padding-top:clamp(32px,5vw,80px); padding-bottom:clamp(64px,8vw,128px); }
+.package-pricing-heading { max-width:720px; margin-bottom:48px; }
+.package-pricing-heading h2,.full-workspace-pricing-heading h2 { font-size:clamp(34px,4.5vw,62px); line-height:1.08; letter-spacing:-.055em; margin:20px 0 24px; }
+.package-pricing-heading p,.full-workspace-pricing-heading p { font-size:17px; line-height:1.8; color:#655f72; max-width:680px; }
+.package-pricing-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.package-price-card { display:flex; flex-direction:column; padding:clamp(28px,4vw,52px); border:1px solid #e3dfed; border-radius:30px; background:#fff; min-width:0; }
+.package-price-rota { background:#f0edf8; }
+.package-price-card .label { color:#7050c4; }
+.package-price-card h3 { font-size:clamp(28px,3vw,42px); letter-spacing:-.05em; line-height:1.12; margin:26px 0 18px; }
+.package-price-card > p { color:#655f72; line-height:1.75; font-size:15px; }
+.package-annual-price { display:flex; align-items:baseline; gap:12px; margin-top:28px; }
+.package-annual-price strong { font-size:clamp(40px,5vw,64px); letter-spacing:-.065em; font-weight:600; line-height:1.15; }
+.package-annual-price span { color:#655f72; font-size:15px; }
+.package-price-card .package-price-limit { font-size:12px; margin-top:12px; }
+.package-price-card ul { list-style:none; margin:28px 0 18px; padding:0; }
+.package-price-card li { padding:13px 0 13px 24px; border-top:1px solid #e8e3ef; font-size:14px; position:relative; }
+.package-price-card li::before { content:'✓'; position:absolute; left:0; color:#7050c4; }
+.package-price-card .package-price-note { font-size:13px; margin:8px 0 28px; }
+.package-price-card .button { align-self:flex-start; margin-top:auto; gap:24px; }
+.full-workspace-pricing-heading { padding-bottom:48px; }
+.package-feature-note { padding:20px 24px; border:1px solid #e3dfed; background:#f5f2fb; border-radius:18px; margin-bottom:28px; color:#655f72; font-size:14px; line-height:1.8; }
+.package-feature-note a { color:#7050c4; text-underline-offset:3px; }
+.clocking-entry { margin-top:clamp(48px,7vw,100px); padding:clamp(28px,5vw,64px); border:1px solid #dfd7ef; border-radius:30px; background:#f0edf8; }
+.clocking-entry h2 { font-size:clamp(30px,4.3vw,58px); line-height:1.1; letter-spacing:-.05em; margin:22px 0 18px; }
+.clocking-entry p { color:#655f72; line-height:1.8; font-size:16px; margin-bottom:28px; }
+@media(max-width:700px) { .package-pricing-grid { grid-template-columns:1fr; gap:18px; } .package-pricing-heading { margin-bottom:30px; } .package-price-card { border-radius:24px; } .package-price-card .button { width:100%; justify-content:space-between; } }
