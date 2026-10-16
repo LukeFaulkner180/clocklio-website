@@ -33,6 +33,28 @@ async function noOverflow(page, label, errors) {
   const width = await page.evaluate(() => ({ content: document.documentElement.scrollWidth, viewport: innerWidth }));
   if (width.content > width.viewport + 1) errors.push(label + ': overflow ' + JSON.stringify(width));
 }
+async function readableAddons(page) {
+  const readings = await page.locator('.addons-home h2, .addons-home .eyebrow, .addons-home .heading-split > p, .addon-teaser h3, .addon-teaser > .label, .addon-teaser > p, .teaser-price > b, .teaser-price small, .teaser-price > span, .addon-teaser > .card-link').evaluateAll(elements => elements.map(element => {
+    const style = getComputedStyle(element);
+    let parent = element, background;
+    while (parent) {
+      background = getComputedStyle(parent).backgroundColor;
+      if (background !== 'rgba(0, 0, 0, 0)' && background !== 'transparent') break;
+      parent = parent.parentElement;
+    }
+    return { text: element.textContent.trim(), color: style.color, background, size: parseFloat(style.fontSize), weight: parseFloat(style.fontWeight) };
+  }));
+  const luminance = color => color.match(/[\d.]+/g).slice(0, 3).map(Number).map(channel => {
+    const value = channel / 255;
+    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  }).reduce((value, channel, index) => value + channel * [0.2126, 0.7152, 0.0722][index], 0);
+  for (const reading of readings) {
+    const a = luminance(reading.color), b = luminance(reading.background);
+    const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    const minimum = reading.size >= 24 || (reading.size >= 18.66 && reading.weight >= 700) ? 3 : 4.5;
+    assert.ok(ratio >= minimum, reading.text + ': insufficient contrast ' + ratio.toFixed(2));
+  }
+}
 try {
   for (const [name, engine] of Object.entries({ chromium, webkit })) {
     const browser = await engine.launch();
@@ -43,8 +65,10 @@ try {
     page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
       await page.goto(origin);
-      assert.equal(await page.locator('[data-motion-toggle]').first().isDisabled(), true, 'Device reduced-motion preference is respected');
-      await text(page, '.demo-caption [data-motion-label]', 'Reduced motion');
+      assert.equal(await page.locator('[data-motion-toggle]').count(), 0, 'There are no website animation controls');
+      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'none', 'Device reduced-motion preference is respected automatically');
+      assert.equal(await page.locator('.role-spark, .tiny-spark').count(), 0, 'No decorative emoji symbols');
+      await readableAddons(page);
       assert.equal(await page.locator('.site-footer .footer-wordmark').count(), 0);
       assert.equal(await page.locator('.site-footer nav').count(), 3);
       await page.locator('[data-preview="stock"]').click();
@@ -150,12 +174,17 @@ try {
           await page.goto(origin + '/' + route);
           await page.evaluate(() => document.fonts.ready);
           await noOverflow(page, name + ' ' + width + ' ' + route, errors);
+          assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
+          if (!route) await readableAddons(page);
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
             await page.screenshot({ path: artifactDirectory + '/' + slug + '-' + width + '.png', fullPage: true });
             if (!route) {
               await page.screenshot({ path: artifactDirectory + '/home-viewport-' + width + '.png' });
               await page.locator('.site-footer').screenshot({ path: artifactDirectory + '/footer-' + width + '.png' });
+              await page.locator('[data-role="leader"]').click();
+              await page.locator('#role-preview').screenshot({ path: artifactDirectory + '/team-leader-' + width + '.png' });
+              await page.locator('.addons-home').screenshot({ path: artifactDirectory + '/addons-' + width + '.png' });
             }
           }
         }
@@ -167,16 +196,14 @@ try {
       await page.waitForFunction(() => [...document.querySelectorAll('.roles-section [data-reveal]')].every(el => el.classList.contains('is-visible')));
       await page.locator('[data-map-node]').first().focus();
       await text(page, '[data-map-detail]', /Plan shifts/);
-      await page.locator('[data-motion-toggle]').first().click();
-      assert.equal(await page.locator('[data-motion-toggle]').first().getAttribute('aria-pressed'), 'true');
-      assert.equal(await page.locator('[data-motion-toggle]').last().getAttribute('aria-pressed'), 'true');
-      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationPlayState), 'paused');
+      assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
+      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'float', 'Decorative motion remains enabled by default');
       await page.locator('[data-back-top]').click();
       await page.waitForFunction(() => scrollY < 2);
-      await page.locator('[data-motion-toggle]').first().click();
-      assert.equal(await page.locator('[data-motion-toggle]').first().getAttribute('aria-pressed'), 'false');
       await page.waitForFunction(() => document.getAnimations().filter(animation => animation.effect?.target?.closest('.hero-line') && animation.playState === 'running').length === 0);
       if (name === 'chromium') await page.screenshot({ path: artifactDirectory + '/home-motion.png' });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'none', 'Changed device preferences take effect without a website toggle');
       assert.deepEqual(errors, [], 'No JavaScript errors, missing local resources or responsive overflow');
       findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');

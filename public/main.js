@@ -5,27 +5,15 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const siteRoot = new URL('./', import.meta.url).pathname;
 const sitePath = relativePath => siteRoot + relativePath.replace(/^\/+/, '');
 
-// Continuous decorative motion can be paused without hiding any content.
-let userPausedMotion = false;
-const motionDisabled = () => reducedMotion.matches || userPausedMotion;
-const motionButtons = $$('[data-motion-toggle]');
+// Follow the device's motion preference automatically, without website controls.
+const motionDisabled = () => reducedMotion.matches;
 function updateMotion() {
-  const paused = motionDisabled();
-  document.documentElement.classList.toggle('motion-paused', paused);
-  motionButtons.forEach(button => {
-    button.hidden = false;
-    button.disabled = reducedMotion.matches;
-    button.setAttribute('aria-pressed', String(paused));
-    $('[data-motion-label]', button).textContent = reducedMotion.matches ? 'Reduced motion' : paused ? 'Resume animations' : 'Pause animations';
-    $('[data-motion-glyph]', button).setAttribute('d', paused ? 'm9 5 10 7-10 7V5Z' : 'M9 5v14M15 5v14');
-  });
-  if (paused) {
+  if (motionDisabled()) {
     $$('[data-reveal]').forEach(element => element.classList.add('is-visible'));
     $$('[data-tilt]').forEach(element => { element.style.transform = ''; });
     document.getAnimations().forEach(animation => { if (animation.effect?.target?.closest('[role="tabpanel"]')) animation.cancel(); });
   }
 }
-motionButtons.forEach(button => button.addEventListener('click', () => { userPausedMotion = !userPausedMotion; updateMotion(); }));
 reducedMotion.addEventListener('change', updateMotion);
 document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('motion-suspended', document.hidden));
 updateMotion();
