@@ -66,15 +66,22 @@ try {
     try {
       await page.goto(origin);
       assert.equal(await page.locator('[data-motion-toggle]').count(), 0, 'There are no website animation controls');
-      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'none', 'Device reduced-motion preference is respected automatically');
+      assert.equal(await page.locator('.hero-atmosphere i').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Device reduced-motion preference is respected automatically');
       assert.equal(await page.locator('.role-spark, .tiny-spark').count(), 0, 'No decorative emoji symbols');
       await readableAddons(page);
       assert.equal(await page.locator('.site-footer .footer-wordmark').count(), 0);
       assert.equal(await page.locator('.site-footer nav').count(), 3);
       await page.locator('[data-preview="stock"]').click();
       assert.equal(await page.locator('#preview-stock').isVisible(), true);
+      await text(page, '[data-preview-description]', /expected takings/);
+      await text(page, '[data-preview-notice-title]', 'Stock, explained');
       await page.locator('[data-preview="stock"]').press('Home');
       assert.equal(await page.locator('#preview-rota').isVisible(), true);
+      await text(page, '[data-preview-notice-title]', 'Rota published');
+      await text(page, '.core-plan-price', /£299.99/);
+      await text(page, '.core-plan-price', /up to 5 employees/);
+      await page.locator('.home-faq summary').first().click();
+      assert.equal(await page.locator('.home-faq details').first().locator('p').isVisible(), true);
       await page.locator('[data-role="employee"]').click();
       await text(page, '[data-role-label]', 'THE EMPLOYEE VIEW');
       await page.locator('[data-role="employee"]').press('End');
@@ -164,6 +171,12 @@ try {
 
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto(origin);
+      await page.locator('[data-open-preview]').click();
+      await page.waitForURL(url => url.hash === '#workspace-preview');
+      await page.locator('[data-preview="time"]').click();
+      assert.equal(await page.locator('#preview-time').isVisible(), true);
+      await text(page, '[data-preview-description]', /recorded hours/);
+      await text(page, '[data-preview-notice-title]', 'Time, recorded');
       await page.locator('[data-menu-toggle]').click();
       assert.equal(await page.locator('#site-navigation').isVisible(), true);
       await page.keyboard.press('Escape');
@@ -209,13 +222,13 @@ try {
       await page.locator('[data-map-node]').first().focus();
       await text(page, '[data-map-detail]', /Plan shifts/);
       assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
-      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'float', 'Decorative motion remains enabled by default');
+      assert.equal(await page.locator('.hero-atmosphere i').first().evaluate(el => getComputedStyle(el).animationName), 'atmosphere-drift', 'Decorative motion remains enabled by default');
       await page.locator('[data-back-top]').click();
       await page.waitForFunction(() => scrollY < 2);
       await page.waitForFunction(() => document.getAnimations().filter(animation => animation.effect?.target?.closest('.hero-line') && animation.playState === 'running').length === 0);
       if (name === 'chromium') await page.screenshot({ path: artifactDirectory + '/home-motion.png' });
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      assert.equal(await page.locator('.floating-published').evaluate(el => getComputedStyle(el).animationName), 'none', 'Changed device preferences take effect without a website toggle');
+      assert.equal(await page.locator('.hero-atmosphere i').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Changed device preferences take effect without a website toggle');
       assert.deepEqual(errors, [], 'No JavaScript errors, missing local resources or responsive overflow');
       findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');
