@@ -1,4 +1,4 @@
-import { fullWorkspacePlan } from './pricing.js?v=2';
+import { fullWorkspacePlan } from './pricing.js?v=3';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = pence => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
@@ -292,9 +292,17 @@ if (contactForm) {
   const topic = query.get('topic');
   if ([...field('topic').options].some(option => option.value === topic)) field('topic').value = topic;
   const size = Number(query.get('employees'));
-  if (Number.isInteger(size) && size >= 1 && size <= 10000) field('employees').value = size <= 5 ? '1–5' : size <= 9 ? '6–9' : size <= 15 ? '10–15' : size <= 30 ? '16–30' : size <= 50 ? '31–50' : '51+';
   const packageCode = query.get('package');
   if (['full','rota_time','clocking'].includes(packageCode)) field('package').value = packageCode === 'rota_time' ? 'clocking' : packageCode;
+  const fullBands = [...field('employees').options].map(option => [option.value,option.textContent]);
+  function employeeBands(initialSize) {
+    const clockx = field('package').value === 'clocking';
+    const options = clockx ? [['','Select team size'],['1–5','1–5 employees · £99.99/year'],['6–10','6–10 employees · £169.99/year'],['11–20','11–20 employees · £319.99/year'],['21+','21+ employees · agreed quote']] : fullBands;
+    field('employees').replaceChildren(...options.map(([value,label]) => new Option(label,value)));
+    if (Number.isInteger(initialSize) && initialSize >= 1 && initialSize <= 10000) field('employees').value = clockx ? (initialSize <= 5 ? '1–5' : initialSize <= 10 ? '6–10' : initialSize <= 20 ? '11–20' : '21+') : (initialSize <= 5 ? '1–5' : initialSize <= 9 ? '6–9' : initialSize <= 15 ? '10–15' : initialSize <= 30 ? '16–30' : initialSize <= 50 ? '31–50' : '51+');
+  }
+  employeeBands(size);
+  field('package').addEventListener('change',() => employeeBands(null));
   const plan = query.get('plan');
   if (['Starter', 'Team', 'Business', 'Scale', 'Custom', 'Full workspace'].includes(plan)) {
     let message = 'I’d like to discuss the ' + plan + ' plan for ' + size + ' active employees.';

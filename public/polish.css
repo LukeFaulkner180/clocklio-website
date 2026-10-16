@@ -662,3 +662,8 @@ p { text-wrap: pretty; }
  #platform .people-art .avatar{width:34px;height:34px}
  #platform .people-art .status{grid-column:2;justify-self:start;margin-top:1px}
 }
+
+/* Clockx uses the same tools at every employee allowance. */
+.clockx-tier-list{margin:0 0 22px;padding:6px 20px;border:1px solid #e5dff2;border-radius:18px;background:#f8f5ff;color:#29233d}
+.clockx-tier-list>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 18px;padding:15px 0;border-bottom:1px solid #e7e1f1}
+.clockx-tier-list>div:last-child{border:0}.clockx-tier-list dt{font-size:14px;line-height:1.5}.clockx-tier-list dd{margin:0;font-size:19px;font-weight:650;color:#6046bf;white-space:nowrap}.clockx-tier-list dd span{font-size:12px;font-weight:450;color:#655b78}

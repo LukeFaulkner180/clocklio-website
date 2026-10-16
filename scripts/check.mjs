@@ -1,4 +1,4 @@
-import { fullWorkspaceAnnualPence } from '../public/pricing.js';
+import { fullWorkspaceAnnualPence, clockxPlan } from '../public/pricing.js';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -41,3 +41,7 @@ console.log('Checked ' + files.length + ' pages: headings, metadata, IDs, assets
 for (const [size,price] of [[1,29999],[5,29999],[6,34499],[9,47999],[10,64999],[15,64999],[16,114999],[30,114999],[31,189999],[50,189999],[51,null]]) assert.equal(fullWorkspaceAnnualPence(size),price);
 for (const size of [0,-1,5.5,10001,NaN]) assert.equal(fullWorkspaceAnnualPence(size),null);
 console.log('Checked small-team pricing, fixed annual plan boundaries and Custom quotes.');
+
+for (const [size,price,limit] of [[1,9999,5],[5,9999,5],[6,16999,10],[10,16999,10],[11,31999,20],[20,31999,20]]) {assert.equal(clockxPlan(size).price,price);assert.equal(clockxPlan(size).employeeLimit,limit);}
+for (const size of [0,-1,5.5,21,10001,NaN]) assert.equal(clockxPlan(size),null);
+console.log('Checked Clockx fixed annual tiers and custom quote boundary.');
