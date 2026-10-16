@@ -123,7 +123,7 @@ try {
         await text(page, '[data-quote-plan]', plan);
         assert.ok((await page.locator('[data-quote-annual]').textContent()).startsWith(amount));
       }
-      await text(page, '.package-price-card:first-child .package-annual-price', '£99');
+      await text(page, '.package-price-card:first-child .package-annual-price strong', '£99');
       await page.locator('[data-team-number]').fill('10');
       await page.locator('[data-quote-tasks]').check();
       await page.locator('[data-tasks-users]').fill('5');
