@@ -178,6 +178,43 @@ body { background: var(--paper); }
 .faq-list details { transition: border-color .3s, background .3s; }
 .faq-list details[open] { background: #f3eefb; border-color: #cfc1e5; }
 
+/* Our story: Suffolk roots and a connected vision. */
+.about-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; padding-bottom: 92px; }
+.about-hero h1 { font-size: clamp(48px, 4.9vw, 74px); line-height: 1.15; }
+.about-intro { max-width: 610px; font-size: 18px; line-height: 1.85; margin-top: 27px; }
+.about-hero-links { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 30px; }
+.about-home { position: relative; overflow: hidden; background: linear-gradient(145deg, #f0e9fc, #f9f6ff); border: 1px solid #e1d5f2; border-radius: 28px; padding: 42px; box-shadow: 0 20px 65px -35px #6544913d; }
+.about-home > img { display: block; margin-bottom: 29px; filter: drop-shadow(0 8px 16px #7050e71a); }
+.about-home > .label { color: #705393; font-size: 9px; }
+.about-home h2 { margin-top: 18px; font-size: clamp(31px, 3vw, 44px); line-height: 1.2; letter-spacing: -.035em; }
+.about-home h2 > span { color: #7050bd; }
+.about-home > p { max-width: 330px; color: #655b73; font-size: 14px; line-height: 1.85; margin-top: 21px; }
+.about-location { display: flex; align-items: center; gap: 10px; border-top: 1px solid #dbceec; margin-top: 30px; padding-top: 20px; font-size: 11px; color: #655476; }
+.about-location .icon { color: #8061aa; width: 19px; height: 19px; }
+.about-story { display: grid; grid-template-columns: .85fr 1.15fr; gap: 90px; padding: 40px 0 100px; }
+.about-story h2 { font-size: clamp(34px, 3.4vw, 50px); line-height: 1.2; }
+.about-story-copy { padding-top: 5px; }
+.about-story-copy p { font-size: 16px; line-height: 1.9; color: #625e6c; }
+.about-story-copy p + p { margin-top: 19px; }
+.about-vision { border-radius: 30px; padding: 60px; background: #282132; color: #fff; }
+.about-vision-main { display: grid; grid-template-columns: 1.05fr 1fr; gap: 72px; align-items: start; }
+.about-vision .eyebrow { color: #c5acec; }
+.about-vision h2 { font-size: clamp(37px, 3.7vw, 56px); line-height: 1.2; letter-spacing: -.035em; }
+.about-vision h2 > span { color: #d7c3f7; }
+.about-vision-copy p { font-size: 16px; line-height: 1.85; color: #d4cadf; }
+.about-vision-copy p + p { margin-top: 19px; }
+.about-vision-copy .quiet-link { margin-top: 25px; font-size: 13px; color: #dec9fb; }
+.about-vision-list { display: flex; flex-wrap: wrap; gap: 20px 40px; list-style: none; margin: 39px 0 0; padding: 27px 0 0; border-top: 1px solid #ffffff21; }
+.about-vision-list li { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #f1e9fc; }
+.about-vision-list span { color: #b99bdc; font-size: 10px; }
+.about-values .heading-split > p { max-width: 260px; }
+.about-values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.about-values-grid article { border: 1px solid #e6dfee; border-radius: 24px; padding: 32px; background: #fff; transition: transform .4s var(--ease-out), border-color .3s; }
+.about-values-grid article:hover { transform: translateY(-4px); border-color: #c5b0e4; }
+.about-value-number { display: grid; place-items: center; width: 39px; height: 39px; background: #eee6fb; color: #7450ab; border-radius: 12px; font-size: 11px; font-weight: 600; margin-bottom: 26px; }
+.about-values-grid h3 { font-size: 25px; line-height: 1.3; }
+.about-values-grid p { margin-top: 16px; color: #625e6c; font-size: 14px; line-height: 1.85; }
+
 /* The footer is a designed destination, with a focused next step. */
 .site-footer {
   position: relative; isolation: isolate; overflow: hidden;
@@ -231,6 +268,12 @@ body { background: var(--paper); }
 
 @media (min-width: 1600px) { .home-hero { min-height: 960px; } }
 @media (max-width: 1200px) {
+  .about-hero { gap: 45px; }
+  .about-home { padding: 32px; }
+  .about-story { gap: 55px; }
+  .about-vision { padding: 45px; }
+  .about-vision-main { gap: 45px; }
+  .about-values-grid article { padding: 26px; }
   .home-hero { padding-top: 185px; min-height: 800px; }
   .hero-actions { gap: 15px; flex-wrap: wrap; }
   .hero-actions .button { font-size: 12px; padding-inline: 20px; }
@@ -242,6 +285,18 @@ body { background: var(--paper); }
   .footer-directory { gap: 26px; }
 }
 @media (max-width: 1000px) {
+  .about-hero { gap: 35px; }
+  .about-hero h1 { font-size: 52px; }
+  .about-intro { font-size: 16px; }
+  .about-hero-links { gap: 17px; }
+  .about-story { grid-template-columns: 1fr; gap: 26px; padding-top: 12px; padding-bottom: 70px; }
+  .about-story-copy { max-width: 700px; }
+  .about-vision-main { grid-template-columns: 1fr; gap: 27px; }
+  .about-vision h2 { max-width: 550px; }
+  .about-values-grid { grid-template-columns: 1fr; gap: 16px; }
+  .about-values-grid article { padding: 30px; }
+  .about-values-grid h3 { font-size: 27px; }
+  .about-values-grid p { font-size: 15px; }
   .connected-section { padding-top: 54px; }
   .connected-panel { grid-template-columns: minmax(0, 1fr); padding: 42px; gap: 26px; }
   .connected-copy > p { max-width: 530px; }
@@ -277,6 +332,28 @@ body { background: var(--paper); }
   .footer-base { gap: 15px; }
 }
 @media (max-width: 700px) {
+  .about-hero { grid-template-columns: 1fr; gap: 38px; padding-bottom: 58px; }
+  .about-hero h1 { font-size: clamp(38px, 10.5vw, 60px); }
+  .about-intro { font-size: 16px; margin-top: 23px; }
+  .about-hero-links { gap: 15px; margin-top: 25px; }
+  .about-hero-links .button { padding-inline: 20px; font-size: 12px; gap: 15px; }
+  .about-hero-links .quiet-link { font-size: 12px; }
+  .about-home { padding: 29px; border-radius: 23px; }
+  .about-home > img { width: 62px; height: 62px; margin-bottom: 24px; }
+  .about-home h2 { font-size: clamp(30px, 8vw, 40px); }
+  .about-home > p { font-size: 15px; }
+  .about-location { font-size: 11px; gap: 8px; }
+  .about-story { gap: 20px; padding-bottom: 55px; }
+  .about-story h2 { font-size: clamp(32px, 8.5vw, 43px); }
+  .about-story-copy p { font-size: 15px; line-height: 1.85; }
+  .about-vision { padding: 30px 25px; border-radius: 24px; }
+  .about-vision h2 { font-size: clamp(32px, 8.5vw, 43px); }
+  .about-vision-copy p { font-size: 15px; }
+  .about-vision-copy .quiet-link { font-size: 12px; gap: 10px; }
+  .about-vision-list { gap: 17px 24px; margin-top: 29px; padding-top: 23px; }
+  .about-vision-list li { font-size: 14px; gap: 9px; }
+  .about-values-grid article { padding: 27px; border-radius: 22px; }
+  .about-values-grid h3 { font-size: 26px; }
   .connected-section { padding-top: 42px; }
   .connected-panel { border-radius: 23px; padding: 28px 21px 20px; gap: 24px; }
   .connected-copy .eyebrow { font-size: 8px; margin-bottom: 19px; }
