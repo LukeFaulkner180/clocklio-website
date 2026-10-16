@@ -1,3 +1,4 @@
+import { fullWorkspaceAnnualPence } from '../public/pricing.js';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -36,3 +37,7 @@ for (const file of files) {
   }
 }
 console.log('Checked ' + files.length + ' pages: headings, metadata, IDs, assets, links and anchors.');
+
+for (const [size,price] of [[1,29999],[5,29999],[6,34499],[10,52499],[20,97499],[50,232499],[51,236999]]) assert.equal(fullWorkspaceAnnualPence(size),price);
+for (const size of [0,-1,5.5,10001,NaN]) assert.equal(fullWorkspaceAnnualPence(size),null);
+console.log('Checked exact per-employee annual pricing and invalid counts.');

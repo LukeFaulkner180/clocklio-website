@@ -1,3 +1,4 @@
+import { fullWorkspaceAnnualPence } from './pricing.js';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = pence => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
@@ -222,14 +223,14 @@ if (featureCards.length) {
 
 // Annual platform and monthly add-ons are deliberately shown separately.
 if ($('[data-team-number]')) {
-  const plans = [{ code: 'starter', name: 'Starter', limit: 5, price: 29999 }, { code: 'team', name: 'Team', limit: 15, price: 64999 }, { code: 'business', name: 'Business', limit: 30, price: 114999 }, { code: 'scale', name: 'Scale', limit: 50, price: 189999 }];
+
   const number = $('[data-team-number]'), range = $('[data-team-range]'), tasks = $('[data-quote-tasks]'), stock = $('[data-quote-stock]'), taskUsers = $('[data-tasks-users]');
   function quote() {
     const size = Number(number.value), users = Number(taskUsers.value);
     const valid = number.value !== '' && Number.isInteger(size) && size >= 1 && size <= 10000;
     const validUsers = !tasks.checked || (taskUsers.value !== '' && Number.isInteger(users) && users >= 0 && users <= 10000);
     $('[data-tasks-users-wrap]').hidden = !tasks.checked;
-    const plan = valid ? plans.find(item => size <= item.limit) : null;
+    const plan = valid ? { name: 'Full workspace', price: fullWorkspaceAnnualPence(size), code: size <= 5 ? 'starter' : size === 10 ? 'team' : size === 20 ? 'business' : size === 50 ? 'scale' : '' } : null;
     $$('[data-plan-card]').forEach(card => {
       const selected = valid && plan && card.dataset.planCard === plan.code;
       card.classList.toggle('is-recommended', Boolean(selected));
@@ -242,12 +243,12 @@ if ($('[data-team-number]')) {
     const annual = $('[data-quote-annual]');
     annual.textContent = valid ? (plan ? money(plan.price) : 'Let’s talk') : '—';
     if (plan) { const suffix = document.createElement('small'); suffix.textContent = '/ year'; annual.append(suffix); }
-    $('[data-quote-custom]').hidden = !valid || Boolean(plan);
+    $('[data-quote-custom]').hidden = !valid || size <= 5;
     $('[data-quote-tasks-total]').textContent = validUsers ? (tasks.checked ? money(tasksTotal) : 'Not selected') : 'Check user count';
     $('[data-quote-stock-total]').textContent = stock.checked ? money(stockTotal) : 'Not selected';
     $('[data-quote-monthly]').textContent = valid && validUsers ? money(tasksTotal + stockTotal) : '—';
-    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (plan ? plan.name + ' fits ' + size + ' employees. ' : 'A custom core quote fits teams over 50. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
-    const params = new URLSearchParams({ topic: valid && !plan ? 'custom' : 'plan' });
+    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : ('Full workspace: five employees included, plus ' + Math.max(0, size - 5) + ' additional employee places at £45 per year. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
+    const params = new URLSearchParams({ topic: 'plan', package: 'full' });
     if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); }
     $('[data-quote-contact]').href = sitePath('/contact/?' + params);
   }
@@ -291,9 +292,11 @@ if (contactForm) {
   const topic = query.get('topic');
   if ([...field('topic').options].some(option => option.value === topic)) field('topic').value = topic;
   const size = Number(query.get('employees'));
-  if (Number.isInteger(size) && size >= 1 && size <= 10000) field('employees').value = size <= 5 ? '1–5' : size <= 15 ? '6–15' : size <= 30 ? '16–30' : size <= 50 ? '31–50' : '51+';
+  if (Number.isInteger(size) && size >= 1 && size <= 10000) field('employees').value = size <= 5 ? '1–5' : size <= 10 ? '6–10' : size <= 20 ? '11–20' : size <= 50 ? '21–50' : '51+';
+  const packageCode = query.get('package');
+  if (['full','rota_time','clocking'].includes(packageCode)) field('package').value = packageCode;
   const plan = query.get('plan');
-  if (['Starter', 'Team', 'Business', 'Scale', 'Custom'].includes(plan)) {
+  if (['Starter', 'Team', 'Business', 'Scale', 'Custom', 'Full workspace'].includes(plan)) {
     let message = 'I’d like to discuss the ' + plan + ' plan for ' + size + ' active employees.';
     const users = query.get('tasks');
     if (users !== null && /^\d{1,5}$/.test(users) && Number(users) <= 10000) message += '\nTasks add-on: ' + users + ' agreed chargeable users.';
@@ -308,7 +311,7 @@ if (contactForm) {
     if (!contactForm.reportValidity()) return;
     const data = new FormData(contactForm);
     const topicName = field('topic').selectedOptions[0].textContent;
-    enquiry = 'Hello ClockNexa,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nEnquiry: ' + topicName;
+    enquiry = 'Hello ClockNexa,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nPackage: ' + field('package').selectedOptions[0].textContent + '\nEnquiry: ' + topicName;
     preview.textContent = enquiry;
     status.textContent = 'Your enquiry is ready to copy. It has not been sent. Contact details are coming soon.';
     panel.hidden = false; panel.focus({ preventScroll: true });
