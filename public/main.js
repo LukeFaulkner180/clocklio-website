@@ -104,6 +104,11 @@ function setupTabs(buttons, activate) {
   });
 }
 const previewTabs = $$('[data-preview]');
+const previewDescriptions = {
+  rota: ['Plan the week and publish shifts your team can follow.', 'Rota published', 'Your team can see their shifts.'],
+  time: ['Keep recorded hours, breaks and attendance in view.', 'Time, recorded', 'A clearer view of the working day.'],
+  stock: ['Compare stock usage, expected takings and till figures.', 'Stock, explained', 'Count, compare and investigate differences.']
+};
 setupTabs(previewTabs, selected => {
   previewTabs.forEach(button => {
   const active = button === selected;
@@ -113,6 +118,10 @@ setupTabs(previewTabs, selected => {
   });
   const nav = $$('.demo-sidebar .demo-nav');
   nav.forEach((item, index) => item.classList.toggle('active', index === { rota: 0, time: 1, stock: 4 }[selected.dataset.preview]));
+  const description = previewDescriptions[selected.dataset.preview];
+  $('[data-preview-description]').textContent = description[0];
+  $('[data-preview-notice-title]').textContent = description[1];
+  $('[data-preview-notice-detail]').textContent = description[2];
   animatePanel(document.getElementById(selected.getAttribute('aria-controls')));
 });
 const stage = $('[data-tilt]');
@@ -120,8 +129,8 @@ if (stage && matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce
   stage.addEventListener('pointermove', event => {
     if (motionDisabled()) return;
     const box = stage.getBoundingClientRect();
-    const x = ((event.clientX - box.left) / box.width - 0.5) * 3;
-    const y = ((event.clientY - box.top) / box.height - 0.5) * -3;
+    const x = ((event.clientX - box.left) / box.width - 0.5) * 1.2;
+    const y = ((event.clientY - box.top) / box.height - 0.5) * -1.2;
     stage.style.transform = 'perspective(1400px) rotateX(' + y + 'deg) rotateY(' + x + 'deg)';
   });
   stage.addEventListener('pointerleave', () => { stage.style.transform = ''; });
