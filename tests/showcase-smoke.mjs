@@ -118,7 +118,7 @@ try {
       assert.ok(await page.locator('[data-feature]:visible').count() > 0, 'Business Owners also have Manager planning features');
 
       await page.goto(origin + '/pricing/');
-      for (const [size, plan, amount] of [[5, 'Full workspace', '£299.99'], [6, 'Full workspace', '£344.99'], [7, 'Full workspace', '£389.99'], [10, 'Full workspace', '£524.99'], [20, 'Full workspace', '£974.99'], [50, 'Full workspace', '£2,324.99'], [51, 'Full workspace', '£2,369.99']]) {
+      for (const [size, plan, amount] of [[5, 'Starter', '£299.99'], [6, 'Starter', '£344.99'], [9, 'Starter', '£479.99'], [10, 'Team', '£649.99'], [15, 'Team', '£649.99'], [16, 'Business', '£1,149.99'], [30, 'Business', '£1,149.99'], [31, 'Scale', '£1,899.99'], [50, 'Scale', '£1,899.99'], [51, 'Custom', 'Let’s talk']]) {
         await page.locator('[data-team-number]').fill(String(size));
         await text(page, '[data-quote-plan]', plan);
         assert.ok((await page.locator('[data-quote-annual]').textContent()).startsWith(amount));
@@ -138,7 +138,7 @@ try {
       await page.locator('[data-team-number]').fill('16');
       const contactPath = await page.locator('[data-quote-contact]').getAttribute('href');
       await page.goto(new URL(contactPath, hostOrigin).href);
-      assert.equal(await page.locator('[name="employees"]').inputValue(), '11–20');
+      assert.equal(await page.locator('[name="employees"]').inputValue(), '16–30');
       assert.match(await page.locator('[name="message"]').inputValue(), /Tasks add-on: 5/);
       await page.locator('[name="name"]').fill('Test Visitor');
       await page.locator('[name="email"]').fill('visitor@example.com');
