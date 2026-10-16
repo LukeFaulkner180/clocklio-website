@@ -84,6 +84,13 @@ try {
       await page.keyboard.press('Escape');
       assert.equal(await page.locator('#platform-menu').isVisible(), false);
 
+      await page.locator('#site-navigation').getByRole('link', { name: 'About us', exact: true }).click();
+      await page.waitForURL('**/about/');
+      await text(page, '.about-intro', /based in Suffolk/);
+      await text(page, '#our-vision h2', /One connected workspace/);
+      assert.equal(await page.locator('#site-navigation a[aria-current="page"]').textContent(), 'About us');
+      assert.equal(await page.locator('.site-footer a[href$="/about/"]').count(), 1);
+
       await page.goto(origin + '/features/');
       const total = await page.locator('[data-feature]').count();
       assert.ok(total >= 40);
@@ -166,8 +173,13 @@ try {
       await page.locator('#site-navigation').getByRole('link', { name: 'Pricing', exact: true }).click();
       await page.waitForURL('**/pricing/');
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
+      await page.locator('[data-menu-toggle]').click();
+      await page.locator('#site-navigation').getByRole('link', { name: 'About us', exact: true }).click();
+      await page.waitForURL('**/about/');
+      assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
+      await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'features/', 'pricing/', 'add-ons/', 'contact/', 'privacy/', '404.html'];
+      const routes = ['', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {
