@@ -7,7 +7,7 @@ import { chromium, webkit } from 'playwright';
 const root = path.resolve(process.env.QA_SITE_DIRECTORY || 'public');
 const basePath = (process.env.QA_BASE_PATH || '').replace(/\/+$/, '');
 const artifactDirectory = process.env.QA_ARTIFACT_DIRECTORY || 'artifacts';
-const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.txt': 'text/plain' };
+const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.txt': 'text/plain', '.pdf': 'application/pdf' };
 const server = createServer(async (request, response) => {
   try {
     const requestedPath = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
@@ -97,6 +97,59 @@ try {
       await text(page, '#our-vision h2', /One connected workspace/);
       assert.equal(await page.locator('#site-navigation a[aria-current="page"]').textContent(), 'About us');
       assert.equal(await page.locator('.site-footer a[href$="/about/"]').count(), 1);
+
+      await page.locator('#site-navigation').getByRole('link',{name:'Resources',exact:true}).click();
+      await page.waitForURL('**/resources/');
+      assert.equal(await page.locator('.resource-card-grid .resource-card').count(),7);
+      assert.equal(await page.locator('#site-navigation a[aria-current="page"]').textContent(),'Resources');
+      await page.goto(origin+'/help/');
+      assert.equal(await page.locator('[data-help-card]:visible').count(),9);
+      await page.locator('[data-help-search]').fill('contract');
+      assert.ok(await page.locator('[data-help-card]:visible').count()>0);
+      assert.ok(await page.locator('[data-help-card]:visible').count()<9);
+      await page.locator('[data-help-search]').fill('no-such-help-topic-zz');
+      assert.equal(await page.locator('[data-help-empty]').isVisible(),true);
+      await page.locator('[data-help-clear]').click();
+      assert.equal(await page.locator('[data-help-card]:visible').count(),9);
+      await page.locator('[data-help-filter="stock"]').click();
+      assert.equal(await page.locator('[data-help-card]:visible').count(),2);
+      await page.locator('[data-help-card]:visible h3 a').first().click();
+      await page.waitForURL('**/help/stocktakes/');
+      assert.equal(await page.locator('.guide-steps>li').count(),5);
+      await page.goto(origin+'/updates/');
+      await page.locator('[data-release-filter="considering"]').click();
+      assert.equal(await page.locator('[data-release]:visible').count(),1);
+      await text(page,'.release-card:visible h2','Recruitment tools');
+      await page.locator('[data-release-filter="development"]').click();
+      assert.equal(await page.locator('[data-release-empty]').isVisible(),true);
+      await page.locator('[data-release-filter="available"]').click();
+      assert.equal(await page.locator('[data-release]:visible').count(),5);
+      await page.goto(origin+'/brochure/');
+      const brochure=await page.locator('a[download]').getAttribute('href');
+      const brochureResponse=await context.request.get(new URL(brochure,hostOrigin).href);
+      assert.equal(brochureResponse.status(),200);
+      const brochureBytes=await brochureResponse.body();
+      assert.equal(brochureBytes.subarray(0,5).toString(),'%PDF-');
+      assert.ok(brochureBytes.length>10000);
+      await page.goto(origin+'/referrals/');
+      const referralReference='Example & Co <script>alert(1)</script>';
+      await page.locator('[name="referrer"]').fill(referralReference);
+      await page.locator('[data-referral-form] button[type="submit"]').click();
+      const referralLink=await page.locator('[data-referral-link]').inputValue();
+      assert.equal(new URL(referralLink).pathname,basePath+'/contact/');
+      assert.equal(new URL(referralLink).searchParams.get('ref'),referralReference);
+      await page.goto(referralLink);
+      assert.equal(await page.locator('[name="referrer"]').inputValue(),referralReference);
+      assert.equal(await page.locator('[name="topic"]').inputValue(),'referral');
+      await page.locator('[name="name"]').fill('Test Referee');
+      await page.locator('[name="email"]').fill('referee@example.invalid');
+      await page.locator('[name="business"]').fill('Example Shop');
+      await page.locator('[name="employees"]').selectOption('1–5');
+      await page.locator('[name="message"]').fill('Please explain Clockx.');
+      await page.locator('#contact-form button[type="submit"]').click();
+      await text(page,'[data-email-preview]',/Referred by: Example & Co/);
+      assert.equal(await page.locator('[data-email-preview] script').count(),0);
+      await text(page,'[data-draft-status]',/has not been sent/);
 
       await page.goto(origin + '/features/');
       const total = await page.locator('[data-feature]').count();
@@ -197,7 +250,7 @@ try {
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
       await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html'];
+      const routes = ['', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {

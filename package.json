@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check public/main.js && node scripts/check.mjs",
-    "build": "node scripts/build.mjs"
+    "check": "node --check public/main.js && node --check public/resources.js && node scripts/check.mjs",
+    "build": "node scripts/build.mjs",
+    "resources:generate": "python3 scripts/generate-resources.py"
   },
   "engines": {
     "node": ">=20"

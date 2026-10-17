@@ -35,3 +35,16 @@ Product illustrations use labelled example data. Gross pay estimates support pay
 - `tests/showcase-smoke.mjs`: meaningful browser checks run by GitHub Actions.
 
 The existing legacy `clocklio-website/public/main.js` path is retained for repository compatibility and is not used by these pages.
+
+
+## Resources and product brochure
+
+The public site now includes Resources, nine Help Centre guides, Security & data, Switching, Product updates, Subscriptions and Referrals. All pages remain static HTML/CSS/JavaScript and publish through GitHub Pages.
+
+- Brand, location, reviewed date and public URLs: `content/site.json`.
+- Guide and release content: `scripts/resource-content.mjs`.
+- Regenerate the resource HTML with `npm run resources:generate`, then review and commit the resulting public pages.
+- Generate the two-page brochure with `python3 scripts/generate-brochure.py` in an environment with ReportLab and DejaVu Sans. The PDF uses the calculator's pricing functions and writes the website download under `public/downloads/`. Render and visually review both pages before publishing an updated PDF.
+- The security page's primary database location was checked as London / eu-west-2 on 17 October 2026. It makes no certification or backup-retention guarantee. Review that copy when hosting or access rules change.
+- Contact addresses and a referral reward are deliberately unconfigured. The referral tool produces a local shareable introduction URL and passes the reference into an enquiry draft; it does not register a referral, send an invitation or create a credit. Agree programme terms before announcing a financial reward.
+- Subscription guidance describes confirmed package and approval behaviour. Business-specific service terms set renewal, cancellation and payment arrangements.
