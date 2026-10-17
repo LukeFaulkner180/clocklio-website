@@ -23,7 +23,8 @@ def note(title,text):return '<aside class="resource-note"><b>'+title+'</b><p>'+t
 def hero(label,title,description,aside=''):
  return '<section class="resource-hero wrap'+(' has-aside' if aside else '')+'"><div data-reveal><span class="eyebrow">'+label+'</span><h1>'+title+'</h1><p>'+description+'</p></div>'+aside+'</section>'
 def card(path,title,description,kicker='',kind='help',extra=''):
- return '<article class="resource-card" data-reveal><span class="resource-icon">'+icon(kind)+'</span>'+('<span class="label">'+kicker+'</span>' if kicker else '')+'<h3>'+title+'</h3><p>'+description+'</p>'+extra+link(path,'Explore '+title.lower())+'</article>'
+ action={'/help/':'Find a guide','/security/':'Understand access','/brochure/':'View the brochure','/switching/':'Read the switching guide','/updates/':'See product updates','/subscriptions/':'Understand subscriptions','/referrals/':'Create an introduction link'}.get(path,'Explore '+title.lower())
+ return '<article class="resource-card" data-reveal><span class="resource-icon">'+icon(kind)+'</span>'+('<span class="label">'+kicker+'</span>' if kicker else '')+'<h3>'+title+'</h3><p>'+description+'</p>'+extra+link(path,action)+'</article>'
 def cta(title='A little guidance.<br>A clearer next step.',text='Explore the platform, compare packages or prepare a question for us.'):
  return '<section class="wrap resource-bottom-cta" data-reveal><div><span class="eyebrow">HERE TO HELP YOU GET STARTED</span><h2>'+title+'</h2><p>'+text+'</p></div><div>'+link('/pricing/','Compare packages','button button-dark')+link('/contact/','Prepare an enquiry','button button-outline')+'</div></section>'
 def faq(items):return '<div class="resource-faq">'+''.join('<details><summary>'+q+'</summary><p>'+a+'</p></details>' for q,a in items)+'</div>'
