@@ -38,7 +38,7 @@
 </section>
 <section class="tester-panel" aria-label="Business tester registration">
 <h2 data-form-heading>Let’s meet your business.</h2><p data-form-intro>Fields are required unless marked optional.</p>
-<form class="tester-form" data-tester-form>
+<form class="tester-form" method="post" data-tester-form>
 <div class="tester-fields"><label for="tester-name">Your name<input id="tester-name" name="name" autocomplete="name" maxlength="100" required placeholder="Alex Taylor"></label>
 <label for="tester-email">Work email<input id="tester-email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@yourbusiness.co.uk"></label></div>
 <label for="tester-business">Business name<input id="tester-business" name="business" autocomplete="organization" maxlength="150" required placeholder="Your business"></label>
@@ -56,7 +56,7 @@
 <div class="tester-consent"><label class="tester-check" for="tester-consent"><input id="tester-consent" type="checkbox" name="consent" value="yes" required><span>I’m registering on behalf of my business and would like to be contacted about Dayridge testing, early access and the tester offer.</span></label></div>
 <p class="tester-privacy">We save these details to manage the testing programme and contact you about it. No payment details are needed. Read our <a href="/privacy/#tester-signups">website privacy information</a>.</p>
 <p class="tester-status" data-tester-status role="alert" tabindex="-1" hidden></p>
-<button class="launch-button launch-button-purple" type="submit">Register my business<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></button>
+<button class="launch-button launch-button-purple" type="submit" disabled>Register my business<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></button>
 <noscript><p>Please enable JavaScript to submit your registration. Your details have not been sent.</p></noscript>
 </form>
 <div class="tester-success" data-tester-success tabindex="-1" role="status" hidden><span class="tester-success-mark" aria-hidden="true">✓</span>

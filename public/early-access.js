@@ -63,4 +63,7 @@ if (form) {
       button.textContent = 'Register my business';
     }
   });
+  // Enable submission only after the handler is attached. Without JavaScript,
+  // contact details must never be sent in a page URL or a native form request.
+  button.disabled = false;
 }
