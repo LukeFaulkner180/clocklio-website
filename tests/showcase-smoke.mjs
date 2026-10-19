@@ -67,6 +67,13 @@ try {
       await page.goto(origin);
       await text(page, 'h1', /Coming in 2027/);
       assert.equal(await page.locator('form').count(), 0, 'Signup has its own page');
+      const logoCentre = await page.locator('.holding-logo').evaluate(el => { const box = el.getBoundingClientRect(); return Math.abs(box.left + box.width / 2 - innerWidth / 2); });
+      assert.ok(logoCentre < 1, 'DayRidge logo artwork is centred on the page');
+      assert.equal(await page.locator('.holding-preview .rota-row').count(), 5, 'The original rota artwork is present');
+      assert.equal(await page.locator('.holding-art-chip').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Launch animations respect reduced motion');
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      assert.equal(await page.locator('.holding-art-chip').first().evaluate(el => getComputedStyle(el).animationName), 'holding-float', 'Launch artwork animates by default');
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.screenshot({ path: artifactDirectory + '/launch-desktop-' + name + '.png', fullPage: true });
       await page.getByRole('link', { name: 'Become a tester & earn 10% off', exact: true }).click();
       await page.waitForURL('**/early-access/');
