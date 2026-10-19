@@ -14,7 +14,7 @@ DATA=json.loads(subprocess.check_output(['node','--input-type=module','-e',"impo
 FONT=Path('/usr/share/fonts/truetype/dejavu')
 pdfmetrics.registerFont(TTFont('UI',str(FONT/'DejaVuSans.ttf')))
 pdfmetrics.registerFont(TTFont('UIBold',str(FONT/'DejaVuSans-Bold.ttf')))
-OUT=ROOT/'output/pdf/clocknexa-product-brochure.pdf';OUT.parent.mkdir(parents=True,exist_ok=True)
+OUT=ROOT/'output/pdf/dayridge-product-brochure.pdf';OUT.parent.mkdir(parents=True,exist_ok=True)
 W,H=A4;M=45;CW=W-2*M
 INK='#24253A';PURPLE='#7560CB';MUTED='#6D687D';LILAC='#F1EDFA';LINE='#E4DDED';PAPER='#FBFAFD'
 c=canvas.Canvas(str(OUT),pagesize=A4,pageCompression=1)
@@ -32,9 +32,9 @@ def rule(x,y,w,color=LINE):
 def price(pence):return '£'+format(pence/100,',.2f')
 def header(page):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
- c.drawImage(ImageReader(str(ROOT/'public/assets/clocknexa-apple-touch-icon.png')),M,H-76,width=35,height=35,mask='auto')
- if SITE['brandName']=='ClockNexa':
-  text(M+45,H-64,'Clock',20,INK,True);tw=pdfmetrics.stringWidth('Clock','UIBold',20);text(M+45+tw,H-64,'Nexa',20,PURPLE,True)
+ c.drawImage(ImageReader(str(ROOT/'public/assets/dayridge-apple-touch-icon.png')),M,H-76,width=35,height=35,mask='auto')
+ if SITE['brandName']=='Dayridge':
+  text(M+45,H-64,'Day',20,INK,True);tw=pdfmetrics.stringWidth('Day','UIBold',20);text(M+45+tw,H-64,'ridge',20,PURPLE,True)
  else:text(M+45,H-64,SITE['brandName'],20,INK,True)
  text(W-M-114,H-50,'PRODUCT GUIDE',7.6,MUTED,True);text(W-M-114,H-65,'OCTOBER 2026',7.6,MUTED)
  rule(M,34,CW);text(M,20,'Based in Suffolk, United Kingdom',7.5,MUTED);text(W-M-64,20,str(page)+' / 2',7.5,MUTED)
@@ -99,5 +99,5 @@ lines(M,86,'Annual access is arranged by bank transfer. Extra employees above th
 text(M,44,web.replace('https://','').rstrip('/')+'/pricing/',8,PURPLE,True)
 c.linkURL(web+'pricing/',(M,40,W-M,55),relative=0,thickness=0)
 c.save()
-asset=ROOT/'public/downloads/clocknexa-product-brochure.pdf';asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(OUT,asset)
+asset=ROOT/'public/downloads/dayridge-product-brochure.pdf';asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(OUT,asset)
 print(OUT);print(asset);print('PDF bytes',OUT.stat().st_size)

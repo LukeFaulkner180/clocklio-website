@@ -1,4 +1,4 @@
-# ClockNexa showcase
+# Dayridge showcase
 
 A responsive marketing website built with plain HTML, CSS and JavaScript. No framework, runtime dependencies, database or bundler is needed.
 
@@ -30,7 +30,7 @@ Product illustrations use labelled example data. Gross pay estimates support pay
 
 - `public/styles.css`: responsive styling, animation and reduced-motion support.
 - `public/main.js`: accessible navigation, tabs, filters, calculators and enquiry preparation.
-- `public/assets/`: approved ClockNexa brand assets.
+- `public/assets/`: approved Dayridge brand assets.
 - `scripts/`: optional static build and source checks.
 - `tests/showcase-smoke.mjs`: meaningful browser checks run by GitHub Actions.
 

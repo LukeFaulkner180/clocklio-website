@@ -44,7 +44,7 @@ if (pricingGrid) {
       <div class="pricing-amount"><strong>${formatPrice.format(plan.annualPrice)}</strong><span>per year</span></div>
       <div class="pricing-card-rule"></div>
       <ul>
-        <li><span>✓</span> All ClockNexa workforce features</li>
+        <li><span>✓</span> All Dayridge workforce features</li>
         <li><span>✓</span> Up to ${plan.employeeLimit} active employees</li>
         <li><span>✓</span> Manager accounts included</li>
       </ul>
@@ -52,7 +52,7 @@ if (pricingGrid) {
   `).join('')
 }
 
-const appUrl = document.querySelector('meta[name="clocknexa-app-url"]')?.content?.trim()
+const appUrl = document.querySelector('meta[name="dayridge-app-url"]')?.content?.trim()
 if (appUrl) {
   document.querySelectorAll('a[href="https://clocklio.pages.dev/"]').forEach((link) => {
     link.href = appUrl
