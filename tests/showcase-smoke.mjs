@@ -89,6 +89,7 @@ try {
         await route.fulfill({ status: 503, contentType: 'application/json', body: '{"ok":false}', headers: signupCors });
       });
       await page.locator('[data-tester-form] button[type="submit"]').click();
+      await page.locator('[data-tester-status]').waitFor({ state: 'visible' });
       await text(page, '[data-tester-status]', /couldn’t save/);
       assert.equal(await page.locator('[name="business"]').inputValue(), 'Example Business', 'Failed requests keep entered details');
       assert.equal(await page.locator('[data-tester-success]').isVisible(), false);
@@ -97,6 +98,7 @@ try {
       await page.unroute('**/functions/v1/dayridge-tester-signup');
       await page.route('**/functions/v1/dayridge-tester-signup', route => route.fulfill({ status: route.request().method() === 'OPTIONS' ? 204 : 200, contentType: 'application/json', body: route.request().method() === 'OPTIONS' ? undefined : '{"ok":true}', headers: signupCors }));
       await page.locator('[data-tester-form] button[type="submit"]').click();
+      await page.locator('[data-tester-success]').waitFor({ state: 'visible' });
       await text(page, '[data-tester-success] h2', 'You’re on the list.');
       assert.equal(await page.locator('[data-tester-form]').isVisible(), false);
       assert.equal(await page.locator('[data-tester-success]').evaluate(el => el === document.activeElement), true);
