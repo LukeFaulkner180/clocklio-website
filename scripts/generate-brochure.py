@@ -33,8 +33,8 @@ def price(pence):return '£'+format(pence/100,',.2f')
 def header(page):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  c.drawImage(ImageReader(str(ROOT/'public/assets/dayridge-apple-touch-icon.png')),M,H-76,width=35,height=35,mask='auto')
- if SITE['brandName']=='Dayridge':
-  text(M+45,H-64,'Day',20,INK,True);tw=pdfmetrics.stringWidth('Day','UIBold',20);text(M+45+tw,H-64,'ridge',20,PURPLE,True)
+ if SITE['brandName']=='DayRidge':
+  text(M+45,H-64,'Day',20,INK,True);tw=pdfmetrics.stringWidth('Day','UIBold',20);text(M+45+tw,H-64,'Ridge',20,PURPLE,True)
  else:text(M+45,H-64,SITE['brandName'],20,INK,True)
  text(W-M-114,H-50,'PRODUCT GUIDE',7.6,MUTED,True);text(W-M-114,H-65,'OCTOBER 2026',7.6,MUTED)
  rule(M,34,CW);text(M,20,'Based in Suffolk, United Kingdom',7.5,MUTED);text(W-M-64,20,str(page)+' / 2',7.5,MUTED)

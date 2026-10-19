@@ -20,7 +20,7 @@
   <circle cx="42.4" cy="22.3" r="4.45" fill="#fff" fill-opacity=".94"/>
   <path d="m35.3 41.2 5.5 5.25 10.75-12.1" stroke="url(#logo-check)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<text x="446" y="225" font-family="DejaVu Sans, Arial, sans-serif" font-size="120" font-weight="700" letter-spacing="-3"><tspan fill="#10234b">Day</tspan><tspan fill="#6047e8">ridge</tspan></text></svg>
+<text x="446" y="225" font-family="DejaVu Sans, Arial, sans-serif" font-size="120" font-weight="700" letter-spacing="-3"><tspan fill="#10234b">Day</tspan><tspan fill="#6047e8">Ridge</tspan></text></svg>
 <g fill="#20231f" font-family="DejaVu Sans, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-3">
 <text x="64" y="250">Your team.</text><text x="64" y="328">Your business.</text><text x="64" y="406" fill="#6748de">In good rhythm.</text></g>
 <g transform="translate(865 190) scale(4.05)" fill="none"><defs>

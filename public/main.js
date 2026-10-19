@@ -319,7 +319,7 @@ if (contactForm) {
     if (!contactForm.reportValidity()) return;
     const data = new FormData(contactForm);
     const topicName = field('topic').selectedOptions[0].textContent;
-    enquiry = 'Hello Dayridge,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nPackage: ' + field('package').selectedOptions[0].textContent + '\nEnquiry: ' + topicName + (data.get('referrer') ? '\nReferred by: ' + String(data.get('referrer')).trim() : '');
+    enquiry = 'Hello DayRidge,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nPackage: ' + field('package').selectedOptions[0].textContent + '\nEnquiry: ' + topicName + (data.get('referrer') ? '\nReferred by: ' + String(data.get('referrer')).trim() : '');
     preview.textContent = enquiry;
     status.textContent = 'Your enquiry is ready to copy. It has not been sent. Contact details are coming soon.';
     panel.hidden = false; panel.focus({ preventScroll: true });

@@ -1,4 +1,4 @@
-# Dayridge business tester intake
+# DayRidge business tester intake
 
 The marketing website remains on GitHub Pages. `/` is the 2027 landing page,
 `/early-access/` is the separate registration page, and `/platform/` retains the

@@ -68,7 +68,7 @@ try {
       await text(page, 'h1', /Coming in 2027/);
       assert.equal(await page.locator('form').count(), 0, 'Signup has its own page');
       await page.screenshot({ path: artifactDirectory + '/launch-desktop-' + name + '.png', fullPage: true });
-      await page.getByRole('link', { name: 'Become a tester', exact: true }).first().click();
+      await page.getByRole('link', { name: 'Become a tester & earn 10% off', exact: true }).click();
       await page.waitForURL('**/early-access/');
       await text(page, '.tester-offer', /Complete the agreed testing and feedback/);
       await text(page, '.tester-offer h2', /10%/);
