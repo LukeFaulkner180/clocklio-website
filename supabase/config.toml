@@ -1,0 +1,4 @@
+project_id = "dayridge-website"
+
+[functions.dayridge-tester-signup]
+verify_jwt = true

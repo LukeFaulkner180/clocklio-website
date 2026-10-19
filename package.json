@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check public/main.js && node --check public/resources.js && node scripts/check.mjs",
+    "check": "node --check public/main.js && node --check public/resources.js && node --check public/early-access.js && node --check public/early-access-config.js && node scripts/check.mjs",
     "build": "node scripts/build.mjs",
+    "test:signup": "node --experimental-strip-types --test tests/tester-signup.test.mjs",
     "resources:generate": "python3 scripts/generate-resources.py"
   },
   "engines": {

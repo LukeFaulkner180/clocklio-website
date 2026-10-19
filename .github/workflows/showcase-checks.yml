@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 22
       - name: Check and build static files
-        run: npm run check && npm run build
+        run: npm run check && npm run test:signup && npm run build
       - name: Install browser check tools
         run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.64.0
       - name: Install browsers

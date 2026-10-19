@@ -65,6 +65,52 @@ try {
     page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
       await page.goto(origin);
+      await text(page, 'h1', /Coming in 2027/);
+      assert.equal(await page.locator('form').count(), 0, 'Signup has its own page');
+      await page.screenshot({ path: artifactDirectory + '/launch-desktop-' + name + '.png', fullPage: true });
+      await page.getByRole('link', { name: 'Become a tester', exact: true }).first().click();
+      await page.waitForURL('**/early-access/');
+      await text(page, '.tester-offer', /Complete the agreed testing and feedback/);
+      await text(page, '.tester-offer h2', /10%/);
+      await page.locator('[name="name"]').fill('QA Business Tester');
+      await page.locator('[name="email"]').fill('tester@example.invalid');
+      await page.locator('[name="business"]').fill('Example Business');
+      await page.locator('[name="industry"]').selectOption('retail');
+      await page.locator('[name="teamSize"]').selectOption('6-10');
+      await page.locator('[name="interests"][value="rotas"]').check();
+      await page.locator('[name="consent"]').check();
+      // Browser checks stub only the transport; dedicated endpoint checks cover
+      // validation and persistence. CI must never create real registrations.
+      let submitted;
+      const signupCors = { 'Access-Control-Allow-Origin': hostOrigin, 'Access-Control-Allow-Headers': 'content-type, apikey, authorization', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
+      await page.route('**/functions/v1/dayridge-tester-signup', async route => {
+        if (route.request().method() === 'OPTIONS') return route.fulfill({ status: 204, headers: signupCors });
+        submitted = route.request().postDataJSON();
+        await route.fulfill({ status: 503, contentType: 'application/json', body: '{"ok":false}', headers: signupCors });
+      });
+      await page.locator('[data-tester-form] button[type="submit"]').click();
+      await text(page, '[data-tester-status]', /couldn’t save/);
+      assert.equal(await page.locator('[name="business"]').inputValue(), 'Example Business', 'Failed requests keep entered details');
+      assert.equal(await page.locator('[data-tester-success]').isVisible(), false);
+      assert.equal(submitted.consent, true);
+      assert.deepEqual(submitted.interests, ['rotas']);
+      await page.unroute('**/functions/v1/dayridge-tester-signup');
+      await page.route('**/functions/v1/dayridge-tester-signup', route => route.fulfill({ status: route.request().method() === 'OPTIONS' ? 204 : 200, contentType: 'application/json', body: route.request().method() === 'OPTIONS' ? undefined : '{"ok":true}', headers: signupCors }));
+      await page.locator('[data-tester-form] button[type="submit"]').click();
+      await text(page, '[data-tester-success] h2', 'You’re on the list.');
+      assert.equal(await page.locator('[data-tester-form]').isVisible(), false);
+      assert.equal(await page.locator('[data-tester-success]').evaluate(el => el === document.activeElement), true);
+      await page.unroute('**/functions/v1/dayridge-tester-signup');
+      for (const width of [360, 390, 768]) {
+        await page.setViewportSize({ width, height: 850 });
+        for (const route of ['', 'early-access/']) {
+          await page.goto(origin + '/' + route);
+          await noOverflow(page, 'Launch ' + route + ' at ' + width, errors);
+          if (width === 390) await page.screenshot({ path: artifactDirectory + '/launch-' + (route ? 'signup' : 'home') + '-mobile-' + name + '.png', fullPage: true });
+        }
+      }
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      await page.goto(origin + '/platform/');
       assert.equal(await page.locator('[data-motion-toggle]').count(), 0, 'There are no website animation controls');
       assert.equal(await page.locator('.hero-atmosphere i').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Device reduced-motion preference is respected automatically');
       assert.equal(await page.locator('.role-spark, .tiny-spark').count(), 0, 'No decorative emoji symbols');
@@ -228,7 +274,7 @@ try {
       await text(page, '[data-task-count]', '2 of 3 complete');
 
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(origin);
+      await page.goto(origin + '/platform/');
       await page.locator('[data-open-preview]').click();
       await page.waitForURL(url => url.hash === '#workspace-preview');
       await page.locator('[data-preview="time"]').click();
@@ -250,7 +296,7 @@ try {
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
       await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
+      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {
@@ -258,11 +304,11 @@ try {
           await page.evaluate(() => document.fonts.ready);
           await noOverflow(page, name + ' ' + width + ' ' + route, errors);
           assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
-          if (!route) await readableAddons(page);
+          if (route === 'platform/') await readableAddons(page);
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
             await page.screenshot({ path: artifactDirectory + '/' + slug + '-' + width + '.png', fullPage: true });
-            if (!route) {
+            if (route === 'platform/') {
               await page.screenshot({ path: artifactDirectory + '/home-viewport-' + width + '.png' });
               await page.locator('.site-footer').screenshot({ path: artifactDirectory + '/footer-' + width + '.png' });
               await page.locator('[data-role="leader"]').click();
@@ -273,7 +319,7 @@ try {
         }
       }
       await page.emulateMedia({ reducedMotion: 'no-preference' });
-      await page.goto(origin);
+      await page.goto(origin + '/platform/');
       await page.waitForFunction(() => document.querySelector('.hero-copy').classList.contains('is-visible'));
       await page.locator('.roles-section').scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.querySelectorAll('.roles-section [data-reveal]')].every(el => el.classList.contains('is-visible')));
