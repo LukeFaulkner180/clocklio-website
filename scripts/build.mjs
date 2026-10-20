@@ -40,6 +40,10 @@ for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css
   stylesheetVersions.set(name, versionedName);
   await writeFile(new URL(versionedName, destination), content);
 }
+const socialScript = await readFile(new URL('social-profiles.js', destination));
+const socialHash = createHash('sha256').update(socialScript).digest('hex').slice(0, 12);
+const socialScriptName = `social-profiles.${socialHash}.js`;
+await writeFile(new URL(socialScriptName, destination), socialScript);
 async function versionStyles(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = path.join(directory, entry.name);
@@ -48,7 +52,9 @@ async function versionStyles(directory) {
     const html = await readFile(file, 'utf8');
     const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch)\.css(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, name, quote) => attribute + prefix + stylesheetVersions.get(name + '.css') + quote);
-    await writeFile(file, versioned);
+    const withSocialVersion = versioned.replace(/(src=["'])([^"']*\/)social-profiles\.js(?:\?[^"']*)?(["'])/g,
+      (_, attribute, prefix, quote) => attribute + prefix + socialScriptName + quote);
+    await writeFile(file, withSocialVersion);
   }
 }
 await versionStyles(fileURLToPath(destination));

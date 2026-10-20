@@ -1,7 +1,7 @@
 // Add the verified DayRidge page URLs here when the profiles are ready.
 const socialProfiles = {
   facebook: null,
-  tiktok: null,
+  tiktok: 'https://www.tiktok.com/@dayridge.app',
   instagram: null,
 };
 
@@ -20,8 +20,10 @@ for (const profile of document.querySelectorAll('[data-social-platform]')) {
   profile.replaceWith(link);
 }
 
-if (Object.values(socialProfiles).every(Boolean)) {
+if (Object.values(socialProfiles).some(Boolean)) {
   for (const note of document.querySelectorAll('[data-social-note]')) {
-    note.textContent = 'Updates, ideas and a look behind the scenes.';
+    note.textContent = Object.values(socialProfiles).every(Boolean)
+      ? 'Updates, ideas and a look behind the scenes.'
+      : 'Follow the journey. More social pages coming soon.';
   }
 }
