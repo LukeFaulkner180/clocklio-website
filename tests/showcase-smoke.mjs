@@ -62,20 +62,19 @@ try {
     const page = await context.newPage();
     const errors = [];
     const contactSubmissions = [];
-    await page.route('**/functions/v1/dayridge-contact-submit', async route => {
-      if (route.request().method() === 'OPTIONS') {
-        await route.fulfill({ status: 204, headers: {
-          'Access-Control-Allow-Origin': hostOrigin,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info',
-          'Access-Control-Max-Age': '600',
-        } });
-        return;
-      }
+    const contactConfigPaths = [];
+    await page.route('**/contact-config.js*', async route => {
+      contactConfigPaths.push(new URL(route.request().url()).pathname);
+      await route.fulfill({
+        status: 200,
+        headers: { 'Content-Type': 'text/javascript' },
+        body: `export const contactURL = ${JSON.stringify(hostOrigin + '/__test_contact_submit')};\nexport const publicAnonKey = 'test-anon-key';`,
+      });
+    });
+    await page.route('**/__test_contact_submit', async route => {
       contactSubmissions.push(route.request().postDataJSON());
       await route.fulfill({ status: 200, headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': hostOrigin,
       }, body: JSON.stringify({ ok: true }) });
     });
     page.on('pageerror', error => errors.push(error.message));
@@ -220,7 +219,10 @@ try {
       await page.locator('[name="message"]').fill('Please explain Clockx.');
       await page.waitForTimeout(2600);
       await page.locator('#contact-form button[type="submit"]').click();
+      await page.locator('[data-contact-success]').waitFor({ state: 'visible' });
       await text(page,'[data-contact-success] h3','Thank you. Your request is saved.');
+      assert.equal(contactConfigPaths.at(-1), basePath + '/contact-config.js');
+      assert.equal(contactSubmissions.length, 1);
       assert.equal(contactSubmissions[0].referrer,referralReference);
       assert.equal(contactSubmissions[0].message,'Please explain Clockx.');
 
@@ -234,7 +236,10 @@ try {
       await page.locator('[name="message"]').fill('Please discuss the Clockx plan.');
       await page.waitForTimeout(2600);
       await page.locator('#contact-form button[type="submit"]').click();
+      await page.locator('[data-contact-success]').waitFor({ state: 'visible' });
       await text(page,'[data-contact-success] h3','Thank you. Your request is saved.');
+      assert.equal(contactConfigPaths.at(-1), basePath + '/contact-config.js');
+      assert.equal(contactSubmissions.length, 2);
       assert.equal(contactSubmissions[1].package,'clocking');
       assert.equal(contactSubmissions[1].employees,'11–20');
 

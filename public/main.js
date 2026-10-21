@@ -340,7 +340,7 @@ if (contactForm) {
     button.textContent = 'Sending…';
     status.hidden = true;
     try {
-      const { contactURL, publicAnonKey } = await import('/contact-config.js');
+      const { contactURL, publicAnonKey } = await import(sitePath('/contact-config.js'));
       const response = await fetch(contactURL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: publicAnonKey, Authorization: 'Bearer ' + publicAnonKey },
