@@ -31,7 +31,8 @@ p { text-wrap: pretty; }
 .announcement > span { font-size: 9px; padding: 6px 10px; }
 .hero-copy h1 { font-size: clamp(52px, 6.2vw, 90px); line-height: 1.1; font-weight: 600; letter-spacing: -.045em; }
 .hero-line { padding-block: .035em .12em; margin-bottom: -.08em; }
-.hero-purple { font-size: 1em; white-space: normal; }
+/* Extend the gradient paint box so mobile browsers render the full descenders. */
+.hero-purple { font-size: 1em; white-space: normal; padding-block: .08em .2em; margin-block: -.08em -.2em; }
 .hero-copy > p { max-width: 650px; margin: 26px auto 0; font-size: 18px; line-height: 1.8; color: #6a6374; }
 .hero-actions { justify-content: center; margin-top: 28px; gap: 13px; }
 .hero-actions .button { min-height: 56px; font-size: 14px; padding: 15px 25px; }
