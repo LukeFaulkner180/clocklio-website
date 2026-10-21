@@ -268,6 +268,12 @@ p { text-wrap: pretty; }
 #contact-form input, #contact-form select, #contact-form textarea { font-size: 16px; color: #4e405d; background: #fbf9fd; border: 1px solid #e1d6ec; border-radius: 10px; padding: 13px; }
 #contact-form input::placeholder, #contact-form textarea::placeholder { font-size: 13px; color: #a092ac; }
 .form-privacy { font-size: 12px; color: #877092; }
+#contact-form .contact-honeypot { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+#contact-form .contact-submit-status { margin: 0 0 16px; padding: 11px 13px; border: 1px solid #e9caca; border-radius: 9px; background: #fff1f0; color: #8c3636; font-size: 12px; line-height: 1.6; }
+.contact-confirmation { margin-top: 26px; padding-top: 24px; border-top: 1px solid #e8dff0; }
+.contact-confirmation > .label { color: #7655a5; font-size: 10px; letter-spacing: .08em; }
+.contact-confirmation h3 { margin-top: 13px; font-size: 25px; letter-spacing: -.035em; }
+.contact-confirmation p { margin-top: 12px; color: #75647f; font-size: 14px; line-height: 1.8; }
 .about-home { box-shadow: 0 22px 65px -35px #6544912e; }
 .about-values-grid article { box-shadow: var(--shadow-soft); }
 .prose p { font-size: 16px; color: #71627b; line-height: 1.9; }

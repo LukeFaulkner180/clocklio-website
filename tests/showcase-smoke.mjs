@@ -61,6 +61,23 @@ try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
     const page = await context.newPage();
     const errors = [];
+    const contactSubmissions = [];
+    await page.route('**/functions/v1/dayridge-contact-submit', async route => {
+      if (route.request().method() === 'OPTIONS') {
+        await route.fulfill({ status: 204, headers: {
+          'Access-Control-Allow-Origin': hostOrigin,
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info',
+          'Access-Control-Max-Age': '600',
+        } });
+        return;
+      }
+      contactSubmissions.push(route.request().postDataJSON());
+      await route.fulfill({ status: 200, headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': hostOrigin,
+      }, body: JSON.stringify({ ok: true }) });
+    });
     page.on('pageerror', error => errors.push(error.message));
     page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
@@ -201,10 +218,25 @@ try {
       await page.locator('[name="business"]').fill('Example Shop');
       await page.locator('[name="employees"]').selectOption('1–5');
       await page.locator('[name="message"]').fill('Please explain Clockx.');
+      await page.waitForTimeout(2600);
       await page.locator('#contact-form button[type="submit"]').click();
-      await text(page,'[data-email-preview]',/Referred by: Example & Co/);
-      assert.equal(await page.locator('[data-email-preview] script').count(),0);
-      await text(page,'[data-draft-status]',/has not been sent/);
+      await text(page,'[data-contact-success] h3','Thank you. Your request is saved.');
+      assert.equal(contactSubmissions[0].referrer,referralReference);
+      assert.equal(contactSubmissions[0].message,'Please explain Clockx.');
+
+      await page.goto(origin+'/contact/?package=clocking&employees=12&topic=plan');
+      assert.equal(await page.locator('[name="package"]').inputValue(),'clocking');
+      assert.equal(await page.locator('[name="employees"]').inputValue(),'11–20');
+      assert.deepEqual(await page.locator('[name="employees"] option').evaluateAll(options => options.map(option => option.value)),['','1–5','6–10','11–20','21+']);
+      await page.locator('[name="name"]').fill('Clockx Contact');
+      await page.locator('[name="email"]').fill('clockx@example.invalid');
+      await page.locator('[name="business"]').fill('Clockx Example');
+      await page.locator('[name="message"]').fill('Please discuss the Clockx plan.');
+      await page.waitForTimeout(2600);
+      await page.locator('#contact-form button[type="submit"]').click();
+      await text(page,'[data-contact-success] h3','Thank you. Your request is saved.');
+      assert.equal(contactSubmissions[1].package,'clocking');
+      assert.equal(contactSubmissions[1].employees,'11–20');
 
       await page.goto(origin + '/features/');
       const total = await page.locator('[data-feature]').count();
@@ -253,17 +285,13 @@ try {
       await page.locator('[name="email"]').fill('visitor@example.com');
       await page.locator('[name="business"]').fill('Example Café');
       await page.locator('[name="message"]').fill('Please show me the platform. <script>alert(1)</script>');
+      await page.waitForTimeout(2600);
       await page.locator('#contact-form button[type="submit"]').click();
-      assert.equal(await page.locator('[data-email-draft-panel]').isVisible(), true);
-      await text(page, '[data-draft-status]', /has not been sent/);
-      assert.equal(await page.locator('a[href^="mailto:"]').count(), 0, 'No recipient is configured while contact details are pending');
-      await text(page, '.contact-email', /Coming soon/);
-      await text(page, '[data-email-preview]', /Example Café/);
-      assert.equal(await page.locator('[data-email-preview] script').count(), 0);
-      await page.locator('[data-copy-enquiry]').click();
-      await page.waitForFunction(() => /Enquiry copied|Select and copy/.test(document.querySelector('[data-draft-status]').textContent));
-      await page.locator('[name="message"]').fill('A revised message');
-      assert.equal(await page.locator('[data-email-draft-panel]').isVisible(), false);
+      assert.equal(await page.locator('[data-contact-success]').isVisible(), true);
+      assert.equal(await page.locator('#contact-form').isVisible(), false);
+      assert.equal(contactSubmissions[1].business,'Example Café');
+      assert.equal(contactSubmissions[1].message,'Please show me the platform. <script>alert(1)</script>');
+      await text(page, '.contact-email', /Reviewed in the DayRidge management dashboard/);
 
       await page.goto(origin + '/contact/?topic=plan&package=clocking&employees=5');
       assert.equal(await page.locator('[name="package"]').inputValue(), 'clocking');
@@ -343,7 +371,7 @@ try {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       assert.equal(await page.locator('.hero-atmosphere i').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Changed device preferences take effect without a website toggle');
       assert.deepEqual(errors, [], 'No JavaScript errors, missing local resources or responsive overflow');
-      findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'email draft and input safety', 'stock reconciliation', 'responsive overflow'] });
+      findings.push({ browser: name, status: 'passed', featureCount: total, checks: ['navigation and keyboard tabs', 'feature filtering', 'plan boundaries and add-on calculations', 'contact request submission and input safety', 'stock reconciliation', 'responsive overflow'] });
       console.log(name + ': all interactions and responsive checks passed.');
     } catch (error) {
       await page.screenshot({ path: artifactDirectory + '/failure-' + name + '.png', fullPage: true }).catch(() => {});

@@ -283,10 +283,13 @@ if (stockInputs.length) {
   reconcile();
 }
 
-// Contact details are pending. Visitors can prepare and copy a local draft.
+// Contact enquiries are saved for in-app review. No email notification is sent.
 const contactForm = $('#contact-form');
 if (contactForm) {
-  const panel = $('[data-email-draft-panel]'), preview = $('[data-email-preview]'), status = $('[data-draft-status]');
+  const panel = $('[data-contact-success]'), status = $('[data-contact-status]');
+  const button = contactForm.querySelector('button[type="submit"]');
+  const originalButton = button.innerHTML;
+  const startedAt = Date.now();
   const query = new URLSearchParams(location.search);
   const field = name => contactForm.elements.namedItem(name);
   const topic = query.get('topic');
@@ -311,24 +314,63 @@ if (contactForm) {
     if (query.get('stock') === 'yes') message += '\nStock Management add-on: yes.';
     field('message').value = message;
   }
-  let enquiry = '';
-  contactForm.addEventListener('input', () => { panel.hidden = true; enquiry = ''; });
-  contactForm.addEventListener('submit', event => {
+  contactForm.addEventListener('input', event => {
+    status.hidden = true;
+    event.target.setCustomValidity?.('');
+  });
+  contactForm.addEventListener('submit', async event => {
     event.preventDefault();
+    if (button.disabled) return;
     ['name', 'business', 'message'].forEach(name => field(name).setCustomValidity(field(name).value.trim() ? '' : 'Please fill in this field.'));
     if (!contactForm.reportValidity()) return;
     const data = new FormData(contactForm);
-    const topicName = field('topic').selectedOptions[0].textContent;
-    enquiry = 'Hello DayRidge,\n\n' + String(data.get('message')).trim() + '\n\nName: ' + String(data.get('name')).trim() + '\nEmail: ' + String(data.get('email')).trim() + '\nBusiness: ' + String(data.get('business')).trim() + '\nTeam size: ' + data.get('employees') + '\nPackage: ' + field('package').selectedOptions[0].textContent + '\nEnquiry: ' + topicName + (data.get('referrer') ? '\nReferred by: ' + String(data.get('referrer')).trim() : '');
-    preview.textContent = enquiry;
-    status.textContent = 'Your enquiry is ready to copy. It has not been sent. Contact details are coming soon.';
-    panel.hidden = false; panel.focus({ preventScroll: true });
-    panel.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'nearest' });
+    const payload = {
+      name: String(data.get('name') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      package: String(data.get('package') || ''),
+      business: String(data.get('business') || '').trim(),
+      employees: String(data.get('employees') || ''),
+      topic: String(data.get('topic') || ''),
+      referrer: String(data.get('referrer') || '').trim(),
+      message: String(data.get('message') || '').trim(),
+      website: String(data.get('website') || ''),
+      elapsedMs: Date.now() - startedAt,
+    };
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    status.hidden = true;
+    try {
+      const { contactURL, publicAnonKey } = await import('/contact-config.js');
+      const response = await fetch(contactURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: publicAnonKey, Authorization: 'Bearer ' + publicAnonKey },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(20000),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.ok !== true) {
+        throw new Error(response.status === 429
+          ? 'There have been several contact requests from this connection. Please try again in an hour.'
+          : response.status === 400
+            ? 'Please check your details and message, then try again.'
+            : 'We couldn’t save your request. Please try again in a moment.');
+      }
+      contactForm.hidden = true;
+      panel.hidden = false;
+      panel.focus({ preventScroll: true });
+      panel.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'nearest' });
+    } catch (error) {
+      status.textContent = ['TimeoutError', 'AbortError', 'TypeError'].includes(error.name)
+        ? 'We couldn’t confirm that your request was saved. Check your connection and try again.'
+        : error.message;
+      status.hidden = false;
+      status.focus();
+    } finally {
+      if (panel.hidden) {
+        button.disabled = false;
+        button.innerHTML = originalButton;
+      }
+    }
   });
-  contactForm.addEventListener('input', event => { if (event.target.setCustomValidity) event.target.setCustomValidity(''); });
-  $('[data-copy-enquiry]').addEventListener('click', async () => {
-    if (!enquiry) return;
-    try { await navigator.clipboard.writeText(enquiry); status.textContent = 'Enquiry copied. Keep it ready for when our contact details are available.'; }
-    catch { const range = document.createRange(); range.selectNodeContents(preview); const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range); status.textContent = 'Select and copy the enquiry above to keep for later.'; }
-  });
+  button.disabled = false;
 }

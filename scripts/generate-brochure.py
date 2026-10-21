@@ -43,7 +43,7 @@ text(M,H-116,'YOUR WORKING DAY, MORE CONNECTED',8,PURPLE,True)
 text(M,H-177,'Your team.',43,INK,True)
 text(M,H-229,'Your business.',43,INK,True)
 text(M,H-281,'In good rhythm.',43,PURPLE,True)
-lines(M,H-319,'Rotas, recorded hours, leave and documents. One clear workspace for the working day.',CW-30,12,19,MUTED)
+lines(M,H-319,'Rotas, recorded hours, leave and payroll hours. One clear workspace for the working day.',CW-30,12,19,MUTED)
 card_y=326;card_h=153
 box(M,card_y,CW,card_h,LILAC,LINE,17)
 text(M+22,card_y+card_h-28,'CLOCKX  /  EVERYDAY STAFF MANAGEMENT',9,PURPLE,True)
@@ -54,11 +54,11 @@ for i,plan in enumerate(DATA['clockx']):
  text(x,card_y+54,price(plan['price']),25,PURPLE,True)
  text(x,card_y+30,'per business / year',8.2,MUTED)
 text(M,299,'Your everyday tools',16,INK,True)
-features=['Rotas and published shifts','Clock-ins, clock-outs and breaks','Annual leave and approvals','Extra hours and open shifts','Payroll hours and CSV exports','Private employee contracts','Company policies and documents','Basic employee details']
+features=['Rotas and published shifts','Clock-ins, clock-outs and breaks','Annual leave and approvals','Payroll hours and CSV exports','Basic employee details']
 for i,label in enumerate(features):
  x=M+(i%2)*(CW/2);y=272-(i//2)*25
  c.setFillColor(HexColor(PURPLE));c.circle(x+3,y+3,2.2,stroke=0,fill=1);text(x+13,y,label,9.3,INK)
-lines(M,160,'The same features are included in every Clockx tier. Above 20 employees needs an agreed custom quote.',CW,8.6,13,MUTED)
+lines(M,160,'The same core tools are included in every Clockx tier. Open shifts, extra-hours requests and employee or company documents are included in Full Workspace. Above 20 employees needs an agreed custom quote.',CW,8.6,13,MUTED)
 lines(M,128,'Pay tools organise recorded hours and gross estimates. Your existing payroll process handles deductions and payslips.',CW,8.5,13,MUTED)
 box(M,49,CW,51,INK,r=12)
 text(M+17,80,'Find the package for your team.',11,'#FFFFFF',True)
@@ -68,7 +68,7 @@ c.showPage();header(2)
 text(M,H-111,'FULL WORKSPACE',8.5,PURPLE,True)
 text(M,H-149,'More people tools.',30,INK,True)
 text(M,H-185,'More room to grow.',30,INK,True)
-lines(M,H-214,'Everything in Clockx, plus employee onboarding, sickness and return-to-work records, protected personnel files and wider access controls.',CW,10.3,16,MUTED)
+lines(M,H-214,'Everything in Clockx, plus open shifts, extra-hours requests, employee contracts, company documents, onboarding, sickness and return-to-work records, protected personnel files and wider access controls.',CW,10.3,16,MUTED)
 # Fixed annual Full Workspace bands.
 top=H-266;row=32
 box(M,top-26,CW,26,INK,r=6)
@@ -99,5 +99,5 @@ lines(M,86,'Annual access is arranged by bank transfer. Extra employees above th
 text(M,44,web.replace('https://','').rstrip('/')+'/pricing/',8,PURPLE,True)
 c.linkURL(web+'pricing/',(M,40,W-M,55),relative=0,thickness=0)
 c.save()
-asset=ROOT/'public/downloads/dayridge-product-brochure.pdf';asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(OUT,asset)
+asset=ROOT/'public/downloads/dayridge-product-brochure.pdf';asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(OUT,asset);shutil.copyfile(OUT,ROOT/'public/downloads/clocknexa-product-brochure.pdf')
 print(OUT);print(asset);print('PDF bytes',OUT.stat().st_size)
