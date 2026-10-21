@@ -292,10 +292,12 @@ try {
       await page.locator('[name="message"]').fill('Please show me the platform. <script>alert(1)</script>');
       await page.waitForTimeout(2600);
       await page.locator('#contact-form button[type="submit"]').click();
+      await page.locator('[data-contact-success]').waitFor({ state: 'visible' });
       assert.equal(await page.locator('[data-contact-success]').isVisible(), true);
       assert.equal(await page.locator('#contact-form').isVisible(), false);
-      assert.equal(contactSubmissions[1].business,'Example Café');
-      assert.equal(contactSubmissions[1].message,'Please show me the platform. <script>alert(1)</script>');
+      assert.equal(contactSubmissions.length,3);
+      assert.equal(contactSubmissions[2].business,'Example Café');
+      assert.equal(contactSubmissions[2].message,'Please show me the platform. <script>alert(1)</script>');
       await text(page, '.contact-email', /Reviewed in the DayRidge management dashboard/);
 
       await page.goto(origin + '/contact/?topic=plan&package=clocking&employees=5');
