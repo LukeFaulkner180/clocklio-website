@@ -3,7 +3,7 @@ import { test } from 'node:test';
 
 // Test the deployed handler without making network requests or creating leads.
 globalThis.Deno = {
-  env: { get: name => ({ SUPABASE_URL: 'https://database.example.invalid', SUPABASE_SERVICE_ROLE_KEY: 'server-only-test-key' })[name] },
+  env: { get: name => ({ SUPABASE_URL: 'https://database.example.invalid', SUPABASE_SERVICE_ROLE_KEY: 'server-only-test-key', RESEND_API_KEY: 'synthetic-test-key' })[name] },
   serve: () => {},
 };
 const { handleSignup } = await import('../supabase/functions/dayridge-tester-signup/index.ts');
@@ -13,12 +13,15 @@ const request = (body = valid, options = {}) => new Request('https://function.ex
   body: JSON.stringify(body), ...options,
 });
 let saved;
+let outboundRequests = [];
 globalThis.fetch = async (url, options) => {
+  outboundRequests.push(String(url));
   saved = { url, options, body: JSON.parse(options.body) };
   return Response.json(true);
 };
 
 test('valid signup sends only intake fields, rotates a hashed rate-limit key, and returns no personal details', async () => {
+  outboundRequests = [];
   const response = await handleSignup(request({ ...valid, email: ' ALEX@example.invalid ', discount_percent: 100, discount_approved_at: '2026-01-01' }));
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { ok: true });
@@ -28,6 +31,7 @@ test('valid signup sends only intake fields, rotates a hashed rate-limit key, an
   assert.match(saved.body.p_client_hash, /^[a-f0-9]{64}$/);
   assert.ok(!JSON.stringify(saved.body).includes('192.0.2.1'));
   assert.equal(response.headers.get('access-control-allow-origin'), 'https://lukefaulkner180.github.io');
+  assert.deepEqual(outboundRequests, ['https://database.example.invalid/rest/v1/rpc/register_dayridge_tester']);
 });
 
 test('missing permission, invalid business fields and oversized inputs cannot reach storage', async () => {
