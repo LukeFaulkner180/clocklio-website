@@ -10,7 +10,7 @@ Home, Features, Pricing, Add-ons, Contact, Website Privacy and a custom 404 page
 
 All source files are in `public/`. GitHub Pages is deployed by `.github/workflows/deploy-pages.yml` on each push to `main`. Enable it once in the repository under **Settings → Pages → Build and deployment → Source: GitHub Actions**. Repository settings are managed by the owner; the workflow does not change repository visibility.
 
-The workflow gets the publishing URL and project path from GitHub, builds `dist/`, verifies links and publishes only those static files. Its deployment job reports the live URL. With the default GitHub domain, the project URL is `https://lukefaulkner180.github.io/clocklio-website/` once Pages is enabled and deployment succeeds.
+The workflow gets the publishing URL and project path from GitHub, builds `dist/`, verifies links and publishes only those static files. Its deployment job reports the live URL. The custom website domain is `https://dayridge.co.uk/`; GitHub Pages takes its domain and root path from repository Pages settings. Namecheap manages the DNS records. The earlier GitHub Pages project URL was `https://lukefaulkner180.github.io/clocklio-website/`.
 
 The build supports `SITE_BASE_PATH` and `SITE_URL`, so navigation, images, dynamic calculator links, canonical metadata and the sitemap work under a project path. For example: `SITE_BASE_PATH=/clocklio-website SITE_URL=https://lukefaulkner180.github.io/clocklio-website/ npm run build`. Without those variables, `npm run build` makes a root-hosted version for the review preview. Cloudflare Pages can still serve `public/` directly.
 
