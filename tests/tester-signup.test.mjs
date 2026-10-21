@@ -50,6 +50,12 @@ test('bot trap, invalid JSON and oversized requests never create records', async
 
 test('other origins and methods are rejected; browser preflight works without a write', async () => {
   saved = undefined;
+  for (const origin of ['https://dayridge.co.uk', 'https://www.dayridge.co.uk']) {
+    const response = await handleSignup(request(valid, { headers: { origin, 'content-type': 'application/json' } }));
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('access-control-allow-origin'), origin);
+  }
+  saved = undefined;
   assert.equal((await handleSignup(request(valid, { headers: { origin: 'https://other.example.invalid' } }))).status, 403);
   const options = await handleSignup(new Request('https://function.example.invalid', { method: 'OPTIONS', headers: { origin: 'https://lukefaulkner180.github.io' } }));
   assert.equal(options.status, 204);

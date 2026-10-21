@@ -1,5 +1,5 @@
 // A dedicated intake endpoint: no accounts, invitations, messages or payments.
-const allowedOrigins = new Set(['https://lukefaulkner180.github.io']);
+const allowedOrigins = new Set(['https://lukefaulkner180.github.io', 'https://dayridge.co.uk', 'https://www.dayridge.co.uk']);
 const industries = new Set(['hospitality', 'retail', 'care', 'services', 'other']);
 const teamSizes = new Set(['1-5', '6-10', '11-20', '21-50', '51+']);
 const interests = new Set(['rotas', 'time', 'people', 'tasks', 'stock']);
