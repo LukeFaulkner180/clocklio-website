@@ -1,4 +1,5 @@
-// A dedicated intake endpoint: no accounts, invitations, messages or payments.
+import { dispatchTesterEmails } from '../_shared/tester-emails.ts'
+// Registrations stay separate from app accounts and payments.
 const allowedOrigins = new Set(['https://lukefaulkner180.github.io', 'https://dayridge.co.uk', 'https://www.dayridge.co.uk']);
 const industries = new Set(['hospitality', 'retail', 'care', 'services', 'other']);
 const teamSizes = new Set(['1-5', '6-10', '11-20', '21-50', '51+']);
@@ -54,6 +55,17 @@ export async function handleSignup(req: Request): Promise<Response> {
     if (!response.ok) { console.error('Tester signup database request failed:', response.status); return reply(503, { ok: false }); }
     const accepted = await response.json();
     if (accepted === false) return new Response(JSON.stringify({ ok: false }), { status: 429, headers: { ...headers, 'Retry-After': '3600' } });
+    if (accepted === true && Deno.env.get('RESEND_API_KEY')) {
+      const deliver = async () => {
+        const lookup = await fetch(`${url}/rest/v1/dayridge_tester_signups?email=eq.${encodeURIComponent(payload.email)}&select=id`, { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` }, signal: AbortSignal.timeout(10000) });
+        if (!lookup.ok) throw new Error('Application lookup failed');
+        const application = (await lookup.json())[0];
+        if (application?.id) await dispatchTesterEmails({ url, serviceKey, apiKey: Deno.env.get('RESEND_API_KEY'), signupId: application.id });
+      };
+      const task = deliver().catch(() => console.error('Tester email delivery needs a retry.'));
+      if (typeof EdgeRuntime !== 'undefined') EdgeRuntime.waitUntil(task);
+      else await task;
+    }
     return accepted === true ? reply(200, { ok: true }) : reply(503, { ok: false });
   } catch {
     // Never log form content, contact details or credentials.
