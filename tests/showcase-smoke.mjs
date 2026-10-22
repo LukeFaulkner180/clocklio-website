@@ -91,6 +91,25 @@ try {
       assert.equal(await page.locator('.holding-art-chip').first().evaluate(el => getComputedStyle(el).animationName), 'holding-float', 'Launch artwork animates by default');
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.screenshot({ path: artifactDirectory + '/launch-desktop-' + name + '.png', fullPage: true });
+      for (const [slug, heading] of [
+        ['clocking-in-software', /Clocking-in software that keeps every shift/],
+        ['staff-rota-software', /Staff rota software for a clearer working week/],
+        ['annual-leave-management', /Annual leave management with a clearer path/],
+      ]) {
+        await page.goto(origin + '/' + slug + '/');
+        await text(page, 'h1', heading);
+        assert.equal(await page.locator('link[rel=canonical]').getAttribute('href'), 'https://dayridge.co.uk/' + slug + '/');
+        await page.locator('.seo-feature-faq summary').first().click();
+        assert.equal(await page.locator('.seo-feature-faq details').first().getAttribute('open'), '');
+        for (const width of [1440, 390, 320]) {
+          await page.setViewportSize({ width, height: width < 700 ? 844 : 1000 });
+          await noOverflow(page, slug + ' at ' + width, errors);
+        }
+        await page.setViewportSize({ width: 1440, height: 1000 });
+        await page.getByRole('link', { name: 'Join business testing', exact: true }).click();
+        await page.waitForURL('**/early-access/');
+      }
+      await page.goto(origin);
       await page.getByRole('link', { name: 'Become a tester & earn 10% off', exact: true }).click();
       await page.waitForURL('**/early-access/');
       await text(page, '.tester-offer', /Complete the agreed testing and feedback/);

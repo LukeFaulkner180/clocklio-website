@@ -1,0 +1,152 @@
+{
+  "/": {
+    "title": "Staff Rota & Clocking-In Software | DayRidge",
+    "description": "Staff rotas, clocking in and annual leave in one workspace for UK businesses. Coming in 2027. Register your business for DayRidge early access.",
+    "label": "Home"
+  },
+  "/404.html": {
+    "title": "Page not found — DayRidge",
+    "description": "Find your way back to the DayRidge platform.",
+    "label": "Page not found"
+  },
+  "/about/": {
+    "title": "About DayRidge | Staff Management Software",
+    "description": "Meet DayRidge, the independent software brand based in Suffolk. Learn about our plans for simpler rotas, time tracking and everyday staff management.",
+    "label": "About DayRidge"
+  },
+  "/add-ons/": {
+    "title": "Staff Tasks & Stock Management Add-ons | DayRidge",
+    "description": "Explore DayRidge paid Tasks and Stock Management add-ons, their features and pricing. See how they fit alongside the main staff management plans.",
+    "label": "Add-ons"
+  },
+  "/annual-leave-management/": {
+    "title": "Annual Leave Management Software | DayRidge",
+    "description": "Manage staff holiday requests, review leave balances and record decisions with DayRidge. Coming in 2027. Join the business testing programme.",
+    "label": "Annual leave management"
+  },
+  "/brochure/": {
+    "title": "Download the product brochure - DayRidge",
+    "description": "Download the DayRidge product brochure with Clockx and Full Workspace packages, annual prices and monthly add-ons.",
+    "label": "Download the product brochure"
+  },
+  "/clocking-in-software/": {
+    "title": "Clocking-In Software for UK Businesses | DayRidge",
+    "description": "Explore DayRidge clocking-in software for recorded hours, breaks and payroll handover. Coming in 2027. Register your business for early access.",
+    "label": "Clocking-in software"
+  },
+  "/contact/": {
+    "title": "Contact DayRidge | Rota & Staff Management Software",
+    "description": "Ask about DayRidge plans, staff rotas, clocking in or business testing. Send your enquiry to the DayRidge team through our contact form.",
+    "label": "Contact DayRidge"
+  },
+  "/early-access/": {
+    "title": "Test DayRidge | Early Access to Rota & Clocking Software",
+    "description": "Register your UK business to test DayRidge before its 2027 launch. Complete agreed testing and feedback to qualify for 10% off an annual subscription.",
+    "label": "Business testing"
+  },
+  "/features/": {
+    "title": "Rota, Time Tracking & Staff Management Features | DayRidge",
+    "description": "Explore DayRidge features for rotas, clocking in, annual leave and team records. Find the tools for your business ahead of the 2027 launch.",
+    "label": "Features"
+  },
+  "/help/": {
+    "title": "Help centre - DayRidge",
+    "description": "Find practical guides for rotas, clocking, leave, contracts, payroll hours, permissions and Stock Management.",
+    "label": "Help centre"
+  },
+  "/help/clock-in-and-breaks/": {
+    "title": "Clock in, record breaks and clock out - DayRidge",
+    "description": "Use your employee login or the registered workplace kiosk to record the working day.",
+    "label": "Clock in, record breaks and clock out"
+  },
+  "/help/contracts-and-policies/": {
+    "title": "Share contracts and company documents - DayRidge",
+    "description": "Prepare a private employee contract or upload guidance for the business team.",
+    "label": "Share contracts and company documents"
+  },
+  "/help/invite-employees/": {
+    "title": "Add employees and understand approvals - DayRidge",
+    "description": "Invite your team, reuse existing accounts and know when an extra place needs approval.",
+    "label": "Add employees and understand approvals"
+  },
+  "/help/manager-permissions/": {
+    "title": "Understand Managers and Team Leader access - DayRidge",
+    "description": "Keep operational access, stock permissions and private records under the right control.",
+    "label": "Understand Managers and Team Leader access"
+  },
+  "/help/payroll-hours/": {
+    "title": "Prepare hours for payroll handover - DayRidge",
+    "description": "Review recorded shifts and export hours for the business’s existing payroll process.",
+    "label": "Prepare hours for payroll handover"
+  },
+  "/help/publish-rota/": {
+    "title": "Create and publish a rota - DayRidge",
+    "description": "Plan shifts as drafts, check the week and publish when your team is ready to see it.",
+    "label": "Create and publish a rota"
+  },
+  "/help/request-annual-leave/": {
+    "title": "Request and review annual leave - DayRidge",
+    "description": "Send a leave request and follow the decision without changing your own rota.",
+    "label": "Request and review annual leave"
+  },
+  "/help/review-stock-differences/": {
+    "title": "Review till differences and investigation notes - DayRidge",
+    "description": "Compare the same reporting period, explain discrepancies and follow investigations through.",
+    "label": "Review till differences and investigation notes"
+  },
+  "/help/stocktakes/": {
+    "title": "Set up products and complete a stocktake - DayRidge",
+    "description": "Use units that fit your business, save unfinished counts and record a clear stock history.",
+    "label": "Set up products and complete a stocktake"
+  },
+  "/platform/": {
+    "title": "Staff Management Software for UK Businesses | DayRidge",
+    "description": "Explore DayRidge for staff rotas, time tracking, annual leave and team management. Discover the platform ahead of its 2027 launch.",
+    "label": "The DayRidge platform"
+  },
+  "/pricing/": {
+    "title": "Staff Rota & Clocking Software Pricing | DayRidge",
+    "description": "Compare DayRidge Clockx and Full Workspace annual plans, employee limits and optional add-ons. Explore pricing ahead of the 2027 launch.",
+    "label": "Plans and pricing"
+  },
+  "/privacy/": {
+    "title": "Website privacy — DayRidge",
+    "description": "How DayRidge stores contact requests for dashboard review, plus how the website handles interactive examples and external links.",
+    "label": "Website privacy"
+  },
+  "/referrals/": {
+    "title": "Recommend a business - DayRidge",
+    "description": "Create a shareable introduction link and understand the current status of referral rewards.",
+    "label": "Recommend a business"
+  },
+  "/resources/": {
+    "title": "Resources & support - DayRidge",
+    "description": "Find help guides, security information, package guidance, product updates and the DayRidge brochure.",
+    "label": "Resources & support"
+  },
+  "/security/": {
+    "title": "Security & data access - DayRidge",
+    "description": "Understand roles, private employee documents, owner payroll access, data separation and the primary database location.",
+    "label": "Security & data access"
+  },
+  "/staff-rota-software/": {
+    "title": "Staff Rota Software for UK Businesses | DayRidge",
+    "description": "Plan staff shifts, review draft rotas and publish the working week with DayRidge. Coming in 2027. Register your business for early access.",
+    "label": "Staff rota software"
+  },
+  "/subscriptions/": {
+    "title": "Subscriptions explained - DayRidge",
+    "description": "Understand annual Clockx and Full Workspace access, employee approvals, renewal quotes and optional monthly add-ons.",
+    "label": "Subscriptions explained"
+  },
+  "/switching/": {
+    "title": "Switching to DayRidge - DayRidge",
+    "description": "A practical guide to bringing existing team records into Clockx or Full Workspace and preparing your first working week.",
+    "label": "Switching to DayRidge"
+  },
+  "/updates/": {
+    "title": "Product updates & roadmap - DayRidge",
+    "description": "See released DayRidge improvements and clearly labelled ideas being considered for the future.",
+    "label": "Product updates & roadmap"
+  }
+}

@@ -53,3 +53,11 @@ The public site now includes Resources, nine Help Centre guides, Security & data
 ## Website stats
 
 The shared social-profiles module imports the lightweight website page-view counter on every public page. It sends a random per-load token to the validated DayRidge endpoint, with cookies and referrer excluded, and waits for background pages to become visible. The owner dashboard shows the daily totals. Local previews, the signed-in app, known crawler agents and 404 pages are excluded. Run `node --test tests/website-stats.test.mjs` to check those rules.
+
+## Search metadata and product pages
+
+The public clocking-in, staff rota and annual-leave product pages describe current workflows and direct businesses to early access, while retaining the 2027 launch message. The homepage and feature catalogue link to those pages.
+
+`content/seo.json` holds page-specific titles, descriptions and breadcrumb labels. `scripts/seo.mjs` applies matching canonical and social metadata, Organization/WebSite/WebPage/BreadcrumbList structured data, and a sitemap containing the public indexable pages. Canonical and sharing URLs always use `content/site.json`'s production website address, including project-path QA builds. The 404 document is marked noindex and excluded from the sitemap. No review scores, launch availability or structured purchase offers are invented.
+
+After editing SEO content or regenerating resources, run `npm run seo:refresh` to refresh the checked-in pages. The production build also reapplies this automatically. Add a metadata entry when adding a page; the checks reject missing or duplicate metadata and invalid sitemap coverage. `npm run check` includes SEO tests, and `npm run build` checks the generated output. Google Search Console ownership verification, sitemap submission and search performance reporting are separate owner setup steps.
