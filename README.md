@@ -48,3 +48,8 @@ The public site now includes Resources, nine Help Centre guides, Security & data
 - The security page's primary database location was checked as London / eu-west-2 on 17 October 2026. It makes no certification or backup-retention guarantee. Review that copy when hosting or access rules change.
 - Contact addresses and a referral reward are deliberately unconfigured. The referral tool produces a local shareable introduction URL and passes the reference into an enquiry draft; it does not register a referral, send an invitation or create a credit. Agree programme terms before announcing a financial reward.
 - Subscription guidance describes confirmed package and approval behaviour. Business-specific service terms set renewal, cancellation and payment arrangements.
+
+
+## Website stats
+
+The shared social-profiles module imports the lightweight website page-view counter on every public page. It sends a random per-load token to the validated DayRidge endpoint, with cookies and referrer excluded, and waits for background pages to become visible. The owner dashboard shows the daily totals. Local previews, the signed-in app, known crawler agents and 404 pages are excluded. Run `node --test tests/website-stats.test.mjs` to check those rules.

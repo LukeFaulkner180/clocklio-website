@@ -1,3 +1,4 @@
+import './website-stats.js?v=1';
 // Add the verified DayRidge page URLs here when the profiles are ready.
 const socialProfiles = {
   facebook: null,
