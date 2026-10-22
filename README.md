@@ -52,7 +52,7 @@ The public site now includes Resources, nine Help Centre guides, Security & data
 
 ## Website stats
 
-The shared social-profiles module imports the lightweight website page-view counter on every public page. It sends a random per-load token to the validated DayRidge endpoint, with cookies and referrer excluded, and waits for background pages to become visible. The owner dashboard shows the daily totals. Local previews, the signed-in app, known crawler agents and 404 pages are excluded. Run `node --test tests/website-stats.test.mjs` to check those rules.
+The shared social-profiles module imports the lightweight website page-view counter on every public page. It sends a random per-load token to the validated DayRidge endpoint, with cookies and referrer excluded, and waits for background pages to become visible. The dedicated Website stats menu shows daily totals, trends, comparisons, popular pages, broad device/referral buckets and brochure link clicks. The overview does not display website statistics. Only known public paths and fixed source/device categories are sent; full referrers and query strings are discarded. Download clicks are separate from page views. Local previews, the signed-in app, known crawler agents and 404 pages are excluded. Run `node --test tests/website-stats.test.mjs` to check those rules.
 
 ## Search metadata and product pages
 
