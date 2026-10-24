@@ -18,7 +18,7 @@ OUT=ROOT/'output/pdf/dayridge-product-brochure.pdf';OUT.parent.mkdir(parents=Tru
 W,H=A4;M=42;CW=W-84
 INK='#202A3C';PURPLE='#6748DE';MUTED='#657080';PAPER='#FAF9F6';LILAC='#EEE9FC';LINE='#DDDDE6';MINT='#DDF2E9';GREEN='#28705A';ORANGE='#F8E3C7'
 c=canvas.Canvas(str(OUT),pagesize=A4,pageCompression=1)
-c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing, role views, values and business testing')
+c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing, role views, values and product workflows')
 def text(x,y,s,size=10,color=INK,bold=False):
  c.setFillColor(HexColor(color));c.setFont('Bold' if bold else 'UI',size);c.drawString(x,y,s)
 def para(x,y,s,w=CW,size=10,leading=16,color=MUTED,bold=False):
@@ -35,7 +35,7 @@ def price(p):return '£'+format(p/100,',.2f')
 def begin(n,label,title,sub):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  text(M,H-48,'Day',18,INK,True);text(M+39,H-48,'Ridge',18,PURPLE,True)
- text(W-M-133,H-44,'PRODUCT GUIDE / 2026',7.3,MUTED,True)
+ guide='PRODUCT GUIDE / 2026/27';text(W-M-pdfmetrics.stringWidth(guide,'Bold',7.3),H-44,guide,7.3,MUTED,True)
  line(M,43,W-M,43);text(M,26,'dayridge.co.uk',9,PURPLE,True);text(W-M-31,27,f'{n+1} / 12',7.6,MUTED);c.linkURL('https://dayridge.co.uk/',(M,18,180,39),relative=0,thickness=0)
  text(M,746,label.upper(),8.5,PURPLE,True)
  y=706
@@ -100,7 +100,7 @@ def sales_cover():
  c.setFillColor(HexColor('#EEE9FC'));c.circle(W-M-34,95,19,stroke=0,fill=1)
  line(W-M-43,95,W-M-25,95,PURPLE,1.8);line(W-M-31,101,W-M-25,95,PURPLE,1.8);line(W-M-31,89,W-M-25,95,PURPLE,1.8)
  c.linkURL('https://dayridge.co.uk/',(M,55,W-M,135),relative=0,thickness=0)
- text(M,29,'PRODUCT BROCHURE',7.7,'#BFC9D7',True)
+ text(M,29,'PRODUCT BROCHURE / 2026/27',7.7,'#BFC9D7',True)
  text(361,29,'BASED IN SUFFOLK, UK',7.7,'#BFC9D7',True)
 
 def contact_cover():
@@ -125,13 +125,12 @@ def contact_cover():
  text(W-M-132,247,'Scan to get in touch',8,MUTED,True)
  c.linkURL('https://dayridge.co.uk/contact/',(M+15,266,355,321),relative=0,thickness=0)
  c.linkURL('https://dayridge.co.uk/contact/',(W-M-137,259,W-M-21,382),relative=0,thickness=0)
- text(M,177,'INTERESTED IN BUSINESS TESTING?',8,'#C7BCFF',True)
- text(M,151,'dayridge.co.uk/early-access/',13,white,True)
- para(M,124,'Register your business interest. Testing access and feedback are agreed before you get started.',CW,9,15,pale)
- c.linkURL('https://dayridge.co.uk/early-access/',(M,145,360,169),relative=0,thickness=0)
+ text(M,177,'LET’S FIND THE RIGHT FIT',8,'#C7BCFF',True)
+ text(M,151,'A conversation about your business.',16,white,True)
+ para(M,124,'Tell us your team size and the tools you need. We will walk through the options and explain the next steps.',CW,9,15,pale)
  line(M,63,W-M,63,'#465268')
  text(M,40,'DayRidge. Built around your working day.',9,white,True)
- text(391,40,'PRODUCT BROCHURE / 2026',7,pale)
+ text(391,40,'PRODUCT BROCHURE / 2026/27',7,pale)
 
 sales_cover();end()
 # 1 Product family (inside the sales cover)
@@ -173,7 +172,7 @@ box(M,258,208,310,INK,r=24);box(M+9,268,190,288,'#FFFFFF',r=18)
 text(M+26,526,'MY TIME CLOCK',8,PURPLE,True);text(M+26,495,'Good morning, Alex',11,INK,True);pill(M+26,464,'CLOCKED IN',MINT,GREEN)
 text(M+26,415,'03h 15m',29,INK,True);text(M+26,393,'Paid time recorded',9,MUTED)
 line(M+26,376,M+179,376);text(M+26,351,'£42.25',25,PURPLE,True);text(M+26,332,'Illustrative gross estimate',8,MUTED)
-box(M+26,286,156,30,PURPLE);text(M+52,297,'Record a break',9,'#FFFFFF',True)
+box(M+26,286,156,30,PURPLE);text(M+72,297,'Clock out',9,'#FFFFFF',True)
 feature(274,551,'01','Record the real day','A rota is a plan. A clock-in records when work starts; clock-outs and breaks complete the record.',237)
 feature(274,439,'02','Review and correct','Managers can review records, clock employees in or out and correct entries where needed.',237)
 feature(274,327,'03','Prepare payroll hours','Review recorded hours and export a CSV for your existing payroll process.',237)
@@ -182,13 +181,26 @@ para(M,110,'Break rules and manager corrections affect paid hours. Gross estimat
 end()
 # 3 Rota
 begin(3,'Clockx + Full Workspace','Plan the week.\nKeep everyone informed.','Build a rota, check availability and publish shifts so employees can see their working week in My shifts.')
-browser(M,351,CW,214,'ROTAS / WEEK VIEW')
-cols=[M+18,M+113,M+208,M+303,M+398]
-for i,d in enumerate(['MON 04','TUE 05','WED 06','THU 07','FRI 08']):
- text(cols[i]+4,505,d,7.5,MUTED,True)
+browser(M,351,280,214,'MANAGER / WEEKLY ROTA')
+for i,day in enumerate(['MON','TUE','WED']):
+ x=M+13+i*86;text(x+5,505,day,7.4,MUTED,True)
  for j in range(2):
-  fill=ORANGE if (i==3 and j==1) else MINT;box(cols[i],449-j*47,86,39,fill,r=5);text(cols[i]+7,474-j*47,['Alex','Sam'][j],7.3,INK,True);text(cols[i]+7,461-j*47,'09:00 – 17:00',6.5,MUTED)
-pill(M+18,370,'PUBLISHED',MINT,GREEN);pill(M+138,370,'DRAFT',ORANGE,'#8A5A24')
+  yy=449-j*47;fill=ORANGE if i==2 and j==1 else MINT
+  box(x,yy,79,39,fill,r=5);text(x+7,yy+25,['Alex','Sam'][j],7.5,INK,True);text(x+7,yy+12,'09:00 - 17:00',6.4,MUTED)
+pill(M+13,370,'PUBLISHED',MINT,GREEN);pill(M+139,370,'DRAFT',ORANGE,'#8A5A24')
+rx=M+296
+browser(rx,351,215,214,'MY SHIFTS / MONTH')
+text(rx+14,506,'October 2026',10,INK,True)
+for i,day in enumerate(['S','M','T','W','T','F','S']):text(rx+20+i*28,485,day,7.4,MUTED)
+for i in range(21):
+ day=i+4;x=rx+22+(i%7)*28;y=460-(i//7)*30
+ kind='away' if day in [6,7] else 'overtime' if day in [13,20] else 'shift' if day in [4,10,11,15,17,18,22,24] else ''
+ if kind:
+  c.setFillColor(HexColor({'shift':'#34785B','away':'#8963AE','overtime':'#F58220'}[kind]));c.circle(x,y,11,stroke=0,fill=1)
+ text(x-(2.5 if day<10 else 5),y-3,str(day),8,'#FFFFFF' if kind and kind!='overtime' else INK,True)
+for x,label,col in [(rx+14,'Shift','#34785B'),(rx+78,'Away','#8963AE'),(rx+147,'OT','#F58220')]:
+ c.setFillColor(HexColor(col));c.circle(x,370,3,stroke=0,fill=1);text(x+7,367,label,7,MUTED)
+text(M,336,'Illustrative manager and employee views. Green: shifts. Purple: time away. Orange: overtime.',7.2,MUTED)
 text(M,311,'Leave requests, with a clear decision',16,INK,True)
 for i,(title,body) in enumerate([('Request','Choose dates and review estimated hours and balance.'),('Review','Manager checks cover, balances and published shifts.'),('Decide','Keep the request status clear: approved or declined.')]):
  x=M+i*174;box(x,174,163,110,'#FFFFFF',LINE);pill(x+13,258,str(i+1));text(x+13,226,title,11,INK,True);para(x+13,207,body,137,8.5,13)
@@ -197,10 +209,14 @@ para(M,91,'Need cover? Full Workspace also includes Open shifts and extra-hours 
 end()
 # 4 Full
 begin(4,'Full Workspace','More of your people\npicture, together.','Bring the core rota and time tools together with the records and workflows that support your team throughout their time with you.')
-browser(M,340,CW,226,'PEOPLE / EMPLOYEE WORKSPACE')
+browser(M,340,CW,226,'PEOPLE / OWNER VIEW')
 box(M+18,441,56,56,LILAC,r=28);text(M+30,461,'AJ',20,PURPLE,True);text(M+90,478,'Alex Jones',15,INK,True);text(M+90,457,'Illustrative employee profile',8,MUTED)
-for i,(title,status) in enumerate([('Onboarding','In progress'),('Company policies','Available'),('Personnel records','Access controlled')]):
- yy=408-i*23;text(M+20,yy,title,8.4,INK,True);text(M+298,yy,status,8.2,PURPLE);line(M+18,yy-8,W-M-18,yy-8)
+for i,(title,status) in enumerate([('Contract','Available'),('Company policies','Available'),('Personnel file','Access controlled')]):
+ x=M+17+i*160
+ box(x,355,148,72,LILAC if i<2 else MINT,r=8)
+ c.setStrokeColor(HexColor(PURPLE if i<2 else GREEN));c.setLineWidth(1)
+ c.rect(x+12,390,12,18,stroke=1,fill=0);line(x+15,402,x+21,402,PURPLE);line(x+15,398,x+21,398,PURPLE)
+ text(x+34,397,title,8.1,INK,True);text(x+12,372,status,7.8,PURPLE if i<2 else GREEN)
 feature(M,300,'01','Start with structure','Keep onboarding, contracts and company policies alongside employee information.',244)
 feature(310,300,'02','Support the full journey','Manage sickness and return-to-work records with the wider employee record.',243)
 feature(M,176,'03','Give the right access','Use wider role permissions and protected personnel files to control who can see and manage records.',244)
@@ -212,8 +228,11 @@ box(M,310,244,248,'#FFFFFF',LINE);box(309,310,244,248,'#FFFFFF',LINE)
 text(M+17,530,'Tasks',20,INK,True);text(326,530,'Stock Management',16,INK,True)
 for i,(label,status,fill) in enumerate([('Opening checks','To do',LILAC),('Restock supplies','In progress',ORANGE),('Close-down checklist','Complete',MINT)]):
  yy=478-i*42;box(M+16,yy,211,34,fill,r=6);text(M+25,yy+21,label,8.1,INK,True);text(M+25,yy+8,status,7,MUTED)
-for i,(label,val) in enumerate([('Expected takings','£840'),('Actual takings','£830'),('Difference','−£10')]):
- yy=484-i*43;text(326,yy,label,8.7,MUTED);text(469,yy,val,11,PURPLE,True);line(326,yy-13,535,yy-13)
+text(326,495,'ITEM',6.8,MUTED,True);text(476,495,'CLOSING',6.8,MUTED,True)
+for i,(item,count) in enumerate([('Coffee beans','12 bags'),('Milk','18 cartons')]):
+ yy=473-i*24;box(321,yy-7,216,22,'#F4F1FA',r=4);text(328,yy,item,8,INK);text(475,yy,count,7.8,PURPLE,True)
+for i,(label,val) in enumerate([('Expected takings','£840'),('Actual takings','£830'),('Difference','-£10')]):
+ yy=415-i*25;text(326,yy,label,8.2,MUTED);text(480,yy,val,10,PURPLE,True);line(326,yy-10,535,yy-10)
 text(M+17,328,'Illustrative task board',7,MUTED);text(326,328,'Illustrative reconciliation',7,MUTED)
 text(M,281,'Clear actions for the team',12,INK,True);para(M,260,'Assign instructions and deadlines. Employees use My Tasks to see their work and record completion.',244,9.1,14)
 text(309,281,'Understand your stock',12,INK,True);para(309,260,'Record opening and closing counts, deliveries, adjustments and waste. Review usage and compare expected with actual takings.',244,9.1,14)
@@ -285,13 +304,28 @@ para(M,213,'For 6–9 employees, add £45 per year for each employee above the f
 para(M,156,'Managers are included. A manager with an employee shift profile uses one employee slot. Extra staff above the approved allowance need platform approval.',CW,8.8,14)
 para(M,104,'Over 20 employees on Clockx or over 50 on Full Workspace? Ask for a custom quote. Annual subscriptions are arranged by bank transfer or direct agreement.',CW,8.8,14)
 end()
-# 8 CTA
-begin(10,'Business testing','Help shape a better\nworking day.','We are inviting businesses to register their interest in testing DayRidge. Tell us about your team and how you work.')
-steps=[('01','Register your business','Share your team size, the tools you need and your interest in testing.'),('02','Agree the testing plan','We will agree access, testing and feedback before you get started.'),('03','Try it with your team','Explore the relevant workflows and share practical feedback.'),('04','Choose your next step','If you continue, confirm the right package and employee allowance.')]
-for i,(num,title,body) in enumerate(steps):feature(M,547-i*87,num,title,body,CW)
-box(M,123,CW,91,LILAC);text(M+18,189,'10% off your annual subscription',15,PURPLE,True);para(M+18,166,'Business testers who complete the agreed testing and feedback qualify if they continue with DayRidge. Registering alone does not qualify or start a paid subscription.',CW-36,9,14)
-text(M,91,'Explore the platform and register:',9,INK,True);text(M,71,'dayridge.co.uk/early-access/',11,PURPLE,True)
-c.linkURL('https://dayridge.co.uk/early-access/',(M,63,350,107),relative=0,thickness=0)
+# A visual working-day walkthrough replaces the former signup offer.
+begin(10,'DayRidge in action','One working day.\nConnected from the start.','Example views show how planning, clocking and reviewing hours connect across your team.')
+text(M,578,'ILLUSTRATIVE PRODUCT VIEWS / EXAMPLE STAFF AND HOURS',7,MUTED,True)
+browser(M,417,CW,143,'01 / MANAGER: PLAN THE WEEK')
+text(M+17,507,'Publish a rota your team can see',11,INK,True)
+for i,(name,time) in enumerate([('Alex','09:00 - 17:00'),('Sam','09:00 - 13:00'),('Jamie','13:00 - 21:00')]):
+ x=M+17+i*160;box(x,446,148,44,MINT,r=6);text(x+11,473,name,9,INK,True);text(x+11,457,time,8,GREEN)
+text(M+17,430,'Published shifts appear in each employee’s personal schedule.',8,MUTED)
+browser(M,240,CW,143,'02 / EMPLOYEE: RECORD THE SHIFT')
+text(M+17,332,'MY TIME CLOCK',7.8,PURPLE,True)
+text(M+17,299,'03h 15m',24,INK,True)
+pill(M+173,311,'CLOCKED IN',MINT,GREEN)
+box(M+304,281,190,55,LILAC,r=7);text(M+316,316,'TODAY’S PUBLISHED SHIFT',6.6,PURPLE,True);text(M+316,296,'09:00 - 17:00',12,INK,True)
+text(M+17,254,'Clock-ins and clock-outs create the worked-time record.',8,MUTED)
+browser(M,63,CW,143,'03 / BUSINESS OWNER: REVIEW HOURS')
+headers=[(M+17,'EMPLOYEE'),(M+144,'IN'),(M+216,'OUT'),(M+297,'BREAK'),(M+396,'PAID HOURS')]
+for x,label in headers:text(x,151,label,7,MUTED,True)
+for i,values in enumerate([('Alex','09:00','17:00','30m','7h 30m'),('Sam','09:00','13:00','0m','4h 00m')]):
+ yy=127-i*23
+ for (x,_),value in zip(headers,values):text(x,yy,value,9,INK,True)
+ line(M+17,yy-8,W-M-17,yy-8)
+text(M+17,78,'Review recorded hours, then export a CSV for your payroll process.',8,PURPLE,True)
 end();contact_cover();end();c.save()
 for name in ['dayridge-product-brochure.pdf','clocknexa-product-brochure.pdf']:shutil.copy2(OUT,ROOT/'public/downloads'/name)
 shutil.copy2(OUT,OUT.parent/'DayRidge-Product-Brochure.pdf')
