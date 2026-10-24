@@ -8,7 +8,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import simpleSplit
 from reportlab.graphics.barcode import qr
-from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.shapes import Drawing, Group, Rect, Circle
+from reportlab.graphics.svgpath import SvgPath
 from reportlab.graphics import renderPDF
 ROOT=Path(__file__).resolve().parents[1]
 DATA=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {clockxPlan,fullWorkspacePlan} from './public/pricing.js'; console.log(JSON.stringify({clockx:[5,10,20].map(clockxPlan),full:[5,15,30,50].map(fullWorkspacePlan)}))"],cwd=ROOT,text=True))
@@ -17,7 +18,7 @@ OUT=ROOT/'output/pdf/dayridge-product-brochure.pdf';OUT.parent.mkdir(parents=Tru
 W,H=A4;M=42;CW=W-84
 INK='#202A3C';PURPLE='#6748DE';MUTED='#657080';PAPER='#FAF9F6';LILAC='#EEE9FC';LINE='#DDDDE6';MINT='#DDF2E9';GREEN='#28705A';ORANGE='#F8E3C7'
 c=canvas.Canvas(str(OUT),pagesize=A4,pageCompression=1)
-c.setTitle('DayRidge | Illustrated Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing and early access for the 2027 launch')
+c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing and early access for the 2027 launch')
 def text(x,y,s,size=10,color=INK,bold=False):
  c.setFillColor(HexColor(color));c.setFont('Bold' if bold else 'UI',size);c.drawString(x,y,s)
 def para(x,y,s,w=CW,size=10,leading=16,color=MUTED,bold=False):
@@ -35,7 +36,7 @@ def begin(n,label,title,sub):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  text(M,H-48,'Day',18,INK,True);text(M+39,H-48,'Ridge',18,PURPLE,True)
  text(W-M-133,H-44,'PRODUCT GUIDE / 2026',7.3,MUTED,True)
- line(M,43,W-M,43);text(M,27,'dayridge.co.uk   •   Coming in 2027',7.6,MUTED);text(W-M-31,27,f'{n} / 8',7.6,MUTED)
+ line(M,43,W-M,43);text(M,27,'dayridge.co.uk   •   Coming in 2027',7.6,MUTED);text(W-M-31,27,f'{n+1} / 10',7.6,MUTED)
  text(M,746,label.upper(),8.5,PURPLE,True)
  y=706
  for t in title.split('\n'):text(M,y,t,31,INK,True);y-=39
@@ -53,6 +54,93 @@ def check(x,y,yes=True):
  if yes:
   c.setStrokeColor(HexColor(GREEN));c.setLineWidth(1.6);p=c.beginPath();p.moveTo(x,y+3);p.lineTo(x+4,y);p.lineTo(x+11,y+8);c.drawPath(p)
  else:line(x,y+4,x+10,y+4,MUTED,1.2)
+# Branded sales covers use vector artwork so the printed logo and QR stay sharp.
+def brand(x,y,width=190,light=False):
+ icon=Drawing(64,64);g=Group();g.transform=(1,0,0,-1,0,64)
+ g.add(Rect(3,3,58,58,rx=19,ry=19,fillColor=HexColor('#6955D5'),strokeColor=None))
+ g.add(Rect(4,4,56,56,rx=18,ry=18,fillColor=None,strokeColor=HexColor('#9A8CEA'),strokeWidth=1))
+ g.add(SvgPath('M14.4 43.7c1.05-7.45 5.23-11.7 11.45-11.7 5.53 0 9.28 3.16 11.02 8.73',fillColor=None,strokeColor=HexColor('#FFFFFF'),strokeWidth=4.1,strokeLineCap=1))
+ g.add(Circle(25.6,22.5,6.25,fillColor=HexColor('#FFFFFF'),strokeColor=None))
+ g.add(Circle(42.4,22.3,4.45,fillColor=HexColor('#FFFFFF'),strokeColor=None))
+ g.add(SvgPath('m35.3 41.2 5.5 5.25 10.75-12.1',fillColor=None,strokeColor=HexColor('#8CEACB'),strokeWidth=4.8,strokeLineCap=1,strokeLineJoin=1))
+ icon.add(g)
+ scale=width/190
+ c.saveState();c.translate(x,y);c.scale(scale,scale)
+ c.saveState();c.scale(.71,.71);renderPDF.draw(icon,c,0,0);c.restoreState()
+ text(54,12,'Day',24,'#FFFFFF' if light else '#10234B',True)
+ text(54+pdfmetrics.stringWidth('Day','Bold',24),12,'Ridge',24,'#C7BCFF' if light else '#6047E8',True)
+ c.restoreState()
+
+def sales_cover():
+ c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
+ # A restrained violet margin frames the printed handout.
+ c.setFillColor(HexColor(PURPLE));c.rect(0,H-9,W,9,stroke=0,fill=1)
+ brand(M,H-94,190)
+ text(405,H-61,'PRODUCT BROCHURE',8,MUTED,True)
+ text(405,H-78,'2026 / 2027',8,MUTED)
+ text(M,679,'A CLEARER WORKING DAY',9,PURPLE,True)
+ for y,t,col in [(624,'Your team.',INK),(569,'Your time.',INK),(514,'One place.',PURPLE)]:text(M,y,t,48,col,True)
+ para(M,475,'Rotas, clocking and people management.\nMade clearer for your business.',380,12,19)
+ # One week, with the same green / orange / purple schedule language as the app.
+ browser(M,225,CW-42,183,'DAYRIDGE / YOUR WORKING WEEK')
+ text(M+18,350,'A little more clarity. Every day.',12,INK,True)
+ for i,(day,num,kind) in enumerate([('MON','12','shift'),('TUE','13','shift'),('WED','14','away'),('THU','15','shift'),('FRI','16','overtime'),('SAT','17','shift'),('SUN','18','')]):
+  x=M+36+i*58
+  text(x-10,324,day,6.8,MUTED,True)
+  if kind:
+   c.setFillColor(HexColor({'shift':'#34785B','away':'#8963AE','overtime':'#F58220'}[kind]));c.circle(x,291,19,stroke=0,fill=1)
+  text(x-8,285,num,13,'#FFFFFF' if kind and kind!='overtime' else INK,True)
+ text(M+18,248,'Plan shifts. Record hours. Keep your team informed.',8.4,MUTED)
+ # The clock card sits on the calendar edge as a second product touchpoint.
+ box(W-M-157,169,157,101,'#E9E5F2',r=13)
+ box(W-M-162,174,157,101,'#FFFFFF',LINE,r=13)
+ pill(W-M-149,249,'ON SHIFT',MINT,GREEN)
+ text(W-M-149,214,'03h 15m',21,INK,True)
+ text(W-M-149,194,'Time recorded, clearly.',7.4,MUTED)
+ text(M,199,'Illustrative product view',7,MUTED)
+ box(M,93,CW,69,LILAC,r=12)
+ text(M+16,140,'CLOCKX FROM',7.7,PURPLE,True)
+ text(M+16,116,'£99.99 / year',18,INK,True)
+ line(292,107,292,147,'#D5CCEF')
+ text(309,140,'FULL WORKSPACE FROM',7.7,PURPLE,True)
+ text(309,116,'£299.99 / year',18,INK,True)
+ text(M,75,'Annual prices per business, for up to five employees. Full pricing inside.',8,MUTED)
+ line(M,54,W-M,54)
+ text(M,34,'dayridge.co.uk',10,PURPLE,True)
+ text(330,34,'Coming in 2027 - business testing is open',7.6,MUTED)
+ c.linkURL('https://dayridge.co.uk/',(M,26,190,49),relative=0,thickness=0)
+
+def contact_cover():
+ navy='#18283C';pale='#BCC7D5';white='#FFFFFF'
+ c.setFillColor(HexColor(navy));c.rect(0,0,W,H,stroke=0,fill=1)
+ c.setFillColor(HexColor('#263450'));c.circle(W+40,H-35,213,stroke=0,fill=1)
+ c.setFillColor(HexColor('#354363'));c.circle(W+57,H-15,150,stroke=0,fill=1)
+ brand(M,H-102,190,True)
+ text(M,668,'LET’S TALK ABOUT YOUR TEAM',8.5,'#C7BCFF',True)
+ for y,t in [(616,'A simpler day'),(564,'starts with a'),(512,'conversation.')]:text(M,y,t,40,white,True)
+ para(M,470,'Tell us about your business. We will help you find the right workspace and show you how DayRidge fits your team.',CW-12,11.3,18,pale)
+ box(M,219,CW,180,white,r=15)
+ text(M+20,368,'YOUR NEXT STEP',8,PURPLE,True)
+ text(M+20,333,'dayridge.co.uk',23,INK,True)
+ text(M+20,305,'Enquiries and demonstrations',9.5,MUTED)
+ text(M+20,281,'dayridge.co.uk/contact/',12,PURPLE,True)
+ text(M+20,247,'Based in Suffolk, United Kingdom',9,MUTED)
+ code=qr.QrCodeWidget('https://dayridge.co.uk/contact/',barLevel='M')
+ bounds=code.getBounds();size=116;factor=size/(bounds[2]-bounds[0])
+ drawing=Drawing(size,size,transform=[factor,0,0,factor,-bounds[0]*factor,-bounds[1]*factor]);drawing.add(code)
+ renderPDF.draw(drawing,c,W-M-137,264)
+ text(W-M-132,247,'Scan to get in touch',8,MUTED,True)
+ c.linkURL('https://dayridge.co.uk/contact/',(M+15,266,355,321),relative=0,thickness=0)
+ c.linkURL('https://dayridge.co.uk/contact/',(W-M-137,259,W-M-21,382),relative=0,thickness=0)
+ text(M,177,'INTERESTED IN BUSINESS TESTING?',8,'#C7BCFF',True)
+ text(M,151,'dayridge.co.uk/early-access/',13,white,True)
+ para(M,124,'Register your interest ahead of our 2027 launch. Testing access and feedback are agreed before you get started.',CW,9,15,pale)
+ c.linkURL('https://dayridge.co.uk/early-access/',(M,145,360,169),relative=0,thickness=0)
+ line(M,63,W-M,63,'#465268')
+ text(M,40,'DayRidge. Built around your working day.',9,white,True)
+ text(391,40,'PRODUCT BROCHURE / 2026',7,pale)
+
+sales_cover();end()
 # 1 Cover
 begin(1,'Your working day, more connected','Your team.\nYour business.\nIn good rhythm.','A practical guide to DayRidge: simpler staff management, clearer recorded hours and room to grow.')
 pill(M,492,'2027 LAUNCH');text(M+126,493,'Business tester registration is open',9,MUTED)
@@ -149,7 +237,8 @@ for i,(num,title,body) in enumerate(steps):feature(M,547-i*87,num,title,body,CW)
 box(M,123,CW,91,LILAC);text(M+18,189,'10% off your annual subscription',15,PURPLE,True);para(M+18,166,'Business testers who complete the agreed testing and feedback qualify if they continue with DayRidge. Registering alone does not qualify or start a paid subscription.',CW-36,9,14)
 text(M,91,'Explore the platform and register:',9,INK,True);text(M,71,'dayridge.co.uk/early-access/',11,PURPLE,True)
 c.linkURL('https://dayridge.co.uk/early-access/',(M,63,350,107),relative=0,thickness=0)
-end();c.save()
+end();contact_cover();end();c.save()
 for name in ['dayridge-product-brochure.pdf','clocknexa-product-brochure.pdf']:shutil.copy2(OUT,ROOT/'public/downloads'/name)
 shutil.copy2(OUT,OUT.parent/'DayRidge-Product-Brochure.pdf')
 print(OUT)
+
