@@ -18,7 +18,7 @@ OUT=ROOT/'output/pdf/dayridge-product-brochure.pdf';OUT.parent.mkdir(parents=Tru
 W,H=A4;M=42;CW=W-84
 INK='#202A3C';PURPLE='#6748DE';MUTED='#657080';PAPER='#FAF9F6';LILAC='#EEE9FC';LINE='#DDDDE6';MINT='#DDF2E9';GREEN='#28705A';ORANGE='#F8E3C7'
 c=canvas.Canvas(str(OUT),pagesize=A4,pageCompression=1)
-c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing and early access for the 2027 launch')
+c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing, role views, values and early access for the 2027 launch')
 def text(x,y,s,size=10,color=INK,bold=False):
  c.setFillColor(HexColor(color));c.setFont('Bold' if bold else 'UI',size);c.drawString(x,y,s)
 def para(x,y,s,w=CW,size=10,leading=16,color=MUTED,bold=False):
@@ -36,7 +36,7 @@ def begin(n,label,title,sub):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  text(M,H-48,'Day',18,INK,True);text(M+39,H-48,'Ridge',18,PURPLE,True)
  text(W-M-133,H-44,'PRODUCT GUIDE / 2026',7.3,MUTED,True)
- line(M,43,W-M,43);text(M,27,'dayridge.co.uk   •   Coming in 2027',7.6,MUTED);text(W-M-31,27,f'{n+1} / 10',7.6,MUTED)
+ line(M,43,W-M,43);text(M,27,'dayridge.co.uk   •   Coming in 2027',7.6,MUTED);text(W-M-31,27,f'{n+1} / 12',7.6,MUTED)
  text(M,746,label.upper(),8.5,PURPLE,True)
  y=706
  for t in title.split('\n'):text(M,y,t,31,INK,True);y-=39
@@ -141,20 +141,38 @@ def contact_cover():
  text(391,40,'PRODUCT BROCHURE / 2026',7,pale)
 
 sales_cover();end()
-# 1 Cover
-begin(1,'Your working day, more connected','Your team.\nYour business.\nIn good rhythm.','A practical guide to DayRidge: simpler staff management, clearer recorded hours and room to grow.')
-pill(M,492,'2027 LAUNCH');text(M+126,493,'Business tester registration is open',9,MUTED)
-browser(M,188,CW,270,'DAYRIDGE / A CLEARER WORKING DAY')
-for i,(title,val) in enumerate([('TODAY’S SHIFTS','08'),('ON THE CLOCK','05'),('LEAVE TO REVIEW','02')]):
- x=M+17+i*160;box(x,355,149,48,LILAC);text(x+12,385,title,6.7,MUTED,True);text(x+12,363,val,17,PURPLE,True)
-text(M+18,329,'Your week at a glance',12,INK,True)
-for i,day in enumerate(['MON','TUE','WED','THU','FRI']):
- x=M+18+i*96;text(x+7,307,day,7,MUTED,True)
- for j in range(2):
-  box(x,262-j*40,86,32,MINT if (i+j)%3 else LILAC,r=5);text(x+7,282-j*40,['Alex','Sam','Jamie'][(i+j)%3],7,INK,True);text(x+7,270-j*40,'09:00 – 17:00',6.7,MUTED)
-text(M+18,203,'Illustrative product view',7,MUTED)
-para(M,152,'Plan the week. Record the day. Review with confidence.',CW,13,19,INK,True)
-para(M,117,'Explore Clockx, Full Workspace and optional Tasks and Stock Management add-ons. Includes example workflows and a clear price guide.',CW,10,16)
+# 1 Product family (inside the sales cover)
+begin(1,'The DayRidge product family','Choose the tools.\nKeep it simple.','Two annual packages for staff management. Optional monthly add-ons build on Full Workspace.')
+for x,title,tag,heading,items in [
+ (M,'Clockx','FROM £99.99 / YEAR','The everyday essentials',[
+  'Build and publish staff rotas.',
+  'Record clock-ins, clock-outs and breaks.',
+  'Request and approve annual leave.',
+  'Review payroll hours and export CSVs.',
+  'Keep basic employee details.']),
+ (309,'Full Workspace','FROM £299.99 / YEAR','All Clockx tools, plus:',[
+  'Open shifts and extra-hours requests.',
+  'Sickness and return-to-work records.',
+  'Onboarding and protected personnel files.',
+  'Contracts and company documents.',
+  'Wider role permissions.'])]:
+ box(x,284,244,290,'#FFFFFF',LINE)
+ text(x+17,548,title,19,INK,True)
+ text(x+17,523,tag,8,PURPLE,True)
+ text(x+17,492,heading,10.3,INK,True)
+ for i,item in enumerate(items):
+  yy=463-i*34
+  check(x+18,yy-1)
+  para(x+38,yy,item,187,8.7,13,INK)
+text(M,256,'Extend Full Workspace when you need to',13,INK,True)
+box(M,160,244,74,LILAC);text(M+15,211,'Tasks add-on',12,PURPLE,True)
+para(M+15,191,'Managers assign work. Employees track and complete it in My Tasks.',214,8.6,13)
+box(309,160,244,74,MINT);text(324,211,'Stock Management add-on',11.5,GREEN,True)
+para(324,191,'Authorised managers record counts, review stock usage and reconcile takings.',214,8.6,13)
+text(M,136,'Add-ons are charged separately each month. Starting prices cover up to five employees.',7.9,MUTED)
+box(M,65,CW,53,'#FFFFFF',LINE)
+text(M+14,99,'PACKAGE = TOOLS. ROLE = ACCESS.',8.5,PURPLE,True)
+para(M+14,82,'Your package decides which tools the business has. Roles and granted permissions decide what each person can see and do.',CW-28,8.2,12)
 end()
 # 2 Time
 begin(2,'Clockx + Full Workspace','A clearer record\nof the working day.','Clock in, record breaks and review hours in one place. Employees can use My Time Clock or a registered workplace kiosk with their employee number and PIN.')
@@ -218,8 +236,52 @@ for i,(label,a,b) in enumerate(rows):
  yy=510-(i+1)*33;box(M,yy,CW,33,'#FFFFFF' if i%2==0 else '#F0EEF5',r=0);text(M+14,yy+12,label,8.5,INK);check(378,yy+11,a);check(451,yy+11,b)
 note(79,'Optional extras for Full Workspace','Tasks and Stock Management are separate monthly add-ons. Choose either or both; they are not included in the annual package price.')
 end()
+# Role guide: explain the customer-facing views without exposing the platform admin console.
+begin(7,'One system. The right view.','What each person\ncan see and do.','Your package provides the tools. Each person has a view suited to their role, with business access kept separate from personal information.')
+roles=[
+ ('01','Employee','CLOCKX + FULL WORKSPACE',
+  'Their own published shifts, past clockings, recorded hours and estimated earnings. Clock in or out and request annual leave.',
+  'Full Workspace adds relevant documents, open shifts, extra-hours requests and sickness reporting. My Tasks appears when the add-on is active.'),
+ ('02','Manager','CLOCKX + FULL WORKSPACE',
+  'Plan and publish rotas, review requests, manage the team and review or correct time records. A linked employee profile can use My shifts & pay.',
+  'Full Workspace adds wider people and cover workflows. Team wage rates, gross-pay reporting and payroll access stay with the Business Owner.'),
+ ('03','Team Leader','FULL WORKSPACE - PERMISSION BASED',
+  'Help run the team through the sections the owner grants: rota management, team directory, open shifts, attendance totals or annual-leave reviews.',
+  'Permissions are granted individually. Attendance totals exclude wages; private employee files and payroll remain restricted.'),
+ ('04','Business Owner','CLOCKX + FULL WORKSPACE',
+  'The main business manager view, plus payroll, wage rates, gross-pay reports, exports, business settings and control of manager or team-leader access.',
+  'Full Workspace also provides onboarding and protected personnel tools. Stock access is granted to the appropriate managers when that add-on is active.')]
+for i,(num,title,tag,body,extra) in enumerate(roles):
+ yy=428-i*112
+ box(M,yy,CW,103,'#FFFFFF',LINE)
+ pill(M+13,yy+76,num)
+ text(M+56,yy+77,title,13,INK,True)
+ text(M+231,yy+79,tag,6.8,PURPLE,True)
+ para(M+14,yy+53,body,CW-28,8.5,12.4,INK)
+ para(M+14,yy+24,extra,CW-28,7.8,11.5,MUTED)
+para(M,61,'Employees see their own records. Team tools depend on the package, active add-ons and permissions set for that person.',CW,8,12)
+end()
+# Values: an explicit, plain-English statement of the DayRidge business approach.
+begin(8,'What we stand for','Good software.\nStraight talking.','DayRidge is built around real businesses and real working days. These are the values behind how we build, explain and improve the product.')
+box(M,365,CW,181,INK,r=15)
+text(M+23,514,'01 / OUR STARTING POINT',8.3,'#C7BCFF',True)
+text(M+23,469,'No Bull Shit',34,'#FFFFFF',True)
+para(M+23,432,'Straight answers. Clear pricing. Honest explanations of what is included, what costs extra and where the limits are.',CW-46,12,19,'#D7DEEA')
+values=[
+ ('02','Built for real working days','Practical tools for busy teams: plan the rota, record the hours and handle the requests that come with running a business.'),
+ ('03','Respect your people','Clear responsibilities, appropriate access and care with employee information. Give people the information they need for their role.'),
+ ('04','Keep getting better','Listen to businesses, welcome useful feedback and make improvements that help with the working day.')]
+for i,(num,title,body) in enumerate(values):
+ yy=325-i*75
+ pill(M,yy,num)
+ text(M+44,yy,title,13,INK,True)
+ para(M+44,yy-22,body,CW-44,9.4,15)
+box(M,65,CW,60,LILAC)
+text(M+16,104,'What that means for your business',10.5,PURPLE,True)
+para(M+16,85,'A clear package comparison, published prices and a straightforward conversation before you decide.',CW-32,9,14,INK)
+end()
 # 7 Pricing
-begin(7,'Transparent package guide','A plan for your\nteam size.','Annual prices are per business. Your agreed quote confirms the package, employee allowance and any monthly add-ons.')
+begin(9,'Transparent package guide','A plan for your\nteam size.','Annual prices are per business. Your agreed quote confirms the package, employee allowance and any monthly add-ons.')
 text(M,554,'CLOCKX',10,PURPLE,True)
 for i,p in enumerate(DATA['clockx']):
  x=M+i*174;box(x,437,163,96,LILAC);text(x+13,508,'Up to '+str(p['employeeLimit'])+' employees',8.5,INK,True);text(x+13,474,price(p['price']),23,PURPLE,True);text(x+13,453,'per business / year',8,MUTED)
@@ -231,7 +293,7 @@ para(M,156,'Managers are included. A manager with an employee shift profile uses
 para(M,104,'Over 20 employees on Clockx or over 50 on Full Workspace? Ask for a custom quote. Annual subscriptions are arranged by bank transfer or direct agreement.',CW,8.8,14)
 end()
 # 8 CTA
-begin(8,'Coming in 2027','Help shape a better\nworking day.','We are inviting businesses to register their interest in testing DayRidge ahead of launch. Tell us about your team and how you work.')
+begin(10,'Coming in 2027','Help shape a better\nworking day.','We are inviting businesses to register their interest in testing DayRidge ahead of launch. Tell us about your team and how you work.')
 steps=[('01','Register your business','Share your team size, the tools you need and your interest in testing.'),('02','Agree the testing plan','We will agree access, testing and feedback before you get started.'),('03','Try it with your team','Explore the relevant workflows and share practical feedback.'),('04','Choose your next step','If you continue, confirm the right package and employee allowance.')]
 for i,(num,title,body) in enumerate(steps):feature(M,547-i*87,num,title,body,CW)
 box(M,123,CW,91,LILAC);text(M+18,189,'10% off your annual subscription',15,PURPLE,True);para(M+18,166,'Business testers who complete the agreed testing and feedback qualify if they continue with DayRidge. Registering alone does not qualify or start a paid subscription.',CW-36,9,14)
