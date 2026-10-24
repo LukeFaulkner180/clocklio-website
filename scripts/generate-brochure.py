@@ -18,7 +18,7 @@ OUT=ROOT/'output/pdf/dayridge-product-brochure.pdf';OUT.parent.mkdir(parents=Tru
 W,H=A4;M=42;CW=W-84
 INK='#202A3C';PURPLE='#6748DE';MUTED='#657080';PAPER='#FAF9F6';LILAC='#EEE9FC';LINE='#DDDDE6';MINT='#DDF2E9';GREEN='#28705A';ORANGE='#F8E3C7'
 c=canvas.Canvas(str(OUT),pagesize=A4,pageCompression=1)
-c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing, role views, values and early access for the 2027 launch')
+c.setTitle('DayRidge | Product Brochure');c.setAuthor('DayRidge');c.setSubject('Clockx, Full Workspace, pricing, role views, values and business testing')
 def text(x,y,s,size=10,color=INK,bold=False):
  c.setFillColor(HexColor(color));c.setFont('Bold' if bold else 'UI',size);c.drawString(x,y,s)
 def para(x,y,s,w=CW,size=10,leading=16,color=MUTED,bold=False):
@@ -36,7 +36,7 @@ def begin(n,label,title,sub):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  text(M,H-48,'Day',18,INK,True);text(M+39,H-48,'Ridge',18,PURPLE,True)
  text(W-M-133,H-44,'PRODUCT GUIDE / 2026',7.3,MUTED,True)
- line(M,43,W-M,43);text(M,27,'dayridge.co.uk   •   Coming in 2027',7.6,MUTED);text(W-M-31,27,f'{n+1} / 12',7.6,MUTED)
+ line(M,43,W-M,43);text(M,26,'dayridge.co.uk',9,PURPLE,True);text(W-M-31,27,f'{n+1} / 12',7.6,MUTED);c.linkURL('https://dayridge.co.uk/',(M,18,180,39),relative=0,thickness=0)
  text(M,746,label.upper(),8.5,PURPLE,True)
  y=706
  for t in title.split('\n'):text(M,y,t,31,INK,True);y-=39
@@ -72,25 +72,36 @@ def brand(x,y,width=190,light=False):
  c.restoreState()
 
 def sales_cover():
- # A dedicated brand cover: the product and pricing pages begin inside.
- navy='#18283C';pale='#C2CCDA';white='#FFFFFF'
- c.setFillColor(HexColor(navy));c.rect(0,0,W,H,stroke=0,fill=1)
- c.setFillColor(HexColor(PURPLE));c.rect(0,H-9,W,9,stroke=0,fill=1)
- c.setFillColor(HexColor('#263450'));c.circle(W+95,310,230,stroke=0,fill=1)
- c.setFillColor(HexColor('#354363'));c.circle(W+95,310,158,stroke=0,fill=1)
- brand(M,H-116,230,True)
- text(M,662,'PRODUCT BROCHURE / 2026',9,'#C7BCFF',True)
- for y,t,col in [(599,'Your team.',white),(540,'Your time.',white),(481,'One place.','#C7BCFF')]:text(M,y,t,48,col,True)
- para(M,428,'Staff scheduling, time recording and people management. Made clearer for your business.',383,13,21,pale)
- line(M,332,380,332,'#53617A')
- text(M,286,'Built around your',21,white,True)
- text(M,254,'working day.',21,white,True)
- text(M,213,'PLAN  /  RECORD  /  REVIEW',8.7,'#BCAEFF',True)
- text(M,107,'Coming in 2027 - business tester registration is open.',9,pale)
- line(M,82,W-M,82,'#465268')
- text(M,54,'dayridge.co.uk',13,white,True)
- text(385,56,'BASED IN SUFFOLK',7.4,pale,True)
- c.linkURL('https://dayridge.co.uk/',(M,45,220,73),relative=0,thickness=0)
+ # A bold editorial cover with one unmistakable website call to action.
+ navy='#18283C';white='#FFFFFF';lilac='#C9BEFF'
+ c.setFillColor(HexColor('#FAF9F6'));c.rect(0,0,W,H,stroke=0,fill=1)
+ c.setFillColor(HexColor(PURPLE));c.rect(0,H-10,W,10,stroke=0,fill=1)
+ brand(M,H-113,230)
+ text(M,663,'STAFF MANAGEMENT, MADE CLEARER',9,PURPLE,True)
+ for y,t,col in [(603,'Your team.',navy),(546,'Your time.',navy),(484,'One place.',PURPLE)]:text(M,y,t,51,col,True)
+ para(M,438,'Rotas. Clocking. People.\nBuilt around your working day.',380,13,20,MUTED)
+ # Angled panels add depth while leaving the brand and headline easy to scan.
+ c.setFillColor(HexColor(PURPLE));p=c.beginPath();p.moveTo(0,369);p.lineTo(W,422);p.lineTo(W,0);p.lineTo(0,0);p.close();c.drawPath(p,stroke=0,fill=1)
+ c.setFillColor(HexColor(navy));p=c.beginPath();p.moveTo(0,354);p.lineTo(W,407);p.lineTo(W,0);p.lineTo(0,0);p.close();c.drawPath(p,stroke=0,fill=1)
+ c.setFillColor(HexColor('#263650'));c.circle(W+13,243,156,stroke=0,fill=1)
+ c.setStrokeColor(HexColor('#435277'));c.setLineWidth(1);c.circle(W+13,243,124,stroke=1,fill=0)
+ text(M,313,'THE DAYRIDGE PRODUCT GUIDE',8.5,'#B8A9FF',True)
+ text(M,269,'A clearer plan.',24,white,True)
+ text(M,235,'A connected team.',24,white,True)
+ text(M,192,'CLOCKX  /  FULL WORKSPACE',8.4,lilac,True)
+ # The official vector mark becomes the cover's hero graphic.
+ x=W-M-168;y=165
+ c.saveState();clip=c.beginPath();clip.rect(x,y,178,178);c.clipPath(clip,stroke=0,fill=0);brand(x,y,720,True);c.restoreState()
+ c.setFillColor(HexColor('#8CEACB'));c.circle(W-M-190,180,5,stroke=0,fill=1)
+ c.setFillColor(HexColor('#9D8BEF'));c.circle(W-M-5,357,4,stroke=0,fill=1)
+ box(M,55,CW,80,white,r=13)
+ text(M+18,111,'EXPLORE THE PLATFORM',7.8,PURPLE,True)
+ text(M+18,77,'dayridge.co.uk',26,navy,True)
+ c.setFillColor(HexColor('#EEE9FC'));c.circle(W-M-34,95,19,stroke=0,fill=1)
+ line(W-M-43,95,W-M-25,95,PURPLE,1.8);line(W-M-31,101,W-M-25,95,PURPLE,1.8);line(W-M-31,89,W-M-25,95,PURPLE,1.8)
+ c.linkURL('https://dayridge.co.uk/',(M,55,W-M,135),relative=0,thickness=0)
+ text(M,29,'PRODUCT BROCHURE',7.7,'#BFC9D7',True)
+ text(361,29,'BASED IN SUFFOLK, UK',7.7,'#BFC9D7',True)
 
 def contact_cover():
  navy='#18283C';pale='#BCC7D5';white='#FFFFFF'
@@ -105,7 +116,7 @@ def contact_cover():
  text(M+20,368,'YOUR NEXT STEP',8,PURPLE,True)
  text(M+20,333,'dayridge.co.uk',23,INK,True)
  text(M+20,305,'Enquiries and demonstrations',9.5,MUTED)
- text(M+20,281,'dayridge.co.uk/contact/',12,PURPLE,True)
+ text(M+20,281,'dayridge.co.uk/contact/',13,PURPLE,True)
  text(M+20,247,'Based in Suffolk, United Kingdom',9,MUTED)
  code=qr.QrCodeWidget('https://dayridge.co.uk/contact/',barLevel='M')
  bounds=code.getBounds();size=116;factor=size/(bounds[2]-bounds[0])
@@ -116,7 +127,7 @@ def contact_cover():
  c.linkURL('https://dayridge.co.uk/contact/',(W-M-137,259,W-M-21,382),relative=0,thickness=0)
  text(M,177,'INTERESTED IN BUSINESS TESTING?',8,'#C7BCFF',True)
  text(M,151,'dayridge.co.uk/early-access/',13,white,True)
- para(M,124,'Register your interest ahead of our 2027 launch. Testing access and feedback are agreed before you get started.',CW,9,15,pale)
+ para(M,124,'Register your business interest. Testing access and feedback are agreed before you get started.',CW,9,15,pale)
  c.linkURL('https://dayridge.co.uk/early-access/',(M,145,360,169),relative=0,thickness=0)
  line(M,63,W-M,63,'#465268')
  text(M,40,'DayRidge. Built around your working day.',9,white,True)
@@ -275,7 +286,7 @@ para(M,156,'Managers are included. A manager with an employee shift profile uses
 para(M,104,'Over 20 employees on Clockx or over 50 on Full Workspace? Ask for a custom quote. Annual subscriptions are arranged by bank transfer or direct agreement.',CW,8.8,14)
 end()
 # 8 CTA
-begin(10,'Coming in 2027','Help shape a better\nworking day.','We are inviting businesses to register their interest in testing DayRidge ahead of launch. Tell us about your team and how you work.')
+begin(10,'Business testing','Help shape a better\nworking day.','We are inviting businesses to register their interest in testing DayRidge. Tell us about your team and how you work.')
 steps=[('01','Register your business','Share your team size, the tools you need and your interest in testing.'),('02','Agree the testing plan','We will agree access, testing and feedback before you get started.'),('03','Try it with your team','Explore the relevant workflows and share practical feedback.'),('04','Choose your next step','If you continue, confirm the right package and employee allowance.')]
 for i,(num,title,body) in enumerate(steps):feature(M,547-i*87,num,title,body,CW)
 box(M,123,CW,91,LILAC);text(M+18,189,'10% off your annual subscription',15,PURPLE,True);para(M+18,166,'Business testers who complete the agreed testing and feedback qualify if they continue with DayRidge. Registering alone does not qualify or start a paid subscription.',CW-36,9,14)
