@@ -72,43 +72,25 @@ def brand(x,y,width=190,light=False):
  c.restoreState()
 
 def sales_cover():
- c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
- # A restrained violet margin frames the printed handout.
+ # A dedicated brand cover: the product and pricing pages begin inside.
+ navy='#18283C';pale='#C2CCDA';white='#FFFFFF'
+ c.setFillColor(HexColor(navy));c.rect(0,0,W,H,stroke=0,fill=1)
  c.setFillColor(HexColor(PURPLE));c.rect(0,H-9,W,9,stroke=0,fill=1)
- brand(M,H-94,190)
- text(405,H-61,'PRODUCT BROCHURE',8,MUTED,True)
- text(405,H-78,'2026 / 2027',8,MUTED)
- text(M,679,'A CLEARER WORKING DAY',9,PURPLE,True)
- for y,t,col in [(624,'Your team.',INK),(569,'Your time.',INK),(514,'One place.',PURPLE)]:text(M,y,t,48,col,True)
- para(M,475,'Rotas, clocking and people management.\nMade clearer for your business.',380,12,19)
- # One week, with the same green / orange / purple schedule language as the app.
- browser(M,225,CW-42,183,'DAYRIDGE / YOUR WORKING WEEK')
- text(M+18,350,'A little more clarity. Every day.',12,INK,True)
- for i,(day,num,kind) in enumerate([('MON','12','shift'),('TUE','13','shift'),('WED','14','away'),('THU','15','shift'),('FRI','16','overtime'),('SAT','17','shift'),('SUN','18','')]):
-  x=M+36+i*58
-  text(x-10,324,day,6.8,MUTED,True)
-  if kind:
-   c.setFillColor(HexColor({'shift':'#34785B','away':'#8963AE','overtime':'#F58220'}[kind]));c.circle(x,291,19,stroke=0,fill=1)
-  text(x-8,285,num,13,'#FFFFFF' if kind and kind!='overtime' else INK,True)
- text(M+18,248,'Plan shifts. Record hours. Keep your team informed.',8.4,MUTED)
- # The clock card sits on the calendar edge as a second product touchpoint.
- box(W-M-157,169,157,101,'#E9E5F2',r=13)
- box(W-M-162,174,157,101,'#FFFFFF',LINE,r=13)
- pill(W-M-149,249,'ON SHIFT',MINT,GREEN)
- text(W-M-149,214,'03h 15m',21,INK,True)
- text(W-M-149,194,'Time recorded, clearly.',7.4,MUTED)
- text(M,199,'Illustrative product view',7,MUTED)
- box(M,93,CW,69,LILAC,r=12)
- text(M+16,140,'CLOCKX FROM',7.7,PURPLE,True)
- text(M+16,116,'£99.99 / year',18,INK,True)
- line(292,107,292,147,'#D5CCEF')
- text(309,140,'FULL WORKSPACE FROM',7.7,PURPLE,True)
- text(309,116,'£299.99 / year',18,INK,True)
- text(M,75,'Annual prices per business, for up to five employees. Full pricing inside.',8,MUTED)
- line(M,54,W-M,54)
- text(M,34,'dayridge.co.uk',10,PURPLE,True)
- text(330,34,'Coming in 2027 - business testing is open',7.6,MUTED)
- c.linkURL('https://dayridge.co.uk/',(M,26,190,49),relative=0,thickness=0)
+ c.setFillColor(HexColor('#263450'));c.circle(W+95,310,230,stroke=0,fill=1)
+ c.setFillColor(HexColor('#354363'));c.circle(W+95,310,158,stroke=0,fill=1)
+ brand(M,H-116,230,True)
+ text(M,662,'PRODUCT BROCHURE / 2026',9,'#C7BCFF',True)
+ for y,t,col in [(599,'Your team.',white),(540,'Your time.',white),(481,'One place.','#C7BCFF')]:text(M,y,t,48,col,True)
+ para(M,428,'Staff scheduling, time recording and people management. Made clearer for your business.',383,13,21,pale)
+ line(M,332,380,332,'#53617A')
+ text(M,286,'Built around your',21,white,True)
+ text(M,254,'working day.',21,white,True)
+ text(M,213,'PLAN  /  RECORD  /  REVIEW',8.7,'#BCAEFF',True)
+ text(M,107,'Coming in 2027 - business tester registration is open.',9,pale)
+ line(M,82,W-M,82,'#465268')
+ text(M,54,'dayridge.co.uk',13,white,True)
+ text(385,56,'BASED IN SUFFOLK',7.4,pale,True)
+ c.linkURL('https://dayridge.co.uk/',(M,45,220,73),relative=0,thickness=0)
 
 def contact_cover():
  navy='#18283C';pale='#BCC7D5';white='#FFFFFF'
@@ -265,7 +247,7 @@ end()
 begin(8,'What we stand for','Good software.\nStraight talking.','DayRidge is built around real businesses and real working days. These are the values behind how we build, explain and improve the product.')
 box(M,365,CW,181,INK,r=15)
 text(M+23,514,'01 / OUR STARTING POINT',8.3,'#C7BCFF',True)
-text(M+23,469,'No Bull Shit',34,'#FFFFFF',True)
+text(M+23,469,'No Bullshit',34,'#FFFFFF',True)
 para(M+23,432,'Straight answers. Clear pricing. Honest explanations of what is included, what costs extra and where the limits are.',CW-46,12,19,'#D7DEEA')
 values=[
  ('02','Built for real working days','Practical tools for busy teams: plan the rota, record the hours and handle the requests that come with running a business.'),
