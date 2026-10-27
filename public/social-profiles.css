@@ -5,6 +5,9 @@
 .social-profile-list{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
 .social-profile{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid #ded9e9;border-radius:9px;font-size:12px;line-height:1.5;color:#51456b;background:#ffffff80;text-decoration:none}
 .social-profile svg{width:17px;height:17px;flex:none}
+.social-profile-copy{display:flex;flex-direction:column;gap:2px;text-align:left}
+.social-profile-status{display:block;font-size:10px;line-height:1.4;opacity:.75;font-weight:500}
+.social-profile.is-coming-soon{cursor:default}
 a.social-profile:hover{border-color:#8468d7;background:#f0ebfc}
 a.social-profile:focus-visible{outline:2px solid #8660e3;outline-offset:4px}
 .site-footer .social-profiles{border-top:1px solid #ffffff20;color:#e4dded}

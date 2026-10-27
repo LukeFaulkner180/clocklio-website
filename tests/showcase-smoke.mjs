@@ -81,16 +81,14 @@ try {
     page.on('response', response => { if (response.url().startsWith(hostOrigin) && response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
     try {
       await page.goto(origin);
-      await text(page, 'h1', /Coming in 2027/);
-      assert.equal(await page.locator('form').count(), 0, 'Signup has its own page');
-      const logoCentre = await page.locator('.holding-logo').evaluate(el => { const box = el.getBoundingClientRect(); return Math.abs(box.left + box.width / 2 - innerWidth / 2); });
-      assert.ok(logoCentre < 1, 'DayRidge logo artwork is centred on the page');
-      assert.equal(await page.locator('.holding-preview .rota-row').count(), 5, 'The original rota artwork is present');
-      assert.equal(await page.locator('.holding-art-chip').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'Launch animations respect reduced motion');
-      await page.emulateMedia({ reducedMotion: 'no-preference' });
-      assert.equal(await page.locator('.holding-art-chip').first().evaluate(el => getComputedStyle(el).animationName), 'holding-float', 'Launch artwork animates by default');
-      await page.emulateMedia({ reducedMotion: 'reduce' });
-      await page.screenshot({ path: artifactDirectory + '/launch-desktop-' + name + '.png', fullPage: true });
+      await text(page, 'h1', /Your team\. Your business\.[\s\S]*In good rhythm\./);
+      assert.equal(await page.locator('.holding-main').count(), 0, 'Homepage shows the full product site');
+      assert.equal(await page.locator('form').count(), 0, 'Enquiries have their own page');
+      await text(page, '[data-social-platform="facebook"]', /Coming soon/);
+      await text(page, '[data-social-platform="instagram"]', /Coming soon/);
+      assert.equal(await page.locator('a[data-social-platform="tiktok"]').getAttribute('href'), 'https://www.tiktok.com/@dayridge.app');
+      assert.equal(await page.locator('a[data-social-platform="facebook"], a[data-social-platform="instagram"]').count(), 0, 'Unlinked profiles do not act as links');
+      await page.screenshot({ path: artifactDirectory + '/home-desktop-' + name + '.png', fullPage: true });
       for (const [slug, heading] of [
         ['clocking-in-software', /Clocking-in software that keeps every shift/],
         ['staff-rota-software', /Staff rota software for a clearer working week/],
@@ -109,9 +107,7 @@ try {
         await page.getByRole('link', { name: 'Join business testing', exact: true }).click();
         await page.waitForURL('**/early-access/');
       }
-      await page.goto(origin);
-      await page.getByRole('link', { name: 'Become a tester & earn 10% off', exact: true }).click();
-      await page.waitForURL('**/early-access/');
+      await page.goto(origin + '/early-access/');
       await text(page, '.tester-offer', /Complete the agreed testing and feedback/);
       await text(page, '.tester-offer h2', /10%/);
       await page.locator('[name="name"]').fill('QA Business Tester');

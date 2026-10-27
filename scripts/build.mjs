@@ -38,7 +38,7 @@ await prepareSeo(fileURLToPath(destination));
 // Give each published stylesheet a content-based URL. Keep the original copy
 // available for older cached pages while the current HTML loads fresh styles.
 const stylesheetVersions = new Map();
-for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css']) {
+for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css', 'social-profiles.css']) {
   const content = await readFile(new URL(name, destination));
   const hash = createHash('sha256').update(content).digest('hex').slice(0, 12);
   const versionedName = name.replace('.css', '.' + hash + '.css');
@@ -55,7 +55,7 @@ async function versionStyles(directory) {
     if (entry.isDirectory()) { await versionStyles(file); continue; }
     if (!entry.name.endsWith('.html')) continue;
     const html = await readFile(file, 'utf8');
-    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features)\.css(?:\?[^"']*)?(["'])/g,
+    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features|social-profiles)\.css(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, name, quote) => attribute + prefix + stylesheetVersions.get(name + '.css') + quote);
     const withSocialVersion = versioned.replace(/(src=["'])([^"']*\/)social-profiles\.js(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, quote) => attribute + prefix + socialScriptName + quote);
