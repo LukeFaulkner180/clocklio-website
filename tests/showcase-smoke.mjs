@@ -283,8 +283,8 @@ try {
         await text(page, '[data-quote-plan]', plan);
         assert.ok((await page.locator('[data-quote-annual]').textContent()).startsWith(amount));
       }
-      await text(page, '.package-price-card:first-child .package-annual-price strong', '£99.99');
-      await text(page,'.clockx-tier-list','Up to 5 employees£99.99 / yearUp to 10 employees£169.99 / yearUp to 20 employees£319.99 / year');
+      await text(page, '.package-price-card:first-child .package-annual-price strong', '£149.99');
+      await text(page,'.clockx-tier-list','Up to 5 employees£149.99 / yearUp to 10 employees£219.99 / yearUp to 20 employees£369.99 / year');
       await page.locator('[data-team-number]').fill('10');
       await page.locator('[data-quote-tasks]').check();
       await page.locator('[data-tasks-users]').fill('5');

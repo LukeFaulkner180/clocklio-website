@@ -300,7 +300,7 @@ if (contactForm) {
   const fullBands = [...field('employees').options].map(option => [option.value,option.textContent]);
   function employeeBands(initialSize) {
     const clockx = field('package').value === 'clocking';
-    const options = clockx ? [['','Select team size'],['1–5','1–5 employees · £99.99/year'],['6–10','6–10 employees · £169.99/year'],['11–20','11–20 employees · £319.99/year'],['21+','21+ employees · agreed quote']] : fullBands;
+    const options = clockx ? [['','Select team size'],['1–5','1–5 employees · £149.99/year'],['6–10','6–10 employees · £219.99/year'],['11–20','11–20 employees · £369.99/year'],['21+','21+ employees · agreed quote']] : fullBands;
     field('employees').replaceChildren(...options.map(([value,label]) => new Option(label,value)));
     if (Number.isInteger(initialSize) && initialSize >= 1 && initialSize <= 10000) field('employees').value = clockx ? (initialSize <= 5 ? '1–5' : initialSize <= 10 ? '6–10' : initialSize <= 20 ? '11–20' : '21+') : (initialSize <= 5 ? '1–5' : initialSize <= 9 ? '6–9' : initialSize <= 15 ? '10–15' : initialSize <= 30 ? '16–30' : initialSize <= 50 ? '31–50' : '51+');
   }

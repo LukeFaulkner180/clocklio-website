@@ -136,7 +136,7 @@ sales_cover();end()
 # 1 Product family (inside the sales cover)
 begin(1,'The DayRidge product family','Choose the tools.\nKeep it simple.','Two annual packages for staff management. Optional monthly add-ons build on Full Workspace.')
 for x,title,tag,heading,items in [
- (M,'Clockx','FROM £99.99 / YEAR','The everyday essentials',[
+ (M,'Clockx','FROM £149.99 / YEAR','The everyday essentials',[
   'Build and publish staff rotas.',
   'Record clock-ins, clock-outs and breaks.',
   'Request and approve annual leave.',
