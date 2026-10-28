@@ -42,6 +42,15 @@ for (const [size,price] of [[1,29999],[5,29999],[6,34499],[9,47999],[10,64999],[
 for (const size of [0,-1,5.5,10001,NaN]) assert.equal(fullWorkspaceAnnualPence(size),null);
 console.log('Checked small-team pricing, fixed annual plan boundaries and Custom quotes.');
 
-for (const [size,price,limit] of [[1,9999,5],[5,9999,5],[6,16999,10],[10,16999,10],[11,31999,20],[20,31999,20]]) {assert.equal(clockxPlan(size).price,price);assert.equal(clockxPlan(size).employeeLimit,limit);}
+for (const [size,price,limit] of [[1,14999,5],[5,14999,5],[6,21999,10],[10,21999,10],[11,36999,20],[20,36999,20]]) {assert.equal(clockxPlan(size).price,price);assert.equal(clockxPlan(size).employeeLimit,limit);}
 for (const size of [0,-1,5.5,21,10001,NaN]) assert.equal(clockxPlan(size),null);
 console.log('Checked Clockx fixed annual tiers and custom quote boundary.');
+
+// The domain root must serve the complete DayRidge homepage, not a holding or tester page.
+const homepage = await readFile(path.join(root, 'index.html'), 'utf8');
+assert.match(homepage, /<body data-page="home">/);
+assert.match(homepage, /<section class="home-hero wrap">/);
+assert.match(homepage, /Your team\. Your business\./);
+assert.match(homepage, new RegExp('aria-label="DayRidge home"'));
+assert.doesNotMatch(homepage, /<body[^>]*class="[^"]*holding-page/);
+console.log('Checked the domain root serves the full DayRidge homepage.');
