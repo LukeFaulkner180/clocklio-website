@@ -12,6 +12,7 @@ def apply(path,fn):
  p.write_text(s)
 for path in ['index.html','platform/index.html']:
  def edit(s):
+  s=re.sub(r'(<a class="announcement" href=")[^"]+(\"><span>JUST ADDED</span>) [^<]+',r'\1/add-ons/#geo-clockin\2 Meet Geo Clock-in ',s,count=1)
   s=re.sub(r'<section class="geo-home wrap".*?</section>','',s,flags=re.S)
   i=s.index('<section class="addons-home">');end=s.index('</section>',i)+len('</section>')
   s=s[:end]+home()+s[end:]
