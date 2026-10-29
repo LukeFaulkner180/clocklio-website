@@ -59,7 +59,7 @@ async function versionStyles(directory) {
     if (entry.isDirectory()) { await versionStyles(file); continue; }
     if (!entry.name.endsWith('.html')) continue;
     const html = await readFile(file, 'utf8');
-    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features|social-profiles|knowledge-base)\.css(?:\?[^"']*)?(["'])/g,
+    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features|social-profiles|knowledge-base|geo-clockin)\.css(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, name, quote) => attribute + prefix + stylesheetVersions.get(name + '.css') + quote);
     const withSocialVersion = versioned.replace(/(src=["'])([^"']*\/)social-profiles\.js(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, quote) => attribute + prefix + socialScriptName + quote);
