@@ -208,7 +208,7 @@ body { background: var(--paper); }
 .about-vision-list li { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #f1e9fc; }
 .about-vision-list span { color: #b99bdc; font-size: 10px; }
 .about-values .heading-split > p { max-width: 260px; }
-.about-values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.about-values-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .about-values-grid article { border: 1px solid #e6dfee; border-radius: 24px; padding: 32px; background: #fff; transition: transform .4s var(--ease-out), border-color .3s; }
 .about-values-grid article:hover { transform: translateY(-4px); border-color: #c5b0e4; }
 .about-value-number { display: grid; place-items: center; width: 39px; height: 39px; background: #eee6fb; color: #7450ab; border-radius: 12px; font-size: 11px; font-weight: 600; margin-bottom: 26px; }

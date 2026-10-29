@@ -277,12 +277,12 @@ end()
 begin(8,'What we stand for','Good software.\nStraight talking.','DayRidge is built around real businesses and real working days. These are the values behind how we build, explain and improve the product.')
 box(M,365,CW,181,INK,r=15)
 text(M+23,514,'01 / OUR STARTING POINT',8.3,'#C7BCFF',True)
-text(M+23,469,'No Bullshit',34,'#FFFFFF',True)
+text(M+23,469,'Straight talking',31,'#FFFFFF',True)
 para(M+23,432,'Straight answers. Clear pricing. Honest explanations of what is included, what costs extra and where the limits are.',CW-46,12,19,'#D7DEEA')
 values=[
  ('02','Built for real working days','Practical tools for busy teams: plan the rota, record the hours and handle the requests that come with running a business.'),
  ('03','Respect your people','Clear responsibilities, appropriate access and care with employee information. Give people the information they need for their role.'),
- ('04','Keep getting better','Listen to businesses, welcome useful feedback and make improvements that help with the working day.')]
+ ('04','Constant innovation','Listen to businesses, challenge unnecessary admin and keep improving the tools that make a useful difference to the working day.')]
 for i,(num,title,body) in enumerate(values):
  yy=325-i*75
  pill(M,yy,num)
