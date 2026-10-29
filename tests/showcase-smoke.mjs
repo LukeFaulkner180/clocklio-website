@@ -186,7 +186,7 @@ try {
 
       await page.locator('#site-navigation').getByRole('link',{name:'Knowledge base',exact:true}).click();
       await page.waitForURL('**/knowledge-base/');
-      assert.equal(await page.locator('[data-kb-card]:visible').count(),16);
+      assert.equal(await page.locator('[data-kb-card]:visible').count(),18);
       await page.locator('[data-kb-search]').fill('how do I publish a rota');
       assert.ok(await page.locator('[data-kb-card]:visible').count()>=1);
       assert.equal(await page.locator('[data-kb-card] h3 a[href$="/knowledge-base/rotas/"]').isVisible(),true);
@@ -305,6 +305,12 @@ try {
       await text(page, '[data-quote-monthly]', '£16.74');
       await page.locator('[data-quote-stock]').check();
       await text(page, '[data-quote-monthly]', '£26.73');
+      await page.locator('[data-quote-geo]').check();
+      await text(page,'[data-quote-monthly]','£31.72');
+      await page.locator('[data-geo-billing]').selectOption('annual');
+      await text(page,'[data-quote-monthly]','£26.73');
+      await text(page,'[data-quote-geo-total]','£49.99 / year');
+      await page.locator('[data-quote-geo]').uncheck();
       await page.locator('[data-tasks-users]').fill('');
       await text(page, '[data-quote-monthly]', '—');
       await page.locator('[data-tasks-users]').fill('5');

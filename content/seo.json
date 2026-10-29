@@ -15,8 +15,8 @@
     "label": "About DayRidge"
   },
   "/add-ons/": {
-    "title": "Staff Tasks & Stock Management Add-ons | DayRidge",
-    "description": "Explore DayRidge paid Tasks and Stock Management add-ons, their features and pricing. See how they fit alongside the main staff management plans.",
+    "title": "Geo Clock-in, Tasks & Stock Add-ons | DayRidge",
+    "description": "New Geo Clock-in for Clockx and Full Workspace: £4.99 monthly or £49.99 annually per business. Explore Tasks and Stock Management add-ons too.",
     "label": "Add-ons"
   },
   "/annual-leave-management/": {
@@ -233,5 +233,15 @@
     "title": "Request holiday and report time away | DayRidge Training",
     "description": "Send a leave request, check its decision and keep sickness separate from holiday.",
     "label": "Request holiday and report time away"
+  },
+  "/knowledge-base/geo-clockin/": {
+    "title": "Set up Geo Clock-in for your workplace | DayRidge Training",
+    "description": "Enable the add-on, set the workplace location and radius, test employee arrival checks and handle Manager overrides.",
+    "label": "Set up Geo Clock-in for your workplace"
+  },
+  "/knowledge-base/geo-clockin-employee/": {
+    "title": "Clock in with a workplace location check | DayRidge Training",
+    "description": "Allow precise location, clock in when you arrive and understand outside-area or permission messages.",
+    "label": "Clock in with a workplace location check"
   }
 }

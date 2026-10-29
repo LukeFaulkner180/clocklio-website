@@ -38,7 +38,7 @@ await prepareSeo(fileURLToPath(destination));
 // Give each published stylesheet a content-based URL. Keep the original copy
 // available for older cached pages while the current HTML loads fresh styles.
 const stylesheetVersions = new Map();
-for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css', 'social-profiles.css', 'knowledge-base.css']) {
+for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css', 'social-profiles.css', 'knowledge-base.css', 'geo-clockin.css']) {
   const content = await readFile(new URL(name, destination));
   const hash = createHash('sha256').update(content).digest('hex').slice(0, 12);
   const versionedName = name.replace('.css', '.' + hash + '.css');

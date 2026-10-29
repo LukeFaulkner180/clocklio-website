@@ -38,6 +38,7 @@ export const guides = [
   note:'Till reconciliation is a checking tool. Review the underlying counts and business records before drawing conclusions about a discrepancy.',related:['stocktakes','manager-permissions']}
 ];
 export const releases = [
+ {date:'2026-10-29',status:'available',title:'New: Geo Clock-in for both packages',description:'Add workplace location checks to personal-phone clock-ins with Clockx or Full Workspace. £4.99 per business per month or £49.99 per year, within the agreed employee allowance. Owners set the workplace; Manager arrival overrides require a reason.',tag:'Geo Clock-in'},
  {date:'2026-10-17',status:'available',title:'A clearer place to get help',description:'Help guides, switching information, subscription guidance and a downloadable product brochure now sit together in Resources.',tag:'Website'},
  {date:'2026-10-21',status:'available',title:'Clearer Clockx plan boundaries',description:'Clockx covers rotas, clocking, annual leave and payroll hours. Full Workspace includes open shifts, extra-hours requests, employee contracts and business documents.',tag:'Plans'},
  {date:'2026-10-16',status:'available',title:'A clearer Overview and Managers area',description:'Readable management cards, daily shortcuts and clearer account and permission layouts across Clockx and Full Workspace.',tag:'App design'},

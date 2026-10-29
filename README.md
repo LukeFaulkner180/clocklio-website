@@ -65,3 +65,5 @@ After editing SEO content or regenerating resources, run `npm run seo:refresh` t
 ## Knowledge base
 
 The public training library is at `/knowledge-base/`. Edit `content/knowledge-base.json`, then run `npm run knowledge-base:generate` to regenerate articles and SEO metadata. `npm run resources:generate` also refreshes the training library after the legacy resources. Keep the reviewed owner handbook at `public/downloads/dayridge-business-owner-guide.pdf`. Role/topic filters are local to the browser. Print styles produce a readable guide without website navigation. Training traffic uses the existing anonymous Help analytics bucket; search text is not sent.
+
+Geo Clock-in marketing: `python3 scripts/generate-geo-launch.py` refreshes the homepage, add-on and pricing sections. Training content lives in `content/knowledge-base.json`; run `npm run knowledge-base:generate` after editing it. The confirmed Geo rate is £4.99 monthly or £49.99 annually per business for either package.

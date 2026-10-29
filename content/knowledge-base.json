@@ -1414,6 +1414,16 @@
               ]
             ]
           ]
+        },
+        {
+          "title": "When Geo Clock-in is enabled",
+          "intro": "Some businesses require a workplace location check for personal-phone clock-ins.",
+          "blocks": [
+            [
+              "p",
+              "Allow a fresh precise-location check when prompted. You must be within the workplace area and have a sufficiently accurate reading. <a href=\"/knowledge-base/geo-clockin-employee/\">Follow the Geo Clock-in employee guide</a> for the full steps and permission help."
+            ]
+          ]
         }
       ]
     },
@@ -1462,6 +1472,177 @@
                 "Use the sickness reporting action where it is available and enter the supported absence dates.",
                 "Update your Manager about the expected return and tell them when you actually return.",
                 "Do not enter diagnoses or unnecessary medical detail in operational notes. Sickness is separate from annual leave and does not use holiday balance."
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "geo-clockin",
+      "title": "Set up Geo Clock-in for your workplace",
+      "summary": "Enable the add-on, set the workplace location and radius, test employee arrival checks and handle Manager overrides.",
+      "topic": "clocking",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Clockx or Full Workspace + Geo Clock-in add-on",
+      "keywords": "geo geofence geolocation gps location workplace coordinates latitude longitude radius onsite allow permission precise current location setup",
+      "new": true,
+      "sections": [
+        {
+          "title": "Enable access and set the workplace",
+          "intro": "Geo Clock-in is optional for both packages. Existing businesses are not enrolled automatically.",
+          "where": "Platform admin > Add-ons > Geo Clock-in; Business Owner > Business profile",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Agree your billing.</b> Geo Clock-in is £4.99 per business per month or £49.99 per business per year. It covers everyone within your agreed employee allowance. Your core subscription is separate.",
+                "<b>Enable the business.</b> Your DayRidge platform admin enables Geo Clock-in under Add-ons for the purchasing business. Enabling access does not collect payment.",
+                "<b>Open Business profile.</b> The Business Owner finds the Geo Clock-in section. Other Managers cannot change the workplace location.",
+                "<b>Set the centre point.</b> While physically at the premises, choose Set location from this device and allow location permission. Alternatively enter accurate workplace latitude and longitude. Check the values before saving.",
+                "<b>Choose the radius.</b> Enter a whole distance from 50 to 1,000 metres. Start with 100 metres and test it at the actual premises; device accuracy and building conditions vary.",
+                "<b>Save workplace location.</b> Employees can then make personal-phone clock-ins that pass the location check. Until a location is saved, an enabled business cannot accept those clock-ins."
+              ]
+            ],
+            [
+              "note",
+              "Use the workplace location",
+              "The device button fills the location of the device you are using. Set it at the premises, or enter the correct workplace coordinates manually. It does not look up the business address automatically."
+            ]
+          ]
+        },
+        {
+          "title": "Test the area before staff use it",
+          "intro": "A short on-site check prevents avoidable clock-in problems on the first working day.",
+          "where": "Employee View > My Time Clock",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Explain the check.</b> Tell staff why a current location is requested and how to contact a Manager if it cannot be verified.",
+                "<b>Check inside the workplace.</b> Ask a staff member with a real shift starting to test clock-in with precise location allowed. Do not create attendance records purely as a location test.",
+                "<b>Review the permitted area.</b> An outside location is rejected. A poor-accuracy fix or one close to the boundary may also be rejected; move closer or retry with a clearer signal.",
+                "<b>Adjust if necessary.</b> The Owner can refine the centre and radius in Business profile. Use an area that suits the actual premises."
+              ]
+            ],
+            [
+              "note",
+              "Accuracy and limits",
+              "DayRidge checks a fresh device location and its reported accuracy. Device locations can be inaccurate or spoofed. Geo Clock-in is an arrival check, not a guarantee of physical presence."
+            ]
+          ]
+        },
+        {
+          "title": "Handle exceptions and permission problems",
+          "intro": "Keep a clear record when a legitimate arrival needs a Manager to intervene.",
+          "where": "Business profile / Time clock > Team clock",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Location blocked.</b> Allow location for app.dayridge.co.uk in the browser’s website settings and check the phone’s Location Services and precise-location permission. Refresh DayRidge after changing permissions. An embedded browser may require opening the app directly in Safari or Chrome.",
+                "<b>Inaccurate or unavailable location.</b> Check location services, try somewhere with a clearer signal and retry. An expired reading needs a new clock-in attempt.",
+                "<b>Record an authorised arrival.</b> A Manager can use the existing team clock action with a reason of at least five characters. The reason stays with the attendance record and its audit history.",
+                "<b>Keep kiosk access available.</b> Registered workplace kiosks retain their existing device/PIN flow. Clocking out does not require a location check.",
+                "<b>Change access through DayRidge.</b> The platform admin can disable the add-on. Geo access remains available if a business changes between Full Workspace and Clockx."
+              ]
+            ],
+            [
+              "note",
+              "Location privacy",
+              "There is no continuous employee tracking. The check happens when a personal-phone clock-in is requested. These Geo functions do not save raw employee coordinates."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "geo-clockin-employee",
+      "title": "Clock in with a workplace location check",
+      "summary": "Allow precise location, clock in when you arrive and understand outside-area or permission messages.",
+      "topic": "clocking",
+      "roles": [
+        "employee"
+      ],
+      "package": "Clockx or Full Workspace + Geo Clock-in add-on",
+      "keywords": "employee geo clock in geofence gps location allow permission denied blocked precise outside area phone safari chrome clock out",
+      "new": true,
+      "sections": [
+        {
+          "title": "Clock in when you arrive",
+          "intro": "Follow these steps when your employer has enabled Geo Clock-in.",
+          "where": "Employee View > My Time Clock",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Arrive at your workplace.</b> Open DayRidge on your own phone and sign in to your account.",
+                "<b>Choose Clock in.</b> DayRidge requests your current location for this clock-in attempt.",
+                "<b>Allow precise location.</b> Accept the browser prompt and make sure the phone’s location services are enabled.",
+                "<b>Check the result.</b> The shift starts only after DayRidge accepts the location and records the clock-in. Confirm that the running shift is shown."
+              ]
+            ],
+            [
+              "note",
+              "Only at clock-in",
+              "DayRidge does not continuously track your movements. Clocking out does not require location."
+            ]
+          ]
+        },
+        {
+          "title": "Understand a blocked clock-in",
+          "intro": "A failed location check does not start your shift. Speak to your Manager promptly if you have arrived but cannot clock in.",
+          "where": "My Time Clock / browser website settings / phone location settings",
+          "blocks": [
+            [
+              "table",
+              [
+                "Message",
+                "What to do"
+              ],
+              [
+                [
+                  "Outside the workplace area",
+                  "Arrive at the premises and try again. If you are already there, ask your Manager to check the workplace setup."
+                ],
+                [
+                  "Location permission blocked",
+                  "Allow location for app.dayridge.co.uk in your browser’s website settings. Check phone Location Services and precise-location permission, then refresh."
+                ],
+                [
+                  "Poor accuracy or close to the edge",
+                  "Move closer to the workplace or somewhere with a clearer signal, then retry."
+                ],
+                [
+                  "Location expired or timed out",
+                  "Try again to obtain a fresh reading."
+                ],
+                [
+                  "Workplace not set up",
+                  "Ask your Business Owner or Manager to complete the Geo Clock-in setup."
+                ]
+              ]
+            ],
+            [
+              "p",
+              "If location still fails, use your employer’s registered workplace kiosk or ask a Manager to record your arrival with a reason. A location error is not proof that someone is absent or late."
+            ]
+          ]
+        },
+        {
+          "title": "Finish your shift",
+          "intro": "The location restriction applies to starting a shift on a personal phone.",
+          "where": "My Time Clock > Clock out",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Choose Clock out at the end of the shift and confirm the action.",
+                "Check that DayRidge shows the shift as ended.",
+                "Ask your Manager to review any attendance correction through the normal workplace process."
               ]
             ]
           ]

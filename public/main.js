@@ -224,7 +224,7 @@ if (featureCards.length) {
 // Annual platform and monthly add-ons are deliberately shown separately.
 if ($('[data-team-number]')) {
 
-  const number = $('[data-team-number]'), range = $('[data-team-range]'), tasks = $('[data-quote-tasks]'), stock = $('[data-quote-stock]'), taskUsers = $('[data-tasks-users]');
+  const number = $('[data-team-number]'), range = $('[data-team-range]'), tasks = $('[data-quote-tasks]'), stock = $('[data-quote-stock]'), taskUsers = $('[data-tasks-users]'), geo = $('[data-quote-geo]'), geoBilling = $('[data-geo-billing]');
   function quote() {
     const size = Number(number.value), users = Number(taskUsers.value);
     const valid = number.value !== '' && Number.isInteger(size) && size >= 1 && size <= 10000;
@@ -238,6 +238,10 @@ if ($('[data-team-number]')) {
     });
     const tasksTotal = tasks.checked ? 499 + 235 * users : 0;
     const stockTotal = stock.checked ? 999 : 0;
+    const geoMonthly = geo?.checked && geoBilling.value === 'monthly' ? 499 : 0;
+    const monthlyTotal = tasksTotal + stockTotal + geoMonthly;
+    if (geo) $('[data-geo-billing-wrap]').hidden = !geo.checked;
+    if (geo) $('[data-quote-geo-total]').textContent = geo.checked ? (geoBilling.value === 'annual' ? '£49.99 / year' : '£4.99 / month') : 'Not selected';
     $('[data-quote-plan]').textContent = valid ? (plan?.name || 'Custom') : 'Your';
     $('[data-quote-employees]').textContent = valid ? String(size) : '—';
     const annual = $('[data-quote-annual]');
@@ -246,16 +250,18 @@ if ($('[data-team-number]')) {
     $('[data-quote-custom]').hidden = !valid || size <= 5;
     $('[data-quote-tasks-total]').textContent = validUsers ? (tasks.checked ? money(tasksTotal) : 'Not selected') : 'Check user count';
     $('[data-quote-stock-total]').textContent = stock.checked ? money(stockTotal) : 'Not selected';
-    $('[data-quote-monthly]').textContent = valid && validUsers ? money(tasksTotal + stockTotal) : '—';
-    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + 'Selected add-ons total ' + money(tasksTotal + stockTotal) + ' per month.';
+    $('[data-quote-monthly]').textContent = valid && validUsers ? money(monthlyTotal) : '—';
+    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + 'Selected add-ons total ' + money(monthlyTotal) + ' per month.' + (geo?.checked && geoBilling.value === 'annual' ? ' Geo Clock-in is an additional £49.99 per year.' : '');
     const params = new URLSearchParams({ topic: 'plan', package: 'full' });
-    if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); }
+    if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); if (geo?.checked) params.set('geo', geoBilling.value); }
     $('[data-quote-contact]').href = sitePath('/contact/?' + params);
   }
   range.addEventListener('input', () => { number.value = range.value; quote(); });
   number.addEventListener('input', () => { range.value = String(Math.min(60, Math.max(1, Number(number.value) || 1))); quote(); });
   [tasks, stock].forEach(input => input.addEventListener('change', quote));
   taskUsers.addEventListener('input', quote);
+  geo?.addEventListener('change', quote);
+  geoBilling?.addEventListener('change', quote);
   quote();
 }
 const demoTasks = $$('[data-demo-task]');
@@ -314,6 +320,7 @@ if (contactForm) {
     if (query.get('stock') === 'yes') message += '\nStock Management add-on: yes.';
     field('message').value = message;
   }
+  if (['monthly','annual'].includes(query.get('geo'))) field('message').value += (field('message').value ? '\n' : '') + 'Geo Clock-in add-on: ' + (query.get('geo') === 'annual' ? '£49.99 per business per year.' : '£4.99 per business per month.');
   contactForm.addEventListener('input', event => {
     status.hidden = true;
     event.target.setCustomValidity?.('');

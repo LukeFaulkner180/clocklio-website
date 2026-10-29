@@ -28,4 +28,8 @@ for (const route of ['index.html', 'platform/index.html', 'pricing/index.html', 
   const html = await readFile(path.join(root, route), 'utf8');
   for (const amount of [499, 235, 999]) assert.ok(html.includes(money(amount)), `${route}: current monthly add-on price`);
 }
+for (const route of ['index.html','platform/index.html','pricing/index.html','features/index.html','subscriptions/index.html','add-ons/index.html']) {
+ const html=await readFile(path.join(root,route),'utf8');
+ assert.ok(html.includes('£49.99'),`${route}: Geo annual price`);
+}
 console.log(`Checked all ${files.length} pages for retired prices, plus published package tiers and add-on rates.`);
