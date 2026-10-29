@@ -1481,14 +1481,14 @@
     {
       "slug": "geo-clockin",
       "title": "Set up Geo Clock-in for your workplace",
-      "summary": "Enable the add-on, set the workplace location and radius, test employee arrival checks and handle Manager overrides.",
+      "summary": "Enable the add-on, choose the workplace on a map, set the radius, test employee arrival checks and handle Manager overrides.",
       "topic": "clocking",
       "roles": [
         "owner",
         "manager"
       ],
       "package": "Clockx or Full Workspace + Geo Clock-in add-on",
-      "keywords": "geo geofence geolocation gps location workplace coordinates latitude longitude radius onsite allow permission precise current location setup",
+      "keywords": "geo geofence geolocation gps location workplace coordinates latitude longitude radius onsite allow permission precise current location setup map pin drag move exact centre center",
       "new": true,
       "sections": [
         {
@@ -1502,7 +1502,7 @@
                 "<b>Agree your billing.</b> Geo Clock-in is £4.99 per business per month or £49.99 per business per year. It covers everyone within your agreed employee allowance. Your core subscription is separate.",
                 "<b>Enable the business.</b> Your DayRidge platform admin enables Geo Clock-in under Add-ons for the purchasing business. Enabling access does not collect payment.",
                 "<b>Open Business profile.</b> The Business Owner finds the Geo Clock-in section. Other Managers cannot change the workplace location.",
-                "<b>Set the centre point.</b> While physically at the premises, choose Set location from this device and allow location permission. Alternatively enter accurate workplace latitude and longitude. Check the values before saving.",
+                "<b>Choose the workplace.</b> Open Choose on map to place the pin. You can also use Set location from this device while at the premises, or enter accurate workplace latitude and longitude. Check the position before saving.",
                 "<b>Choose the radius.</b> Enter a whole distance from 50 to 1,000 metres. Start with 100 metres and test it at the actual premises; device accuracy and building conditions vary.",
                 "<b>Save workplace location.</b> Employees can then make personal-phone clock-ins that pass the location check. Until a location is saved, an enabled business cannot accept those clock-ins."
               ]
@@ -1510,7 +1510,33 @@
             [
               "note",
               "Use the workplace location",
-              "The device button fills the location of the device you are using. Set it at the premises, or enter the correct workplace coordinates manually. It does not look up the business address automatically."
+              "The device button fills the location of the device you are using, so use it at the premises. Map selection and manual coordinates can set the workplace without device-location permission. DayRidge does not look up the business address automatically."
+            ]
+          ]
+        },
+        {
+          "title": "Fine-tune the workplace on a map",
+          "intro": "Use a movable pin to choose the exact place employees should arrive. The map opens only when you choose it.",
+          "where": "Business Owner > Business profile > Geo Clock-in > Choose on map",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Open the map.</b> Choose on map displays your existing coordinates when available. With no saved point, navigate to the workplace using the map controls.",
+                "<b>Place or move the pin.</b> Tap the map or drag the purple pin to the exact spot. You can also pan the map and choose Use map centre.",
+                "<b>Review the circle.</b> The shaded area previews the allowed radius. Change Allowed radius (metres) to a whole value from 50 to 1,000, then choose Show allowed area to see the boundary.",
+                "<b>Check the coordinates and save.</b> Moving the pin fills the latitude and longitude fields. Press Save workplace location to apply the changes. Moving a pin alone does not save."
+              ]
+            ],
+            [
+              "note",
+              "Owner controls remain in place",
+              "Only the Business Owner can change and save the pin. Other Managers can view the saved workplace map. Selecting the workplace on a map does not remove the location check from employee personal-phone clock-ins."
+            ],
+            [
+              "note",
+              "If the map cannot load",
+              "Check the connection and try opening the map again. You can still use device location or enter accurate coordinates if this browser cannot display the map."
             ]
           ]
         },
@@ -1543,7 +1569,7 @@
             [
               "steps",
               [
-                "<b>Location blocked.</b> Allow location for app.dayridge.co.uk in the browser’s website settings and check the phone’s Location Services and precise-location permission. Refresh DayRidge after changing permissions. An embedded browser may require opening the app directly in Safari or Chrome.",
+                "<b>Location blocked.</b> Check both browser and phone permissions. In Safari, allow Location for app.dayridge.co.uk. On iPhone, open Settings > Privacy & Security > Location Services > Safari Websites, select While Using the App and turn Precise Location on. Refresh DayRidge afterwards. The setup screen includes Location permissions and help.",
                 "<b>Inaccurate or unavailable location.</b> Check location services, try somewhere with a clearer signal and retry. An expired reading needs a new clock-in attempt.",
                 "<b>Record an authorised arrival.</b> A Manager can use the existing team clock action with a reason of at least five characters. The reason stays with the attendance record and its audit history.",
                 "<b>Keep kiosk access available.</b> Registered workplace kiosks retain their existing device/PIN flow. Clocking out does not require a location check.",

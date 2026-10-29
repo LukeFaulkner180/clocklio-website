@@ -236,7 +236,7 @@
   },
   "/knowledge-base/geo-clockin/": {
     "title": "Set up Geo Clock-in for your workplace | DayRidge Training",
-    "description": "Enable the add-on, set the workplace location and radius, test employee arrival checks and handle Manager overrides.",
+    "description": "Enable the add-on, choose the workplace on a map, set the radius, test employee arrival checks and handle Manager overrides.",
     "label": "Set up Geo Clock-in for your workplace"
   },
   "/knowledge-base/geo-clockin-employee/": {
