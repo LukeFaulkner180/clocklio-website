@@ -36,7 +36,7 @@ def begin(n,label,title,sub):
  c.setFillColor(HexColor(PAPER));c.rect(0,0,W,H,stroke=0,fill=1)
  text(M,H-48,'Day',18,INK,True);text(M+39,H-48,'Ridge',18,PURPLE,True)
  guide='PRODUCT GUIDE / 2026/27';text(W-M-pdfmetrics.stringWidth(guide,'Bold',7.3),H-44,guide,7.3,MUTED,True)
- line(M,43,W-M,43);text(M,26,'dayridge.co.uk',9,PURPLE,True);text(W-M-31,27,f'{n+1} / 12',7.6,MUTED);c.linkURL('https://dayridge.co.uk/',(M,18,180,39),relative=0,thickness=0)
+ line(M,43,W-M,43);text(M,26,'dayridge.co.uk',9,PURPLE,True);text(W-M-31,27,f'{c.getPageNumber()} / 12',7.6,MUTED);c.linkURL('https://dayridge.co.uk/',(M,18,180,39),relative=0,thickness=0)
  text(M,746,label.upper(),8.5,PURPLE,True)
  y=706
  for t in title.split('\n'):text(M,y,t,31,INK,True);y-=39
@@ -134,7 +134,7 @@ def contact_cover():
 
 sales_cover();end()
 # 1 Product family (inside the sales cover)
-begin(1,'The DayRidge product family','Choose the tools.\nKeep it simple.','Two annual packages for staff management. Optional monthly add-ons build on Full Workspace.')
+begin(1,'The DayRidge product family','Choose the tools.\nKeep it simple.','Two annual packages for staff management. Geo Clock-in works with either package. Tasks and Stock Management extend Full Workspace.')
 for x,title,tag,heading,items in [
  (M,'Clockx','FROM £149.99 / YEAR','The everyday essentials',[
   'Build and publish staff rotas.',
@@ -156,12 +156,13 @@ for x,title,tag,heading,items in [
   yy=463-i*34
   check(x+18,yy-1)
   para(x+38,yy,item,187,8.7,13,INK)
-text(M,256,'Extend Full Workspace when you need to',13,INK,True)
-box(M,160,244,74,LILAC);text(M+15,211,'Tasks add-on',12,PURPLE,True)
-para(M+15,191,'Managers assign work. Employees track and complete it in My Tasks.',214,8.6,13)
-box(309,160,244,74,MINT);text(324,211,'Stock Management add-on',11.5,GREEN,True)
-para(324,191,'Authorised managers record counts, review stock usage and reconcile takings.',214,8.6,13)
-text(M,136,'Add-ons are charged separately each month. Starting prices cover up to five employees.',7.9,MUTED)
+text(M,256,'Add the extras that fit your working day',13,INK,True)
+for x,title,body,fill,col in [
+ (M,'Geo Clock-in','Workplace location checks. Available with both packages.',LILAC,PURPLE),
+ (M+174,'Tasks','Individual work and shared shift checklists. Full Workspace.',MINT,GREEN),
+ (M+348,'Stock Management','Counts, usage and till comparisons. Full Workspace.',LILAC,PURPLE)]:
+ box(x,151,163,80,fill);text(x+12,208,title,10,col,True);para(x+12,190,body,139,8,12)
+text(M,131,'Add-ons are separate charges. Package starting prices cover up to five employees.',7.9,MUTED)
 box(M,65,CW,53,'#FFFFFF',LINE)
 text(M+14,99,'PACKAGE = TOOLS. ROLE = ACCESS.',8.5,PURPLE,True)
 para(M+14,82,'Your package decides which tools the business has. Roles and granted permissions decide what each person can see and do.',CW-28,8.2,12)
@@ -178,6 +179,27 @@ feature(274,439,'02','Review and correct','Managers can review records, clock em
 feature(274,327,'03','Prepare payroll hours','Review recorded hours and export a CSV for your existing payroll process.',237)
 note(139,'An example you can follow','09:00–12:30 is 3h 30m elapsed. Less a 15-minute unpaid break gives 3h 15m paid. At £13/hour, the illustrative gross estimate is £42.25.',MINT)
 para(M,110,'Break rules and manager corrections affect paid hours. Gross estimates exclude tax, pensions and other deductions; DayRidge does not generate payslips.',CW,8.8,14)
+end()
+# Geo Clock-in: an illustrated owner setup and employee arrival workflow.
+begin(3,'Geo Clock-in / optional add-on','The right place.\nBefore the clock starts.','Available with Clockx and Full Workspace. Check an employee’s fresh phone location before accepting a personal-phone clock-in.')
+pill(M,568,'CLOCKX + FULL WORKSPACE');pill(272,568,'NEW / GEO CLOCK-IN',MINT,GREEN)
+browser(M,319,CW,224,'BUSINESS PROFILE / CHOOSE ON MAP')
+box(M+13,333,CW-26,164,'#F0F3EF',r=7)
+for x,y,x2,y2 in [(M+26,351,W-M-21,470),(M+30,459,W-M-22,351),(M+155,339,M+232,492)]:
+ line(x,y,x2,y2,'#FFFFFF',12);line(x,y,x2,y2,'#D6DDDA',1)
+c.setFillColor(HexColor('#E1DCF5'));c.setStrokeColor(HexColor(PURPLE));c.setLineWidth(1.5);c.circle(M+252,414,62,stroke=1,fill=1)
+box(M+234,399,36,29,'#FFFFFF',PURPLE,r=4);text(M+239,410,'SITE',7,PURPLE,True)
+c.setFillColor(HexColor(PURPLE));p=c.beginPath();p.moveTo(M+252,424);p.lineTo(M+242,441);p.lineTo(M+262,441);p.close();c.drawPath(p,fill=1,stroke=0);c.circle(M+252,444,11,fill=1,stroke=0)
+c.setFillColor(HexColor('#FFFFFF'));c.circle(M+252,444,4,fill=1,stroke=0)
+pill(M+23,477,'DRAG PIN OR TAP MAP');pill(M+330,346,'100 m / EXAMPLE',MINT,GREEN)
+text(M,304,'Illustrative setup view. The actual app opens a movable map with an adjustable radius.',7.3,MUTED)
+for i,(title,body) in enumerate([
+ ('Choose the workplace','Business Owner opens Choose on map, taps a point or drags the purple pin, checks the radius and saves.'),
+ ('Check arrival','The employee allows precise location. DayRidge checks the location and its accuracy before recording the clock-in.'),
+ ('Handle exceptions','Registered kiosks remain available. Managers can record an arrival override with a reason. Clock-out needs no location.')]):
+ x=M+i*174;pill(x,269,str(i+1));text(x,239,title,10,INK,True);para(x,218,body,158,8.4,13)
+box(M,81,CW,65,LILAC);text(M+15,122,'£4.99 / business / month',13,PURPLE,True);text(M+15,101,'or £49.99 per business / year',10,INK,True)
+para(M,62,'One workplace; radius 50-1,000 metres. No continuous tracking or stored raw employee coordinates. Phone locations can be inaccurate or spoofed. Managers can view the saved map; only the Business Owner edits it.',CW,7.4,11)
 end()
 # 3 Rota
 begin(3,'Clockx + Full Workspace','Plan the week.\nKeep everyone informed.','Build a rota, check availability and publish shifts so employees can see their working week in My shifts.')
@@ -223,7 +245,7 @@ feature(M,176,'03','Give the right access','Use wider role permissions and prote
 feature(310,176,'04','Respond to changes','Use Open shifts for cover and extra-hours requests when the working week changes.',243)
 end()
 # 5 Addons
-begin(5,'Optional monthly add-ons','Useful extras.\nOnly when you need them.','Tasks and Stock Management are available with Full Workspace. Add the tools that fit how your business works.')
+begin(5,'Tasks and Stock / optional add-ons','Useful extras.\nOnly when you need them.','Tasks and Stock Management extend Full Workspace. Geo Clock-in is available with either package; see the workplace map on page 4.')
 box(M,310,244,248,'#FFFFFF',LINE);box(309,310,244,248,'#FFFFFF',LINE)
 text(M+17,530,'Tasks',20,INK,True);text(326,530,'Stock Management',16,INK,True)
 for i,(label,status,fill) in enumerate([('Opening checks','To do',LILAC),('Restock supplies','In progress',ORANGE),('Close-down checklist','Complete',MINT)]):
@@ -234,19 +256,19 @@ for i,(item,count) in enumerate([('Coffee beans','12 bags'),('Milk','18 cartons'
 for i,(label,val) in enumerate([('Expected takings','£840'),('Actual takings','£830'),('Difference','-£10')]):
  yy=415-i*25;text(326,yy,label,8.2,MUTED);text(480,yy,val,10,PURPLE,True);line(326,yy-10,535,yy-10)
 text(M+17,328,'Illustrative task board',7,MUTED);text(326,328,'Illustrative reconciliation',7,MUTED)
-text(M,281,'Clear actions for the team',12,INK,True);para(M,260,'Assign instructions and deadlines. Employees use My Tasks to see their work and record completion.',244,9.1,14)
+text(M,281,'Clear actions for the team',12,INK,True);para(M,260,'Assign individual work or publish reusable shift checklists. Employees claim shared jobs, update progress and capture a fresh photo when required. Completed work has its own view.',244,9.1,14)
 text(309,281,'Understand your stock',12,INK,True);para(309,260,'Record opening and closing counts, deliveries, adjustments and waste. Review usage and compare expected with actual takings.',244,9.1,14)
 box(M,114,244,78,LILAC);text(M+15,168,'£4.99 / business / month',11,PURPLE,True);text(M+15,148,'+ £2.35 per agreed chargeable user',8.5,INK);text(M+15,130,'5 chargeable users = £16.74 / month',8.1,MUTED)
 box(309,114,244,78,LILAC);text(324,168,'£9.99 / business / month',11,PURPLE,True);para(324,148,'Manual stock counts and till figures. No direct till integration in version 0.1.',214,8.2,12)
 para(M,86,'Stock units must stay consistent. Recipes, portions and yields are not converted automatically.',CW,8.4,13)
 end()
 # 6 Matrix
-begin(6,'Choose your workspace','Two packages.\nOne clear starting point.','Clockx covers everyday staff management. Full Workspace adds the wider people tools and access to optional business add-ons.')
+begin(6,'Choose your workspace','Two packages.\nOne clear starting point.','Clockx covers everyday staff management. Full Workspace adds wider people tools. Geo Clock-in is optional with either package; Tasks and Stock Management extend Full Workspace.')
 box(M,510,CW,40,INK);text(M+16,525,'WHAT YOUR TEAM NEEDS',8,'#FFFFFF',True);text(358,525,'CLOCKX',8,'#FFFFFF',True);text(435,525,'FULL',8,'#FFFFFF',True)
 rows=[('Rotas and published shifts',1,1),('Clocking, breaks and manager corrections',1,1),('Annual leave requests and approvals',1,1),('Recorded payroll hours and CSV exports',1,1),('Basic employee details',1,1),('Open shifts and extra-hours requests',0,1),('Contracts and company policies / documents',0,1),('Onboarding and protected personnel files',0,1),('Sickness and return-to-work records',0,1),('Wider role permissions',0,1)]
 for i,(label,a,b) in enumerate(rows):
  yy=510-(i+1)*33;box(M,yy,CW,33,'#FFFFFF' if i%2==0 else '#F0EEF5',r=0);text(M+14,yy+12,label,8.5,INK);check(378,yy+11,a);check(451,yy+11,b)
-note(79,'Optional extras for Full Workspace','Tasks and Stock Management are separate monthly add-ons. Choose either or both; they are not included in the annual package price.')
+note(79,'Choose your add-ons','Geo Clock-in is optional with Clockx or Full Workspace (monthly or annual). Tasks and Stock Management are optional monthly tools for Full Workspace. Add-ons are charged separately.')
 end()
 # Role guide: explain the customer-facing views without exposing the platform admin console.
 begin(7,'One system. The right view.','What each person\ncan see and do.','Your package provides the tools. Each person has a view suited to their role, with business access kept separate from personal information.')
@@ -262,7 +284,7 @@ roles=[
   'Permissions are granted individually. Attendance totals exclude wages; private employee files and payroll remain restricted.'),
  ('04','Business Owner','CLOCKX + FULL WORKSPACE',
   'The main business manager view, plus payroll, wage rates, gross-pay reports, exports, business settings and control of manager or team-leader access.',
-  'Full Workspace also provides onboarding and protected personnel tools. Stock access is granted to the appropriate managers when that add-on is active.')]
+  'Full Workspace adds protected personnel tools. The Business Owner sets the Geo workplace pin and radius; Managers can view the saved map. Stock access is granted separately.')]
 for i,(num,title,tag,body,extra) in enumerate(roles):
  yy=428-i*112
  box(M,yy,CW,103,'#FFFFFF',LINE)
@@ -293,7 +315,7 @@ text(M+16,104,'What that means for your business',10.5,PURPLE,True)
 para(M+16,85,'A clear package comparison, published prices and a straightforward conversation before you decide.',CW-32,9,14,INK)
 end()
 # 7 Pricing
-begin(9,'Transparent package guide','A plan for your\nteam size.','Annual prices are per business. Your agreed quote confirms the package, employee allowance and any monthly add-ons.')
+begin(9,'Transparent package guide','A plan for your\nteam size.','Annual prices are per business. Your agreed quote confirms the package, employee allowance and any chosen add-ons.')
 text(M,554,'CLOCKX',10,PURPLE,True)
 for i,p in enumerate(DATA['clockx']):
  x=M+i*174;box(x,437,163,96,LILAC);text(x+13,508,'Up to '+str(p['employeeLimit'])+' employees',8.5,INK,True);text(x+13,474,price(p['price']),23,PURPLE,True);text(x+13,453,'per business / year',8,MUTED)
@@ -301,32 +323,11 @@ text(M,402,'FULL WORKSPACE',10,PURPLE,True)
 for i,p in enumerate(DATA['full']):
  yy=348-i*35;box(M,yy,CW,35,'#FFFFFF' if i%2==0 else '#F0EEF5',r=0);text(M+14,yy+13,p['name'],10,INK,True);text(M+165,yy+13,['1–5 employees','10–15 employees','16–30 employees','31–50 employees'][i],9,MUTED);text(M+393,yy+13,price(p['price']),11,PURPLE,True)
 para(M,213,'For 6–9 employees, add £45 per year for each employee above the first five. Example: 8 employees = £434.99 per year. Fixed bands apply from 10 employees.',CW,9,14)
-para(M,156,'Managers are included. A manager with an employee shift profile uses one employee slot. Extra staff above the approved allowance need platform approval.',CW,8.8,14)
-para(M,104,'Over 20 employees on Clockx or over 50 on Full Workspace? Ask for a custom quote. Annual subscriptions are arranged by bank transfer or direct agreement.',CW,8.8,14)
+para(M,161,'Geo Clock-in: £4.99 per business / month or £49.99 per business / year. Available with either package.',CW,9,14,PURPLE,True)
+para(M,120,'Managers are included. A manager with an employee shift profile uses one employee slot. Extra staff above the approved allowance need platform approval.',CW,8.8,14)
+para(M,79,'Over 20 employees on Clockx or over 50 on Full Workspace? Ask for a custom quote. Annual subscriptions are arranged by bank transfer or direct agreement.',CW,8.8,14)
 end()
-# A visual working-day walkthrough replaces the former signup offer.
-begin(10,'DayRidge in action','One working day.\nConnected from the start.','Example views show how planning, clocking and reviewing hours connect across your team.')
-text(M,578,'ILLUSTRATIVE PRODUCT VIEWS / EXAMPLE STAFF AND HOURS',7,MUTED,True)
-browser(M,417,CW,143,'01 / MANAGER: PLAN THE WEEK')
-text(M+17,507,'Publish a rota your team can see',11,INK,True)
-for i,(name,time) in enumerate([('Alex','09:00 - 17:00'),('Sam','09:00 - 13:00'),('Jamie','13:00 - 21:00')]):
- x=M+17+i*160;box(x,446,148,44,MINT,r=6);text(x+11,473,name,9,INK,True);text(x+11,457,time,8,GREEN)
-text(M+17,430,'Published shifts appear in each employee’s personal schedule.',8,MUTED)
-browser(M,240,CW,143,'02 / EMPLOYEE: RECORD THE SHIFT')
-text(M+17,332,'MY TIME CLOCK',7.8,PURPLE,True)
-text(M+17,299,'03h 15m',24,INK,True)
-pill(M+173,311,'CLOCKED IN',MINT,GREEN)
-box(M+304,281,190,55,LILAC,r=7);text(M+316,316,'TODAY’S PUBLISHED SHIFT',6.6,PURPLE,True);text(M+316,296,'09:00 - 17:00',12,INK,True)
-text(M+17,254,'Clock-ins and clock-outs create the worked-time record.',8,MUTED)
-browser(M,63,CW,143,'03 / BUSINESS OWNER: REVIEW HOURS')
-headers=[(M+17,'EMPLOYEE'),(M+144,'IN'),(M+216,'OUT'),(M+297,'BREAK'),(M+396,'PAID HOURS')]
-for x,label in headers:text(x,151,label,7,MUTED,True)
-for i,values in enumerate([('Alex','09:00','17:00','30m','7h 30m'),('Sam','09:00','13:00','0m','4h 00m')]):
- yy=127-i*23
- for (x,_),value in zip(headers,values):text(x,yy,value,9,INK,True)
- line(M+17,yy-8,W-M-17,yy-8)
-text(M+17,78,'Review recorded hours, then export a CSV for your payroll process.',8,PURPLE,True)
-end();contact_cover();end();c.save()
+contact_cover();end();c.save()
 for name in ['dayridge-product-brochure.pdf','clocknexa-product-brochure.pdf']:shutil.copy2(OUT,ROOT/'public/downloads'/name)
 shutil.copy2(OUT,OUT.parent/'DayRidge-Product-Brochure.pdf')
 print(OUT)
