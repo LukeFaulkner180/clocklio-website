@@ -221,7 +221,7 @@ if (featureCards.length) {
   filter();
 }
 
-// Annual platform and monthly add-ons are deliberately shown separately.
+// Annual charges include annual add-ons; monthly extras stay separate.
 if ($('[data-team-number]')) {
 
   const number = $('[data-team-number]'), range = $('[data-team-range]'), tasks = $('[data-quote-tasks]'), stock = $('[data-quote-stock]'), taskUsers = $('[data-tasks-users]'), geo = $('[data-quote-geo]'), geoBilling = $('[data-geo-billing]');
@@ -240,6 +240,8 @@ if ($('[data-team-number]')) {
     const stockTotal = stock.checked ? 999 : 0;
     const geoMonthly = geo?.checked && geoBilling.value === 'monthly' ? 499 : 0;
     const monthlyTotal = tasksTotal + stockTotal + geoMonthly;
+    const geoAnnual = geo?.checked && geoBilling.value === 'annual' ? 4999 : 0;
+    const annualTotal = plan ? plan.price + geoAnnual : null;
     if (geo) $('[data-geo-billing-wrap]').hidden = !geo.checked;
     if (geo) $('[data-quote-geo-total]').textContent = geo.checked ? (geoBilling.value === 'annual' ? '£49.99 / year' : '£4.99 / month') : 'Not selected';
     $('[data-quote-plan]').textContent = valid ? (plan?.name || 'Custom') : 'Your';
@@ -247,11 +249,13 @@ if ($('[data-team-number]')) {
     const annual = $('[data-quote-annual]');
     annual.textContent = valid ? (plan ? money(plan.price) : 'Let’s talk') : '—';
     if (plan) { const suffix = document.createElement('small'); suffix.textContent = '/ year'; annual.append(suffix); }
+    const totalAnnual = $('[data-quote-annual-total]');
+    totalAnnual.textContent = valid ? (plan ? money(annualTotal) : 'Let’s talk') : '—';
     $('[data-quote-custom]').hidden = !valid || size <= 5;
     $('[data-quote-tasks-total]').textContent = validUsers ? (tasks.checked ? money(tasksTotal) : 'Not selected') : 'Check user count';
     $('[data-quote-stock-total]').textContent = stock.checked ? money(stockTotal) : 'Not selected';
     $('[data-quote-monthly]').textContent = valid && validUsers ? money(monthlyTotal) : '—';
-    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + 'Selected add-ons total ' + money(monthlyTotal) + ' per month.' + (geo?.checked && geoBilling.value === 'annual' ? ' Geo Clock-in is an additional £49.99 per year.' : '');
+    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + (plan ? 'Total annual price is ' + money(annualTotal) + (geoAnnual ? ', including Geo Clock-in' : '') + '. ' : (geoAnnual ? 'Geo Clock-in adds £49.99 per year to your agreed Custom price. ' : '')) + 'Monthly extras total ' + money(monthlyTotal) + ' per month.';
     const params = new URLSearchParams({ topic: 'plan', package: 'full' });
     if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); if (geo?.checked) params.set('geo', geoBilling.value); }
     $('[data-quote-contact]').href = sitePath('/contact/?' + params);
