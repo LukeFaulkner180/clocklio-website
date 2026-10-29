@@ -74,3 +74,15 @@ test('brochure links count clicks separately without intercepting navigation', (
   click({target:{closest:()=>({href:'https://dayridge.co.uk/pricing/'})}});
   assert.equal(p.requests.length,2);
 });
+
+test('training visits use the existing Help bucket and never transmit training searches', () => {
+  for (const opts of [
+    { pathname: '/knowledge-base/', query: '?q=private-search' },
+    { pathname: '/knowledge-base/tasks/', query: '?role=employee&q=private-search' },
+    { hostname: 'lukefaulkner180.github.io', pathname: '/clocklio-website/knowledge-base/rotas/' },
+  ]) {
+    const request = page(opts).requests[0];
+    assert.equal(JSON.parse(request.body).pagePath, '/help/');
+    assert.equal(request.body.includes('private-search'), false);
+  }
+});

@@ -96,10 +96,10 @@ for path,content in PAGES.items():
  target=PUBLIC/path/'index.html';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content)
 for target in PUBLIC.rglob('*.html'):
  s=target.read_text()
- if 'href="/resources/" class="nav-link"' not in s:
+ if 'href="/resources/" class="nav-link"' not in s and 'href="/knowledge-base/" class="nav-link"' not in s:
   s=s.replace('<a class="nav-link" href="/pricing/">Pricing</a>','<a class="nav-link" href="/pricing/">Pricing</a>\n       <a href="/resources/" class="nav-link"'+(' aria-current="page"' if '<body data-page="resources">' in s else '')+'>Resources</a>')
  # Pricing itself has an aria-current attribute; cover that retained navigation too.
- if 'href="/resources/" class="nav-link"' not in s:
+ if 'href="/resources/" class="nav-link"' not in s and 'href="/knowledge-base/" class="nav-link"' not in s:
   s=s.replace('<a class="nav-link" href="/pricing/" aria-current="page">Pricing</a>','<a class="nav-link" href="/pricing/" aria-current="page">Pricing</a>\n       <a href="/resources/" class="nav-link">Resources</a>')
  if '<body data-page="resources">' in s:
   s=re.sub(r'<a href="/resources/" class="nav-link"(?: aria-current="page")?>', '<a href="/resources/" class="nav-link" aria-current="page">',s)

@@ -6,7 +6,9 @@ const onWebsite = ['dayridge.co.uk', 'www.dayridge.co.uk'].includes(location.hos
 const bot = /bot\b|crawler|spider|slurp|facebookexternalhit|facebot|whatsapp|telegrambot|preview|headless|lighthouse/i.test(navigator.userAgent);
 if (onWebsite && !bot && !['404', 'not-found'].includes(document.body?.dataset.page) && typeof crypto.randomUUID === 'function') {
   let sent = false;
-  const pagePath = location.pathname.replace(/^\/clocklio-website(?=\/|$)/, '') || '/';
+  const observedPath = location.pathname.replace(/^\/clocklio-website(?=\/|$)/, '') || '/';
+  // Training visits aggregate into the existing Help section; search terms are never sent.
+  const pagePath = observedPath.startsWith('/knowledge-base/') ? '/help/' : observedPath;
   const device = /ipad|tablet/i.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1) ? 'tablet' : /mobi|iphone|android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
   const classifyHost = host => {
     if (/(^|\.)facebook\.com$|(^|\.)fb\.com$/.test(host)) return 'facebook';

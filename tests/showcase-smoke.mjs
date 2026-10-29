@@ -184,10 +184,24 @@ try {
       assert.equal(await page.locator('#site-navigation a[aria-current="page"]').textContent(), 'About us');
       assert.equal(await page.locator('.site-footer a[href$="/about/"]').count(), 1);
 
-      await page.locator('#site-navigation').getByRole('link',{name:'Resources',exact:true}).click();
-      await page.waitForURL('**/resources/');
+      await page.locator('#site-navigation').getByRole('link',{name:'Knowledge base',exact:true}).click();
+      await page.waitForURL('**/knowledge-base/');
+      assert.equal(await page.locator('[data-kb-card]:visible').count(),16);
+      await page.locator('[data-kb-search]').fill('how do I publish a rota');
+      assert.ok(await page.locator('[data-kb-card]:visible').count()>=1);
+      assert.equal(await page.locator('[data-kb-card] h3 a[href$="/knowledge-base/rotas/"]').isVisible(),true);
+      await page.locator('[data-kb-search]').fill('no-matching-topic-zz');
+      assert.equal(await page.locator('[data-kb-empty]').isVisible(),true);
+      await page.locator('[data-kb-reset]').click();
+      await page.locator('[data-kb-role=employee]').click();
+      assert.equal(await page.locator('[data-kb-card][data-roles~=employee]:visible').count(),await page.locator('[data-kb-card]:visible').count());
+      await page.locator('[data-kb-topic]').selectOption('rotas');
+      assert.equal(await page.locator('[data-kb-card]:visible').count(),1);
+      await page.locator('[data-kb-card]:visible h3 a').click();
+      await page.waitForURL('**/knowledge-base/my-shifts/');
+      assert.equal(await page.locator('[data-kb-print]').isEnabled(),true);
+      await page.goto(origin+'/resources/');
       assert.equal(await page.locator('.resource-card-grid .resource-card').count(),7);
-      assert.equal(await page.locator('#site-navigation a[aria-current="page"]').textContent(),'Resources');
       await page.goto(origin+'/help/');
       assert.equal(await page.locator('[data-help-card]:visible').count(),9);
       await page.locator('[data-help-search]').fill('contract');
@@ -355,7 +369,7 @@ try {
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
       await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
+      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','knowledge-base/','knowledge-base/rotas/','knowledge-base/tasks/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {

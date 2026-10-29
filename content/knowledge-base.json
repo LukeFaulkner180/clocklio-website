@@ -1,0 +1,1472 @@
+{
+  "reviewed": "29 October 2026",
+  "guides": [
+    {
+      "slug": "getting-started",
+      "title": "Set up your business workspace",
+      "summary": "From your first sign-in to a checked pay schedule, a pilot team and your first published shift.",
+      "topic": "getting-started",
+      "roles": [
+        "owner"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "setup business settings payday monthly four weekly budget plans package price logo",
+      "sections": [
+        {
+          "title": "Your first setup checklist",
+          "intro": "Set the foundations before you invite the whole team. A short, controlled start makes the first working week easier.",
+          "where": "Sign in > Business / Managers / Team",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Confirm your access.</b> Use the Business Owner account supplied for your business. Check that the business name is yours and that you can see <b>Business</b> and <b>Payroll</b>. A standard Manager account has different access.",
+                "<b>Check the package.</b> Confirm Clockx or Full Workspace, the employee allowance and any enabled add-ons. Ask DayRidge to correct the account configuration before building a workflow around a missing feature.",
+                "<b>Set the business basics.</b> Review your business details, pay frequency, payday rule, weekly labour budget and automatic unpaid-break rule. Save, then check the calculated pay-period preview.",
+                "<b>Add a small pilot team.</b> Check names, employee numbers, working patterns, start dates and access emails. Add your Managers separately from employee shift profiles.",
+                "<b>Run one complete shift.</b> Publish a shift, confirm the employee can see it, record clock-in and clock-out, review breaks and check the resulting worked hours.",
+                "<b>Roll out to the rest of the team.</b> Explain who handles questions, when rotas are published and how leave and corrections should be requested."
+              ]
+            ],
+            [
+              "note",
+              "A useful first-day success measure",
+              "One employee can sign in, see a published shift, record attendance and find their hours. You can review that record from the owner workspace.",
+              "mint"
+            ]
+          ]
+        },
+        {
+          "title": "Know what your account includes",
+          "intro": "A package provides tools. A role provides access. Optional add-ons provide extra workflows only when they are enabled for the business.",
+          "where": "Your agreed package / Pricing",
+          "blocks": [
+            [
+              "table",
+              [
+                "Area",
+                "Clockx",
+                "Full Workspace"
+              ],
+              [
+                [
+                  "Rota, clocking, recorded payroll hours and annual leave",
+                  "Included",
+                  "Included"
+                ],
+                [
+                  "Basic employee details",
+                  "Included",
+                  "Included"
+                ],
+                [
+                  "Open shifts and extra-hours requests",
+                  "Not included",
+                  "Included"
+                ],
+                [
+                  "Sickness, onboarding and protected personnel tools",
+                  "Not included",
+                  "Included"
+                ],
+                [
+                  "Contracts and company documents",
+                  "Not included",
+                  "Included"
+                ],
+                [
+                  "Wider management permissions",
+                  "Core access",
+                  "Wider tools"
+                ],
+                [
+                  "Tasks and Stock Management",
+                  "Not included",
+                  "Optional monthly add-ons"
+                ]
+              ],
+              [
+                0.53,
+                0.21,
+                0.26
+              ]
+            ],
+            [
+              "h",
+              "Choose the tools your business needs"
+            ],
+            [
+              "p",
+              "<b>Clockx</b> provides the everyday staff-management essentials. <b>Full Workspace</b> adds wider people, document and cover workflows. Your business account determines the employee allowance and active tools."
+            ],
+            [
+              "p",
+              "<b>Tasks</b> and <b>Stock Management</b> are optional add-ons for Full Workspace. Ask DayRidge to activate the add-ons your business has agreed to use and confirm any applicable chargeable-user allowance."
+            ],
+            [
+              "note",
+              "Your agreement is the reference",
+              "Your agreed package, employee allowance and enabled add-ons determine the account you use. A hidden menu can reflect the package or role rather than a fault.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Set the business up correctly",
+          "intro": "These settings influence how the workspace identifies the business and how it presents budgets, pay periods and worked-time estimates.",
+          "where": "Business > Business profile",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Review business details.</b> Enter the business name, trading name, address, business email and phone number. Save a suitable business logo if you want one shown across supported areas.",
+                "<b>Choose pay frequency.</b> Select Weekly, Fortnightly, Four-weekly or Monthly. For weekly pay, choose the payday weekday. For monthly pay, choose the day of the month.",
+                "<b>Set an anchor where required.</b> Fortnightly and four-weekly cycles need an anchor payday so future paydays can repeat on the intended cycle.",
+                "<b>Check the preview.</b> Review the next payday and pay-period dates before saving. Weekly cycles use the previous complete Monday-Sunday week; the monthly preview pays the previous calendar month.",
+                "<b>Set the weekly labour budget.</b> Use a positive amount that reflects your planning budget. Budget estimates support rota planning; they are not the final payroll total."
+              ]
+            ],
+            [
+              "p",
+              "If a chosen monthly payday does not exist in a particular month, the app uses that month’s last day. A business logo must be PNG, JPG or WebP and no larger than 2 MB."
+            ],
+            [
+              "note",
+              "Two settings to check separately",
+              "Automatic breaks are covered later in this guide. The annual leave year is managed by DayRidge administration: ask for the correct January-December or April-March policy to be configured.",
+              "lilac"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rotas",
+      "title": "Rotas: plan, publish and manage the week",
+      "summary": "Create and edit shifts, check clashes and leave, publish the rota, review budgets and use the month calendar.",
+      "topic": "rotas",
+      "roles": [
+        "owner",
+        "manager",
+        "leader"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "rota rotas schedule scheduling shifts draft publish published month calendar cover budget conflict clash",
+      "sections": [
+        {
+          "title": "Build the working week",
+          "intro": "The rota is a plan for who should work and when. It is separate from the record of hours actually worked.",
+          "where": "Rota > Week planner",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Choose the week.</b> Use the week arrows or This week. Check the dates displayed above the board before adding shifts.",
+                "<b>Add a shift.</b> Use Add a shift or the plus control in a person’s day cell. Choose the employee, date, start and end times and role details shown in the form.",
+                "<b>Work in draft.</b> Draft shifts let you prepare the plan before employees see it. Check coverage, repeated entries and the correct people.",
+                "<b>Review availability and leave.</b> Approved leave appears on the board and blocks conflicting additions. Resolve a mismatch rather than forcing a shift onto an unavailable person.",
+                "<b>Check the labour picture.</b> The owner can review planned hours and estimated costs against the weekly budget. Open shifts can contribute to planning totals where that tool is available.",
+                "<b>Publish when ready.</b> Use the publishing control for the relevant week. Ask one employee to confirm the published shift appears in their personal view."
+              ]
+            ],
+            [
+              "note",
+              "Draft is not published",
+              "A saved draft is still a planning record. It does not give employees a published shift. Check the published status after saving and after editing.",
+              "mint"
+            ]
+          ]
+        },
+        {
+          "title": "Publish, correct and find cover",
+          "intro": "Check the impact of a change before saving it. A clear process prevents the rota, employee expectations and actual attendance from drifting apart.",
+          "where": "Rota / Open shifts / Activity",
+          "blocks": [
+            [
+              "flow",
+              [
+                "Prepare draft",
+                "Check conflicts",
+                "Publish",
+                "Review actual time"
+              ]
+            ],
+            [
+              "bullets",
+              [
+                "<b>Editing a shift:</b> open the shift chip and check the employee, date and times before saving. If you are changing an already communicated plan, tell the affected employee through your normal process.",
+                "<b>Overlapping shifts:</b> the app blocks clashes. Check whether the person already has another shift and whether the date or overnight end time is wrong.",
+                "<b>Approved leave:</b> do not work around a leave clash by creating a duplicate employee. Review the leave decision and intended dates first.",
+                "<b>Removing a shift:</b> read the confirmation and distinguish a planned rota shift from a completed worked-time entry. Removing a plan should not be treated as correcting a clocking record.",
+                "<b>Sickness cover:</b> supported Full Workspace rota controls can create an open cover offer for an eligible upcoming published shift. Review the absence and the dates first."
+              ]
+            ],
+            [
+              "note",
+              "Check the result in both places",
+              "After a material change, review the manager rota and the employee’s published schedule. Use Activity to see recorded management changes and to help resolve questions.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Read the shift calendar",
+          "intro": "The month calendar brings planned work, recorded shifts and time away into a clear date-based view. Select a date for the underlying detail.",
+          "where": "Employee > My shifts / Rota > Month calendar",
+          "blocks": [
+            [
+              "visual",
+              "calendar"
+            ],
+            [
+              "steps",
+              [
+                "<b>Choose whose calendar to view.</b> In the Manager rota month view, select the team member. Employees see their own schedule.",
+                "<b>Move between months.</b> Use the left and right arrows. Today returns you to the current date. The month changes directly; it is not a native month-selection wheel.",
+                "<b>Read the key.</b> Green shows upcoming or completed shifts, orange overtime and purple time away such as approved holiday or recorded sickness. Split colours show more than one type on the same date.",
+                "<b>Select a day.</b> Read the listed times and status rather than drawing conclusions from the colour alone. A past scheduled shift is not proof that the employee actually clocked in.",
+                "<b>Refresh when needed.</b> Use the refresh control after a recent decision or correction. Check that the month and person still match the record you intended to review."
+              ]
+            ],
+            [
+              "note",
+              "Example illustration",
+              "The calendar above illustrates the colour key. Your actual dates, shift totals and details come from the records and permissions in your workspace.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Common rota questions",
+          "intro": "Start with the person, dates and status before trying the same change again.",
+          "blocks": [
+            [
+              "table",
+              [
+                "Question",
+                "What to check"
+              ],
+              [
+                [
+                  "Why can an employee not see a shift?",
+                  "Check the employee record and week, then confirm that the shift is published. Drafts are for planning."
+                ],
+                [
+                  "Why can I not add a shift?",
+                  "Check for approved leave, overlapping shifts and the employee selected in the form."
+                ],
+                [
+                  "Does publishing record hours worked?",
+                  "No. Published shifts describe the plan; clockings and authorised worked-time entries record actual attendance."
+                ],
+                [
+                  "Do I have to use the month picker?",
+                  "No. Left and right arrows change the calendar month directly. Select a date to read its details."
+                ],
+                [
+                  "Can a Team Leader change the rota?",
+                  "Only if the owner grants Manage the team rota. Their supported controls are more focused than the Manager workspace."
+                ]
+              ],
+              [
+                0.37,
+                0.63
+              ]
+            ],
+            [
+              "note",
+              "Before you finish",
+              "Review the correct week, published status and employee view. Tell affected staff about material changes through your normal communication process."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "my-shifts",
+      "title": "Check your upcoming and past shifts",
+      "summary": "Find your own published schedule, move through the calendar and understand shifts, overtime and time away.",
+      "topic": "rotas",
+      "roles": [
+        "employee"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "my shifts upcoming past completed calendar dates month overtime orange green purple",
+      "sections": [
+        {
+          "title": "Read the shift calendar",
+          "intro": "The month calendar brings planned work, recorded shifts and time away into a clear date-based view. Select a date for the underlying detail.",
+          "where": "Employee > My shifts / Rota > Month calendar",
+          "blocks": [
+            [
+              "visual",
+              "calendar"
+            ],
+            [
+              "steps",
+              [
+                "<b>Choose whose calendar to view.</b> In the Manager rota month view, select the team member. Employees see their own schedule.",
+                "<b>Move between months.</b> Use the left and right arrows. Today returns you to the current date. The month changes directly; it is not a native month-selection wheel.",
+                "<b>Read the key.</b> Green shows upcoming or completed shifts, orange overtime and purple time away such as approved holiday or recorded sickness. Split colours show more than one type on the same date.",
+                "<b>Select a day.</b> Read the listed times and status rather than drawing conclusions from the colour alone. A past scheduled shift is not proof that the employee actually clocked in.",
+                "<b>Refresh when needed.</b> Use the refresh control after a recent decision or correction. Check that the month and person still match the record you intended to review."
+              ]
+            ],
+            [
+              "note",
+              "Example illustration",
+              "The calendar above illustrates the colour key. Your actual dates, shift totals and details come from the records and permissions in your workspace.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "If a shift looks wrong",
+          "intro": "Your personal calendar reflects the records shared with your account.",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Check the date and month, including whether the shift runs overnight.",
+                "Select the day and read the status and times. A past scheduled shift does not prove that a clock-in was recorded.",
+                "Ask your Manager about a missing or incorrect plan. Draft rota changes are not visible as published shifts.",
+                "For actual worked hours, check your clocking history or My hours. Ask for a correction if the recorded attendance is wrong."
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "clocking-and-breaks",
+      "title": "Manage clocking, kiosks and breaks",
+      "summary": "Set up the shared kiosk, review active staff and correct worked time without deducting a break twice.",
+      "topic": "clocking",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "clock clocking kiosk pin missed shift break automatic unpaid edit correction worked hours",
+      "sections": [
+        {
+          "title": "Set up and use the kiosk",
+          "intro": "The kiosk is the shared workplace clocking view. It uses employee numbers and personal PINs, with manager access protected by a separate kiosk PIN.",
+          "where": "Time clock / Rota > On-site kiosk",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Choose the workplace device.</b> Open the correct business workspace and enter the workplace kiosk through the supported manager control.",
+                "<b>Complete device setup if requested.</b> Use the manager setup flow for the workplace device. Confirm the business shown is the one whose staff will use it.",
+                "<b>Keep manager access private.</b> The manager kiosk PIN is six digits. Store and communicate it only to the people who should unlock or exit the protected kiosk.",
+                "<b>Explain employee clocking.</b> Employees enter their own employee number and personal PIN, then follow the clock-in or clock-out flow shown on the device.",
+                "<b>Check a real result.</b> After a pilot clocking, confirm the correct employee appears in the team clock status. At the end, confirm the completed record and break information."
+              ]
+            ],
+            [
+              "bullets",
+              [
+                "Do not use one employee number for several staff.",
+                "Do not leave the owner’s private dashboard open on the shared kiosk.",
+                "If a clocking fails, check the number, PIN and device state before creating another employee."
+              ]
+            ],
+            [
+              "note",
+              "Kiosk and personal clocking are different routes",
+              "Employees may also have My Time Clock in their signed-in account. Explain which route your business expects them to use.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Clock in, clock out and check",
+          "intro": "Published shifts describe the plan. Successful clock-ins and clock-outs create the worked-time record used in attendance and payroll-hour summaries.",
+          "where": "My Time Clock / Manager > Time clock",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Employee starts work.</b> Use the personal clocking page or workplace kiosk. Wait for the app to confirm the clock-in; an unsaved tap is not a recorded shift.",
+                "<b>Employee checks the active shift.</b> My Time Clock shows whether they are clocked in, the elapsed timer and a current earnings estimate where available.",
+                "<b>Manager checks the team.</b> Use the team clock status to review who is working. The manager’s own personal shift should use their linked employee profile.",
+                "<b>Employee finishes work.</b> Choose Clock out and complete the confirmation. Check the result rather than leaving the page during saving.",
+                "<b>Resolve a missed clocking.</b> An authorised Manager can clock an employee in or out and adjust the relevant time through supported manager controls. Record the actual agreed time, not a convenient default."
+              ]
+            ],
+            [
+              "note",
+              "A connection problem after clock-in",
+              "A clock-in already saved to DayRidge is not erased because the page closes or briefly becomes unavailable. When access returns, refresh and check the active record. A failed or unconfirmed new action still needs review.",
+              "lilac"
+            ],
+            [
+              "p",
+              "The elapsed timer and earnings display are live estimates. Unpaid breaks and authorised corrections can change the final worked hours."
+            ]
+          ]
+        },
+        {
+          "title": "Break rules and time corrections",
+          "intro": "Review recorded breaks and saved automatic rules together. The same break should not be deducted twice.",
+          "where": "Business / Time clock > Past shifts",
+          "blocks": [
+            [
+              "visual",
+              "hours"
+            ],
+            [
+              "bullets",
+              [
+                "<b>Configure new shifts:</b> in Business, set whether automatic unpaid breaks are enabled, the shift length that must be exceeded and the unpaid minutes to apply.",
+                "<b>Understand the saved rule:</b> new clock-ins and manually added shifts use the current rule. Existing shifts keep the rule saved with them; changing today’s setting does not rewrite every old record.",
+                "<b>Compare manual and automatic breaks:</b> where a longer recorded break exists, that value is used. Review the displayed total unpaid break rather than adding the two deductions together.",
+                "<b>Correct a completed shift:</b> find the employee’s past shift, use Edit, review start, end and unpaid break, then save. Check overnight dates carefully.",
+                "<b>Delete only an erroneous entry:</b> read the confirmation and check the employee and dates. A genuine worked shift normally needs a correction rather than deletion."
+              ]
+            ],
+            [
+              "note",
+              "Check before payroll",
+              "The example shows 8 elapsed hours less a 30-minute unpaid break, giving 7.5 paid hours. Your business rule and the actual saved record determine the real result.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "annual-leave",
+      "title": "Manage annual leave and balances",
+      "summary": "Review requests, check cover and estimated hours, record decisions and undo supported upcoming approvals.",
+      "topic": "leave",
+      "roles": [
+        "owner",
+        "manager",
+        "leader"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "holiday annual leave approve approval decline balance entitlement request undo cancel",
+      "sections": [
+        {
+          "title": "Review holiday requests clearly",
+          "intro": "Check the requested dates, the employee’s balance and the effect on cover before making a decision.",
+          "where": "Annual leave",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Open the pending request.</b> Check the person, start date, end date and the estimated leave hours. Compare the request with the rota and existing leave.",
+                "<b>Review the balance.</b> Check start date, working pattern and contracted hours. Estimates depend on the employee inputs, recorded information and the configured leave year.",
+                "<b>Approve or decline.</b> Save the decision using the request controls and verify the new status. Approved leave reduces the available balance and blocks rota shifts on those dates.",
+                "<b>Undo an upcoming approval when needed.</b> Use the undo/cancellation action where available and read the confirmation. Check the request and balance again after it saves.",
+                "<b>Resolve year-boundary requests.</b> Split a request that crosses the leave-year boundary into the appropriate periods rather than assuming a single total belongs to one year."
+              ]
+            ],
+            [
+              "h",
+              "The owner’s review"
+            ],
+            [
+              "p",
+              "The displayed entitlement is an estimate to review alongside your business’s agreed terms. If the balance is surprising, check the underlying employee record and dates first. Ask DayRidge to correct the configured leave year if it is wrong."
+            ],
+            [
+              "note",
+              "Permission-based delegation",
+              "Full Workspace Team Leaders can review leave only if the owner grants that permission. Sickness is a separate record and does not deduct annual leave.",
+              "lilac"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sickness",
+      "title": "Record sickness and return to work",
+      "summary": "Keep absence dates up to date, mark the actual return and review date-only absence trends.",
+      "topic": "leave",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Full Workspace",
+      "keywords": "sick sickness absence absent return returned ongoing analytics",
+      "sections": [
+        {
+          "title": "Record sickness and the return",
+          "intro": "Keep absence dates accurate and separate from holiday approval. An expected return is a planning date; an actual return closes the absence record.",
+          "where": "Sickness > Absence register",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Record the absence.</b> Identify the employee and first day absent. Enter the supported expected-return information if it is known.",
+                "<b>Review ongoing records.</b> Use the Ongoing filter to identify who is still off. An absence past the expected date needs follow-up; it should not be assumed to have ended.",
+                "<b>Update dates when the position changes.</b> Use Edit dates to correct the supported absence details. Keep the expected return realistic for planning purposes.",
+                "<b>Mark the employee returned.</b> When they return, use Mark returned and save the actual return date. Complete the return-to-work discussion and follow-up fields shown in that workflow.",
+                "<b>Review date-only trends.</b> Use the absence overview’s date range to see aggregate patterns. Check the selected period before comparing totals."
+              ]
+            ],
+            [
+              "note",
+              "Record dates, not diagnoses",
+              "The sickness workspace is designed for restricted absence dates and return information. Do not enter diagnoses or other medical detail into operational notes. Sickness is recorded, not approved, and does not reduce annual leave.",
+              "lilac"
+            ],
+            [
+              "p",
+              "If absence affects a future rota shift, review cover separately. Do not edit a sickness record merely to make a staffing total look correct."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "people-and-access",
+      "title": "Manage people, onboarding and permissions",
+      "summary": "Add employees and management accounts, review starter information and control access to personal records.",
+      "topic": "people",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Some workflows require Full Workspace",
+      "keywords": "people employee employees onboarding invitation manager team leader permissions private bank details profile photo",
+      "sections": [
+        {
+          "title": "Give each person the right view",
+          "intro": "The Business Owner is the primary business manager account. It is distinct from the DayRidge platform administrator who manages the service.",
+          "where": "Managers > Management access",
+          "blocks": [
+            [
+              "table",
+              [
+                "Role",
+                "Main purpose",
+                "Key boundary"
+              ],
+              [
+                [
+                  "Business Owner / General Manager",
+                  "Business settings, team oversight, payroll and access control",
+                  "Owner-level access to wage and gross-pay reporting"
+                ],
+                [
+                  "Manager",
+                  "Plan rotas, review requests and manage worked-time records",
+                  "Team payroll and wage reporting stay with the owner"
+                ],
+                [
+                  "Team Leader",
+                  "Published shifts and individually granted team tools",
+                  "No private employee files, bank details or payroll"
+                ],
+                [
+                  "Employee",
+                  "Own shifts, attendance, leave and personal information",
+                  "Own records; extra tools depend on the package"
+                ]
+              ],
+              [
+                0.25,
+                0.42,
+                0.33
+              ]
+            ],
+            [
+              "h",
+              "Understand the three access checks"
+            ],
+            [
+              "bullets",
+              [
+                "<b>Package:</b> does the business have this tool?",
+                "<b>Add-on:</b> has DayRidge enabled the purchased extra?",
+                "<b>Person:</b> does this account have the role or permission needed?"
+              ]
+            ],
+            [
+              "p",
+              "A Manager who also works shifts may have a linked employee profile and a <b>My shifts &amp; pay</b> switch. Management access and an employee shift record serve different purposes; an employee profile uses an employee place in the business allowance."
+            ],
+            [
+              "note",
+              "Delegate deliberately",
+              "Give people the smallest set of permissions that lets them do their job. Revisit access when responsibilities change or someone leaves.",
+              "mint"
+            ]
+          ]
+        },
+        {
+          "title": "Invite Managers and Team Leaders",
+          "intro": "Create a clear management structure before handing over the working week. Access changes should match the responsibility you intend to delegate.",
+          "where": "Managers > Add Manager / Team Leader",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Choose the account type.</b> The Business Owner can invite a full Manager. A Team Leader is a more limited account with focused permissions.",
+                "<b>Enter the person’s name and email.</b> Use an address they can access. Send the invitation and check that the management list reflects the expected account.",
+                "<b>Set Team Leader permissions.</b> The owner chooses extra access when inviting a Team Leader or uses <b>Edit access</b> afterwards. New extra permissions start off unless selected.",
+                "<b>Review the actual experience.</b> Ask the person to refresh their workspace and confirm that the expected sections appear.",
+                "<b>Remove access when appropriate.</b> Use the relevant Remove action after checking which account and role you are removing. Do not remove the wrong person simply because names are similar."
+              ]
+            ],
+            [
+              "h",
+              "Team Leader options"
+            ],
+            [
+              "bullets",
+              [
+                "View team directory: active staff names and roles.",
+                "View open shifts and daily attendance totals, without wages.",
+                "Manage the team rota: draft shifts and individual publication.",
+                "Review annual leave: decisions and undoing upcoming approvals."
+              ]
+            ],
+            [
+              "note",
+              "Private access stays separate",
+              "Team Leader permissions do not expose private employee files or payroll. Full Workspace personnel permissions and Stock permissions have their own controls.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Add and maintain employee records",
+          "intro": "A reliable employee record connects rota planning, clocking, leave and payroll hours. Check the basics rather than rushing through account creation.",
+          "where": "Team > Add employee",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Enter the employee’s identity.</b> Check their name, role and account email. Use the employee number assigned in the business and give them their personal clocking PIN through an appropriate private channel.",
+                "<b>Set employment inputs carefully.</b> Review start date, regular or irregular working pattern and contracted hours or days where required. These inputs affect leave estimates and other summaries.",
+                "<b>Check owner-only pay information.</b> The owner should verify the hourly rate used for estimates. Standard Managers and Team Leaders do not receive team wage reporting.",
+                "<b>Decide whether onboarding is required.</b> If you already hold the information, do not ask the employee to complete the same form unnecessarily. Use the option available in the creation flow.",
+                "<b>Confirm setup.</b> Check the new record appears, the invitation has reached the correct person and they can see their own workspace."
+              ]
+            ],
+            [
+              "h",
+              "Plan limits and departures"
+            ],
+            [
+              "p",
+              "Adding a person beyond the approved employee allowance can require DayRidge approval. Use the account’s upgrade/request route rather than creating duplicate records. Archiving a leaver and deleting an unused setup record are different actions; read the confirmation before proceeding."
+            ],
+            [
+              "note",
+              "Before the first live shift",
+              "Check the employee number and PIN on the actual workplace device. Fix account mismatches before people start using each other’s records.",
+              "mint"
+            ]
+          ]
+        },
+        {
+          "title": "Onboard a new starter",
+          "intro": "Onboarding gathers starter information for authorised review. It can be required or marked unnecessary when the business already has what it needs.",
+          "where": "Onboarding / Employee account-setup flow",
+          "blocks": [
+            [
+              "flow",
+              [
+                "Set requirement",
+                "Employee submits",
+                "Owner reviews",
+                "Confirm outcome"
+              ]
+            ],
+            [
+              "steps",
+              [
+                "<b>Explain what is needed.</b> Tell the employee whether the onboarding form is required and where to find it. The form can contain identity, address, starter-tax and bank information.",
+                "<b>Employee completes the form.</b> They review the requested fields and submit it. A submitted form is awaiting review; submission alone is not owner approval.",
+                "<b>Review the information.</b> Use the Onboarding workspace to check the employee and the status. Confirm the information matches the person you intended to onboard.",
+                "<b>Approve or request changes.</b> Follow the available review controls. If something is incomplete, explain what needs correcting rather than approving an uncertain record.",
+                "<b>Complete your business process.</b> Make sure your approved personnel and payroll process has the information it needs. Do not treat the submitted form as a substitute for a maintained employee file."
+              ]
+            ],
+            [
+              "note",
+              "Know the status",
+              "Not required, Not started, Awaiting review, Approved and Changes requested describe different stages. Check the status after saving instead of assuming a form has been accepted.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Employee files and personal changes",
+          "intro": "Keep personal information under the right access controls. An employee can propose changes to their own details; authorised people review the request.",
+          "where": "Employee files / Employee > My details",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Open the correct record.</b> Use Employee files and identify the employee before reviewing contact, emergency or other personnel information.",
+                "<b>Review incoming changes.</b> Employees use My details to submit changes to supported contact and bank fields. Check the proposed values before approving a request.",
+                "<b>Separate bank-related access.</b> Review the permission controls carefully; bank information is more sensitive than a team directory entry.",
+                "<b>Manage delegated access.</b> The Business Owner controls which authorised Managers can access or approve protected personnel information. Give access only where their role requires it.",
+                "<b>Review profile photos.</b> Employee profile-photo submissions can await an authorised manager’s decision before appearing to the team."
+              ]
+            ],
+            [
+              "h",
+              "Explain this to employees"
+            ],
+            [
+              "p",
+              "Submitting a change does not mean the business has accepted it. Employees should check the status and tell the owner promptly about time-sensitive changes. A contact-information update does not automatically decide or complete a payroll change."
+            ],
+            [
+              "note",
+              "A team list is not a personnel file",
+              "The team directory is for operational names and roles. It should not be used to circulate private personal, bank or onboarding information.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "documents",
+      "title": "Contracts, policies and read receipts",
+      "summary": "Share the right document with the right audience and understand acknowledgement, drafts and archiving.",
+      "topic": "people",
+      "roles": [
+        "owner",
+        "manager",
+        "employee"
+      ],
+      "package": "Full Workspace",
+      "keywords": "contract contracts policy policies documents upload read receipt acknowledge signature",
+      "sections": [
+        {
+          "title": "Share contracts and policies",
+          "intro": "Choose the correct audience before sharing. A company document and a private employee contract are not the same kind of record.",
+          "where": "Documents",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Choose the document type.</b> Prepare a private employee contract or upload a company document. Select the intended employee when using private scope.",
+                "<b>Prepare the content.</b> Use the contract editor or upload an existing supported file. Give it a clear title and description. Supported uploads include PDF, DOCX, PNG and JPG up to 10 MB.",
+                "<b>Check the sharing choice.</b> Leave Share now off to save a draft. Company documents shared with the business are visible to active members; private employee documents are limited to the selected employee and authorised management.",
+                "<b>Choose acknowledgement.</b> Decide whether staff must mark the document as read. A review date, or a certificate expiry date where that category is used, helps identify records that need attention.",
+                "<b>Review receipts and lifecycle.</b> Open the document to see recorded read receipts. Drafts can be edited or deleted. Shared documents can be archived or restored through supported controls."
+              ]
+            ],
+            [
+              "note",
+              "Receipt is not a signature",
+              "A contract’s Acknowledge receipt action records that the employee received/read it. It does not sign the contract or accept its terms. Use your own approved signing process when one is needed.",
+              "lilac"
+            ],
+            [
+              "p",
+              "Archived company documents leave the staff library. Employees retain access to their own previous contracts, and read receipts remain recorded."
+            ]
+          ]
+        },
+        {
+          "title": "Employees: read your own documents",
+          "intro": "Your Documents area shows company documents and employee documents shared with your account.",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Open <b>Documents</b> and choose the item you need. Use View document and check the title and version/context before reading.",
+                "Read the document or download the available file. DOCX files may need downloading to open.",
+                "If acknowledgement is requested, tick <b>I have read this document</b> after reading it and use <b>Mark as read</b> or <b>Acknowledge receipt</b>.",
+                "Check that receipt is recorded. Contract acknowledgement records receipt; it does not sign or accept the contract terms."
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "payroll-hours",
+      "title": "Review and export payroll hours",
+      "summary": "Check pay periods, worked time, breaks and owner-only gross estimates before the payroll handover.",
+      "topic": "payroll",
+      "roles": [
+        "owner"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "pay payroll paid hours csv export salary wage wages gross earnings rate period",
+      "sections": [
+        {
+          "title": "Prepare hours for payroll",
+          "intro": "Use DayRidge to review recorded hours and gross estimates, then hand the checked information to your normal payroll process.",
+          "where": "Payroll / Time clock > Export",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Check the pay schedule.</b> Review the owner’s Business settings and the period being reported. A wrong anchor or monthly day can put otherwise correct shifts in the wrong view.",
+                "<b>Review every employee.</b> Check missing clock-outs, duplicate shifts, unexpected durations and unpaid breaks. Resolve the underlying attendance record before relying on a total.",
+                "<b>Review hourly rates.</b> Confirm the owner-only employee pay inputs are correct. A changed rate or correction can affect estimated gross amounts.",
+                "<b>Use the supported export.</b> Export the recorded attendance/payroll hours through the available CSV control and check the downloaded period and employee numbers.",
+                "<b>Finish payroll in your established process.</b> Apply the business’s approved payroll rules, deductions and final checks outside the worked-hours review. Keep an agreed copy of the export you actually used."
+              ]
+            ],
+            [
+              "h",
+              "Know the boundary"
+            ],
+            [
+              "p",
+              "Gross earnings estimates are not take-home pay. DayRidge’s time and pay summaries do not calculate every tax, pension, statutory payment or adjustment, and they do not issue payslips."
+            ],
+            [
+              "note",
+              "Access is intentional",
+              "Business payroll and team wage reporting belong to the Business Owner. Employees see their own information; standard Managers and Team Leaders do not receive team payroll access.",
+              "lilac"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tasks",
+      "title": "Tasks and shared shift checklists",
+      "summary": "Assign work, build reusable checklists, let staff take ownership and capture live photo evidence.",
+      "topic": "tasks",
+      "roles": [
+        "owner",
+        "manager",
+        "employee"
+      ],
+      "package": "Full Workspace + Tasks add-on",
+      "keywords": "task tasks checklist checklists camera photo evidence ownership take task claim complete completed to do progress opening closing",
+      "sections": [
+        {
+          "title": "Assign individual work",
+          "intro": "Use individual tasks when a particular employee needs a clear action, instructions and deadline. Use shared shift checklists for a job that only needs doing once.",
+          "where": "Tasks / Employee > My Tasks",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Confirm activation.</b> Tasks is a paid add-on for Full Workspace. Ask DayRidge to enable it for the purchasing business and confirm the agreed chargeable-user count.",
+                "<b>Create the task.</b> Enter a concise title, useful instructions and a due date where needed. Explain what finished work should look like.",
+                "<b>Assign the right people.</b> Select the intended employee or employees. For individual assignments, each person’s progress is tracked separately.",
+                "<b>Employee progresses the work.</b> In My Tasks, they review instructions and move their own assignment through To do, In progress and Complete using the available controls.",
+                "<b>Review the result.</b> Use the manager view to check completion and overdue work. Follow up on missing work through the business’s normal management process."
+              ]
+            ],
+            [
+              "table",
+              [
+                "Use individual tasks for",
+                "Use shift checklists for"
+              ],
+              [
+                [
+                  "A named employee’s specific job",
+                  "A shared opening, closing or shift check"
+                ],
+                [
+                  "A personal deadline or follow-up",
+                  "One task claimed by one person from eligible shifts"
+                ],
+                [
+                  "Separate progress per assignment",
+                  "Structured answers and optional required live photos"
+                ]
+              ],
+              [
+                0.5,
+                0.5
+              ]
+            ],
+            [
+              "note",
+              "Keep the task list useful",
+              "Give tasks a clear owner and sensible due date. Avoid repeating a shared job as multiple individual assignments when the team only needs it completed once.",
+              "mint"
+            ]
+          ]
+        },
+        {
+          "title": "Build a reusable shift checklist",
+          "intro": "A checklist template defines the job. Allocating it to published shifts creates a shared task for that working day.",
+          "where": "Tasks > Shift checklists",
+          "blocks": [
+            [
+              "flow",
+              [
+                "Create template",
+                "Select shifts",
+                "One person claims",
+                "Review completion"
+              ]
+            ],
+            [
+              "steps",
+              [
+                "<b>Create the template.</b> Give the checklist a title and instructions. Examples include opening checks, a handover or a close-down routine.",
+                "<b>Add structured fields.</b> Choose checkboxes, text answers, numbers or selection options. Mark the fields that are required and make question wording specific enough to answer consistently.",
+                "<b>Choose evidence requirements.</b> Enable Require photo evidence where the job genuinely benefits from a fresh photograph. Do not require unnecessary images of people or private information.",
+                "<b>Allocate to the shift.</b> Choose the saved template, the working date and the relevant published employee shifts. Publish the rota first if no shifts are available.",
+                "<b>Check the shared run.</b> The selected shift group shares a checklist that only needs completing once. The board shows Available, In progress or Completed, who took it and the relevant timestamps."
+              ]
+            ],
+            [
+              "note",
+              "Completion is recorded, not a separate approval stage",
+              "Managers can inspect answers, evidence and completion details. Do not describe this as an appraisal, electronic signature or a separate manager sign-off workflow.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Take ownership and finish the job",
+          "intro": "Employees can claim an available shared shift task, complete the required answers and capture fresh evidence in the app.",
+          "where": "Employee > My Tasks",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Choose active work.</b> The active view shows new and in-progress work. Completed tasks are available in their separate view instead of sitting under the main list.",
+                "<b>Take the task.</b> Open an available checklist and choose Take task. Check that your name appears as the person who has taken it. Other colleagues can see that it is already owned.",
+                "<b>Answer the checklist.</b> Read the instructions and complete required fields. Use the right units for numeric answers and explain relevant exceptions in supported text fields.",
+                "<b>Take live evidence where needed.</b> Choose Take photo, allow camera access and capture the scene in the branded camera dialog. Gallery uploads are disabled in this workflow. Required-photo checklists need at least one live image.",
+                "<b>Complete or release.</b> Submit completion when the job is finished. If you cannot do it, use the supported release action to return the task to the board rather than leaving it claimed indefinitely."
+              ]
+            ],
+            [
+              "p",
+              "A checklist can hold up to five photos. If the camera is blocked, review the browser’s camera permission for the DayRidge app and try again. Capture the task itself; a fresh photo does not replace a manager’s review of the actual work."
+            ],
+            [
+              "note",
+              "Manager follow-up",
+              "Inspect the recorded answers, claimant and time, and open evidence photos where needed. Use the Completed tasks area to find finished work.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stock",
+      "title": "Stock counts, takings and investigations",
+      "summary": "Create consistent products, run stocktakes, reconcile till figures and explain differences.",
+      "topic": "stock",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Full Workspace + Stock Management add-on",
+      "keywords": "stock stocks stocktake stocktakes count counts till takings reconciliation waste delivery deliveries variance short over difference delete restore",
+      "sections": [
+        {
+          "title": "Set up products and permissions",
+          "intro": "Start with consistent product records. Accurate units and prices matter more than a long product list with inconsistent assumptions.",
+          "where": "Stock > Products / Managers > Stock access",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Confirm the add-on.</b> Stock Management must be active for the business. The owner or authorised access manager controls which Managers can use it.",
+                "<b>Create a product.</b> Use Add product and enter a clear name, product code or category where relevant, counting unit, purchase cost and selling price.",
+                "<b>Choose one usable unit.</b> Count the same product in the same unit throughout opening counts, deliveries, waste and closing stock. Decide whether a unit means an item, bottle, measure or another supported unit.",
+                "<b>Review prices.</b> Keep purchase costs, selling prices and till figures on a consistent tax and pricing basis chosen by the business.",
+                "<b>Check operational access.</b> Give count-entry access to the appropriate Managers. Delegate access-management permission only where it is needed."
+              ]
+            ],
+            [
+              "h",
+              "Explain the counting rules"
+            ],
+            [
+              "p",
+              "Write down any business-specific unit convention before the first stocktake. If stock is bought in one pack size but sold in another, decide and consistently apply the conversion you will enter. The app does not automatically turn recipes, portions or yields into stock units."
+            ],
+            [
+              "note",
+              "Manual figures, matched periods",
+              "This version uses entered counts, movements and till amounts. Do not assume it is connected directly to your till or that it imports sales automatically.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Run a stocktake you can trust",
+          "intro": "A useful stocktake compares physical counts and relevant movements over the same period as the till sales being reviewed.",
+          "where": "Stock > Stocktakes & reconciliation",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Start the record.</b> Choose New stocktake and give the period a recognisable title. Check opening and closing count times before entering figures.",
+                "<b>Confirm the opening position.</b> Enter the first opening count where needed or check the supported opening balance carried from the preceding record.",
+                "<b>Record movements.</b> Account for deliveries, waste, complimentary items and relevant adjustments using consistent product units. Give a reason when a correction or non-sale movement needs one.",
+                "<b>Count closing stock.</b> Enter what is physically present at the closing point. Recheck an unusually high or low quantity before relying on calculated usage.",
+                "<b>Match the sales period.</b> Enter the relevant till sales for exactly the same period and products. Avoid comparing a whole-day till total with a partial-shift count.",
+                "<b>Save or complete.</b> Save unfinished work as a draft, then reopen it when you can finish. Review the count and sales comparisons before completing the stocktake."
+              ]
+            ],
+            [
+              "note",
+              "History matters",
+              "Keep stocktakes in a sensible chronological sequence. Later records can depend on an earlier closing count. Review dependencies before deleting or changing a linked record.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Explain stock and till differences",
+          "intro": "Use differences to start a review of the underlying figures. A variance is a signal to investigate, not an automatic explanation of what happened.",
+          "where": "Stock > Reconciliation / Investigations / Analytics",
+          "blocks": [
+            [
+              "visual",
+              "stock"
+            ],
+            [
+              "steps",
+              [
+                "<b>Check the sign.</b> Difference is recorded till sales minus expected sales. A negative amount is short; a positive amount is over.",
+                "<b>Check the inputs first.</b> Review count dates, units, deliveries, waste, complimentary items, adjustments and selling prices. Recount where appropriate.",
+                "<b>Record an investigation note.</b> Identify the product or whole stocktake, explain the discrepancy and keep an actionable follow-up. Use the supported open/resolved state.",
+                "<b>Use analytics carefully.</b> Choose the reporting period before comparing usage, sales or product performance. Make sure the included stocktakes are comparable.",
+                "<b>Handle deleted records deliberately.</b> Deleted stocktakes can be viewed and restored through Show deleted stocktakes. Later stocktakes that depend on the closing count must be dealt with first."
+              ]
+            ],
+            [
+              "note",
+              "Keep the interpretation fair",
+              "A short figure may come from a count, price, timing or entry issue. Check the evidence before deciding what action the business should take.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "activity-and-routines",
+      "title": "Activity, notifications and daily routines",
+      "summary": "Follow recorded changes and build a repeatable daily, weekly and payroll-review routine.",
+      "topic": "getting-started",
+      "roles": [
+        "owner",
+        "manager"
+      ],
+      "package": "Tools depend on your package",
+      "keywords": "activity audit history notifications bell routine daily weekly monthly handover",
+      "sections": [
+        {
+          "title": "Use Activity and notifications",
+          "intro": "A good review starts with the underlying record. Notifications help you notice work; Activity helps you understand recorded management changes.",
+          "where": "Activity / Bell icon",
+          "blocks": [
+            [
+              "steps",
+              [
+                "<b>Open Activity.</b> Review the recorded actor, summary and time for changes such as rota publishing, timesheet edits, requests and settings.",
+                "<b>Filter by category.</b> Use All activity, Rota, Timesheets, Requests, Team or Settings to narrow the question you are investigating.",
+                "<b>Open the relevant workspace.</b> Compare the activity entry with the current shift, request or employee record. A historical event and a current status can both be correct.",
+                "<b>Use the bell as an inbox.</b> Read the notification and follow its link to the work that needs attention. Marking a notification as read does not approve the underlying request.",
+                "<b>Confirm the actual outcome.</b> Check the saved request status, published shift or corrected worked-time record after taking action."
+              ]
+            ],
+            [
+              "h",
+              "Questions Activity can help answer"
+            ],
+            [
+              "bullets",
+              [
+                "Who published or amended the rota?",
+                "When was a timesheet corrected?",
+                "Was a request decision recorded?",
+                "Did someone change the business settings?"
+              ]
+            ],
+            [
+              "note",
+              "Business oversight versus DayRidge administration",
+              "Your business account does not include DayRidge’s provider finance console, website-traffic dashboard or management of other customers. Ask DayRidge about your subscription or service account.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "A simple operating rhythm",
+          "intro": "Use a repeatable routine so important records are checked at the right time rather than only when somebody raises a problem.",
+          "where": "Owner and Manager working routine",
+          "blocks": [
+            [
+              "table",
+              [
+                "When",
+                "Review",
+                "A good outcome"
+              ],
+              [
+                [
+                  "Start of day",
+                  "Today’s rota, expected staff, ongoing sickness, open cover and active tasks",
+                  "The team knows who is working and what needs doing"
+                ],
+                [
+                  "During the day",
+                  "Clock status, pending requests and claimed shift checklists",
+                  "Missed clockings and ownership problems are resolved promptly"
+                ],
+                [
+                  "End of day",
+                  "Unclosed attendance, breaks, completed tasks and stock/till records where used",
+                  "Records describe the actual working day"
+                ],
+                [
+                  "Weekly",
+                  "Next rota, published status, cover, leave, budget and overdue work",
+                  "A checked plan is ready for the coming week"
+                ],
+                [
+                  "Before payroll",
+                  "Pay period, employee numbers, rates, worked times, breaks and export",
+                  "The payroll handover uses reviewed records"
+                ],
+                [
+                  "Monthly / when roles change",
+                  "Permissions, leavers, employee information, document reviews and add-on needs",
+                  "Access and account configuration still fit the business"
+                ]
+              ],
+              [
+                0.2,
+                0.43,
+                0.37
+              ]
+            ],
+            [
+              "note",
+              "Keep an owner for every review",
+              "Decide who checks the rota, who corrects time, who reviews leave and who prepares payroll. Delegation works best when each task has a clear person and a clear deadline.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "troubleshooting",
+      "title": "Fix common access and record problems",
+      "summary": "Practical checks for invitations, missing menus, camera permissions, hours, leave and stock totals.",
+      "topic": "getting-started",
+      "roles": [
+        "owner",
+        "manager",
+        "leader",
+        "employee"
+      ],
+      "package": "Tools depend on your package",
+      "keywords": "help troubleshooting error problem failed missing email login password forgotten reset camera internet offline wrong total balance",
+      "sections": [
+        {
+          "title": "Access, invitations and devices",
+          "intro": "Start with the message on screen. Fix the actual account or device issue rather than creating duplicate staff or repeatedly retrying the same action.",
+          "where": "Sign in / Managers / Team / My Tasks",
+          "blocks": [
+            [
+              "table",
+              [
+                "What you see",
+                "What to check"
+              ],
+              [
+                [
+                  "No invitation or setup email",
+                  "Check the recorded email, junk folder and latest resend result. Use the supported setup resend action; do not create another person just to trigger another message."
+                ],
+                [
+                  "Password reset is not working",
+                  "Use the branded app address and the latest recovery email. Request a new link through Forgot password if the old one is no longer valid."
+                ],
+                [
+                  "Payroll or Business is missing",
+                  "Confirm this is the Business Owner account. A standard Manager or Team Leader does not have these owner-only sections."
+                ],
+                [
+                  "Tasks or Stock is missing",
+                  "Confirm Full Workspace, add-on activation and the person’s permission. Ask DayRidge to check the business entitlement if necessary."
+                ],
+                [
+                  "The employee cannot see a shift",
+                  "Check the employee, week/month and published status. A draft is not an employee-visible published shift."
+                ],
+                [
+                  "Camera cannot open for a checklist",
+                  "Check browser camera permission for the app, device camera availability and the on-screen message. Refresh after changing permission. Gallery upload is not the live-evidence route."
+                ],
+                [
+                  "Business access is paused",
+                  "Ask the owner to contact DayRidge about the business account. Repeated password resets do not change its service status."
+                ]
+              ],
+              [
+                0.32,
+                0.68
+              ]
+            ],
+            [
+              "note",
+              "When asking for help",
+              "Give the business name, affected screen, approximate time, exact error and what you expected. Avoid sending passwords, PINs, bank details or unnecessary employee information.",
+              "lilac"
+            ]
+          ]
+        },
+        {
+          "title": "Hours, balances and stock totals",
+          "intro": "Unexpected totals usually need a review of inputs, dates and record status. Check those before making a correction.",
+          "where": "The affected record / Activity",
+          "blocks": [
+            [
+              "table",
+              [
+                "Question",
+                "Check in this order"
+              ],
+              [
+                [
+                  "Why is a shift total wrong?",
+                  "Employee and date; clock-in/out; overnight end date; manual break; saved automatic-break rule; duplicate worked-time entries."
+                ],
+                [
+                  "Why does the rota differ from hours?",
+                  "A rota is a plan; attendance records what was saved as worked time. Review the actual clockings and any authorised corrections."
+                ],
+                [
+                  "Why is an earnings estimate different?",
+                  "Recorded hours, unpaid breaks, rate and pay period. Gross estimates exclude payroll deductions and are not net pay."
+                ],
+                [
+                  "Why is the leave balance unexpected?",
+                  "Employee start date, regular/irregular pattern, contracted hours, configured leave year, approved leave and the request dates."
+                ],
+                [
+                  "Why is sickness still ongoing?",
+                  "An expected return date does not close the record. Check whether an actual return was saved through Mark returned."
+                ],
+                [
+                  "Why can nobody take a checklist?",
+                  "Check the allocated published shifts and whether a colleague has already claimed it. Use release when it needs returning to the board."
+                ],
+                [
+                  "Why is stock showing a difference?",
+                  "Opening/closing times and units; physical counts; movements; prices; till period and entered sales. Check like-for-like figures."
+                ]
+              ],
+              [
+                0.32,
+                0.68
+              ]
+            ],
+            [
+              "note",
+              "After a correction",
+              "Refresh and check the source record, the affected total and any export you intend to use. Keep a note of the business reason where the workflow provides one.",
+              "mint"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "employee-start",
+      "title": "Get started as an employee",
+      "summary": "Set up your account, find your own shifts and understand which sections your employer makes available.",
+      "topic": "getting-started",
+      "roles": [
+        "employee"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "employee user start invitation login pin account new starter",
+      "sections": [
+        {
+          "title": "Set up your account",
+          "intro": "Your business creates your account and decides which tools it uses.",
+          "where": "Invitation email / app.dayridge.co.uk",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Open the latest account-setup email sent to the address your Manager has recorded for you. Complete the password setup flow.",
+                "Sign in at <b>app.dayridge.co.uk</b> and check that the workspace belongs to your employer. Use your own login.",
+                "Open <b>My shifts</b> to check your published work. Your employee number and kiosk PIN are separate from your email/password sign-in.",
+                "Ask your Manager whether to use the workplace kiosk or My Time Clock. Wait for a confirmation whenever you clock in or out.",
+                "Use the leave route available in your package to request holiday. A request is not approved until the decision is recorded.",
+                "Complete onboarding only if your employer requires it. Ask your business about any field you do not understand."
+              ]
+            ],
+            [
+              "note",
+              "Your own information",
+              "You can see your own records and documents shared with you. Management pages, other employees’ private information and team payroll are not part of your employee account."
+            ]
+          ]
+        },
+        {
+          "title": "Find your next task",
+          "intro": "The menu depends on the package and enabled add-ons.",
+          "blocks": [
+            [
+              "table",
+              [
+                "What you need",
+                "Where to start"
+              ],
+              [
+                [
+                  "Published shifts",
+                  "My shifts"
+                ],
+                [
+                  "Record your attendance",
+                  "My Time Clock or the workplace kiosk"
+                ],
+                [
+                  "Your worked hours and estimate",
+                  "My hours"
+                ],
+                [
+                  "Holiday request",
+                  "My leave in Clockx, or the request control in My shifts"
+                ],
+                [
+                  "Personal details or documents",
+                  "My details / Documents where available"
+                ],
+                [
+                  "Assigned work or shared checklists",
+                  "My Tasks when the Tasks add-on is active"
+                ]
+              ],
+              [
+                0.45,
+                0.55
+              ]
+            ],
+            [
+              "note",
+              "Need help?",
+              "Ask your Business Owner or Manager about employment details, time corrections and permissions. For a forgotten account password, use Forgot password on the branded app sign-in page."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "my-time-clock",
+      "title": "Clock in and out as an employee",
+      "summary": "Record your own attendance, check the active shift and understand the timer and earnings estimate.",
+      "topic": "clocking",
+      "roles": [
+        "employee"
+      ],
+      "package": "Clockx + Full Workspace",
+      "keywords": "employee personal phone clock in out earnings timer live time kiosk pin",
+      "sections": [
+        {
+          "title": "Record the working day",
+          "intro": "A rota is the plan. A successful clocking action records attendance.",
+          "where": "My Time Clock / Workplace kiosk",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Follow your employer’s chosen clocking route. In My Time Clock, sign in with your own account. At the kiosk, use your own employee number and personal PIN.",
+                "Choose the clock-in action when you start work and wait for confirmation. Check that the page shows <b>Clocked in</b>.",
+                "In My Time Clock, check the recorded start time and elapsed timer. Current earnings is a gross estimate that can change with breaks and corrections.",
+                "When you finish, choose <b>Clock out</b> and complete the confirmation. Wait for the saved result.",
+                "Review recent clockings or My hours. If the record is wrong, tell your Manager the actual date, start/end times and relevant break."
+              ]
+            ],
+            [
+              "note",
+              "If the page briefly goes down",
+              "A clock-in already saved is not erased by closing the page or a brief outage. Refresh when access returns and check the record. A failed or unconfirmed new action still needs checking."
+            ]
+          ]
+        },
+        {
+          "title": "Avoid common mistakes",
+          "intro": "Keep the account and the action personal.",
+          "blocks": [
+            [
+              "bullets",
+              [
+                "Do not use another employee’s number, PIN or account.",
+                "Do not assume a published rota shift automatically recorded a clock-in.",
+                "Do not repeatedly tap during saving; wait for the outcome.",
+                "Do not treat gross estimated earnings as final take-home pay.",
+                "Ask your Manager to review missed clockings and breaks rather than inventing a replacement record."
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "request-time-away",
+      "title": "Request holiday and report time away",
+      "summary": "Send a leave request, check its decision and keep sickness separate from holiday.",
+      "topic": "leave",
+      "roles": [
+        "employee"
+      ],
+      "package": "Holiday: both packages. Sickness: Full Workspace.",
+      "keywords": "employee holiday request leave annual sick sickness time away pending approved decline",
+      "sections": [
+        {
+          "title": "Request annual leave",
+          "intro": "Use your own leave area, then wait for a Manager’s decision.",
+          "where": "My leave (Clockx) / My shifts request controls (Full Workspace)",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Choose the annual-leave request action in the section available to your account.",
+                "Enter the first and last dates you want off, and review the estimated hours and balance shown.",
+                "Check the dates carefully, especially if the request crosses your business’s leave-year boundary. Split it into the appropriate periods when required.",
+                "Submit the request. Pending means a decision has not yet been recorded.",
+                "Return to the request to check whether it is approved or declined. Speak to your Manager before treating requested dates as agreed holiday.",
+                "Ask your Manager about changing an approved request. Do not assume removing a note or a calendar entry cancels an approval."
+              ]
+            ],
+            [
+              "note",
+              "If the balance is unexpected",
+              "Ask your business to review your start date, contracted hours, working pattern, approved leave and configured leave year. You do not change your employer’s leave policy from the employee account."
+            ]
+          ]
+        },
+        {
+          "title": "Keep sickness separate",
+          "intro": "Full Workspace supports sickness reporting. Your business’s reporting procedure still applies.",
+          "blocks": [
+            [
+              "steps",
+              [
+                "Notify your business through its agreed absence-reporting route.",
+                "Use the sickness reporting action where it is available and enter the supported absence dates.",
+                "Update your Manager about the expected return and tell them when you actually return.",
+                "Do not enter diagnoses or unnecessary medical detail in operational notes. Sickness is separate from annual leave and does not use holiday balance."
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

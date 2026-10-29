@@ -38,7 +38,7 @@ await prepareSeo(fileURLToPath(destination));
 // Give each published stylesheet a content-based URL. Keep the original copy
 // available for older cached pages while the current HTML loads fresh styles.
 const stylesheetVersions = new Map();
-for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css', 'social-profiles.css']) {
+for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css', 'launch.css', 'seo-features.css', 'social-profiles.css', 'knowledge-base.css']) {
   const content = await readFile(new URL(name, destination));
   const hash = createHash('sha256').update(content).digest('hex').slice(0, 12);
   const versionedName = name.replace('.css', '.' + hash + '.css');
@@ -49,17 +49,22 @@ const socialScript = await readFile(new URL('social-profiles.js', destination));
 const socialHash = createHash('sha256').update(socialScript).digest('hex').slice(0, 12);
 const socialScriptName = `social-profiles.${socialHash}.js`;
 await writeFile(new URL(socialScriptName, destination), socialScript);
+const trainingScript = await readFile(new URL('knowledge-base.js', destination));
+const trainingHash = createHash('sha256').update(trainingScript).digest('hex').slice(0, 12);
+const trainingScriptName = `knowledge-base.${trainingHash}.js`;
+await writeFile(new URL(trainingScriptName, destination), trainingScript);
 async function versionStyles(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = path.join(directory, entry.name);
     if (entry.isDirectory()) { await versionStyles(file); continue; }
     if (!entry.name.endsWith('.html')) continue;
     const html = await readFile(file, 'utf8');
-    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features|social-profiles)\.css(?:\?[^"']*)?(["'])/g,
+    const versioned = html.replace(/(href=["'])([^"']*\/)(styles|experience|polish|resources|launch|seo-features|social-profiles|knowledge-base)\.css(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, name, quote) => attribute + prefix + stylesheetVersions.get(name + '.css') + quote);
     const withSocialVersion = versioned.replace(/(src=["'])([^"']*\/)social-profiles\.js(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, quote) => attribute + prefix + socialScriptName + quote);
-    await writeFile(file, withSocialVersion);
+    const withTrainingVersion = withSocialVersion.replace(/(src=["'])([^"']*\/)knowledge-base\.js(?:\?[^"']*)?(["'])/g, (_, attribute, prefix, quote) => attribute + prefix + trainingScriptName + quote);
+    await writeFile(file, withTrainingVersion);
   }
 }
 await versionStyles(fileURLToPath(destination));

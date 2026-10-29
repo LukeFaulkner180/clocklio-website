@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check public/main.js && node --check public/resources.js && node --check public/early-access.js && node --check public/early-access-config.js && node --check public/landing.js && node --check public/social-profiles.js && node --check public/website-stats.js && node --test tests/website-stats.test.mjs && node scripts/check.mjs && node --test tests/seo.test.mjs && node scripts/check-seo.mjs",
+    "check": "node --check public/main.js && node --check public/knowledge-base.js && node --check public/resources.js && node --check public/early-access.js && node --check public/early-access-config.js && node --check public/landing.js && node --check public/social-profiles.js && node --check public/website-stats.js && node --test tests/website-stats.test.mjs && node scripts/check.mjs && node --test tests/seo.test.mjs && node scripts/check-seo.mjs",
     "build": "node scripts/build.mjs && node scripts/check-seo.mjs dist",
     "test:signup": "node --experimental-strip-types --test tests/tester-signup.test.mjs",
-    "resources:generate": "python3 scripts/generate-resources.py",
-    "seo:refresh": "node --input-type=module -e \"import {prepareSeo} from './scripts/seo.mjs'; await prepareSeo('public');\""
+    "resources:generate": "python3 scripts/generate-resources.py && python3 scripts/generate-knowledge-base.py && npm run seo:refresh",
+    "seo:refresh": "node --input-type=module -e \"import {prepareSeo} from './scripts/seo.mjs'; await prepareSeo('public');\"",
+    "knowledge-base:generate": "python3 scripts/generate-knowledge-base.py && npm run seo:refresh"
   },
   "engines": {
     "node": ">=20"
