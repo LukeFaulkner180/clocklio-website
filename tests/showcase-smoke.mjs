@@ -223,7 +223,7 @@ try {
       await page.locator('[data-release-filter="development"]').click();
       assert.equal(await page.locator('[data-release-empty]').isVisible(),true);
       await page.locator('[data-release-filter="available"]').click();
-      assert.equal(await page.locator('[data-release]:visible').count(),5);
+      assert.equal(await page.locator('[data-release]:visible').count(),6);
       await page.goto(origin+'/brochure/');
       const brochure=await page.locator('a[download]').getAttribute('href');
       const brochureResponse=await context.request.get(new URL(brochure,hostOrigin).href);
