@@ -245,7 +245,7 @@
     "label": "Clock in with a workplace location check"
   },
   "/terms/": {
-    "title": "Software Terms & Conditions — DayRidge",
+    "title": "Software Terms and Conditions — DayRidge",
     "description": "DayRidge business subscription, trial, billing, service and liability terms.",
     "label": "Software Terms"
   },
@@ -260,12 +260,12 @@
     "label": "Application Privacy"
   },
   "/trial-terms/": {
-    "title": "Trial & Early Access Terms — DayRidge",
-    "description": "How DayRidge's free and introductory business trials work.",
+    "title": "Trial and Early Access Terms — DayRidge",
+    "description": "How free and introductory DayRidge business trials work.",
     "label": "Trial Terms"
   },
   "/legal/": {
-    "title": "Legal & policies — DayRidge",
+    "title": "Legal and policies — DayRidge",
     "description": "DayRidge legal documents for trials and paying business customers.",
     "label": "Legal & Policies"
   }
