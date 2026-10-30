@@ -245,28 +245,28 @@
     "label": "Clock in with a workplace location check"
   },
   "/terms/": {
-    "title": "DayRidge Software Terms & Conditions",
-    "description": "B2B software subscriptions, payments and renewal terms for business customers.",
+    "title": "Software Terms & Conditions — DayRidge",
+    "description": "DayRidge business subscription, trial, billing, service and liability terms.",
     "label": "Software Terms"
   },
   "/data-processing/": {
-    "title": "DayRidge Data Processing Agreement",
-    "description": "DayRidge UK GDPR processor contract for business workspace and employee information.",
+    "title": "Data Processing Agreement — DayRidge",
+    "description": "UK GDPR controller–processor contract for DayRidge business workspaces and staff data.",
     "label": "Data Processing Agreement"
   },
   "/app-privacy/": {
-    "title": "DayRidge Application Privacy Notice",
-    "description": "How DayRidge handles app accounts, business contacts and business workspace data.",
+    "title": "Application Privacy Notice — DayRidge",
+    "description": "Privacy information for DayRidge accounts, business contacts and application use.",
     "label": "Application Privacy"
   },
   "/trial-terms/": {
-    "title": "DayRidge Trial & Early Access Terms",
-    "description": "Rules for free trials, early access and promotional DayRidge add-ons.",
+    "title": "Trial & Early Access Terms — DayRidge",
+    "description": "How DayRidge's free and introductory business trials work.",
     "label": "Trial Terms"
   },
   "/legal/": {
-    "title": "DayRidge Legal & Policies",
-    "description": "Find DayRidge software terms, data processing, privacy and trial policies.",
+    "title": "Legal & policies — DayRidge",
+    "description": "DayRidge legal documents for trials and paying business customers.",
     "label": "Legal & Policies"
   }
 }
