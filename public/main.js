@@ -6,6 +6,25 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const siteRoot = new URL('./', import.meta.url).pathname;
 const sitePath = relativePath => siteRoot + relativePath.replace(/^\/+/, '');
 
+
+// Keep current legal documents discoverable on every DayRidge page.
+const legalFooter = document.querySelector('.footer-legal');
+if (legalFooter) {
+  for (const [slug, label] of [
+    ['legal/', 'Legal & policies'],
+    ['terms/', 'Software terms'],
+    ['data-processing/', 'Data processing'],
+    ['app-privacy/', 'App privacy'],
+    ['trial-terms/', 'Trial terms'],
+  ]) {
+    if (legalFooter.querySelector('a[href$="/' + slug + '"]')) continue;
+    const link = document.createElement('a');
+    link.href = sitePath(slug);
+    link.textContent = label;
+    legalFooter.append(link);
+  }
+}
+
 // Follow the device's motion preference automatically, without website controls.
 const motionDisabled = () => reducedMotion.matches;
 function updateMotion() {
