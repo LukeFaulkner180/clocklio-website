@@ -52,16 +52,6 @@ const menuToggle = $('[data-menu-toggle]');
 const navigation = $('#site-navigation');
 const platformToggle = $('[data-platform-toggle]');
 const platformMenu = $('#platform-menu');
-// Make the product brochure discoverable in the main navigation on every page.
-if (navigation && !navigation.querySelector('.nav-brochure')) {
-  const brochureLink = document.createElement('a');
-  brochureLink.className = 'nav-link nav-brochure';
-  brochureLink.href = sitePath('brochure/');
-  brochureLink.textContent = 'Download brochure';
-  const actions = $('.nav-actions', navigation);
-  if (actions) actions.before(brochureLink);
-  else navigation.append(brochureLink);
-}
 function closePlatform(focus = false) {
   platformMenu.hidden = true;
   platformToggle.setAttribute('aria-expanded', 'false');
