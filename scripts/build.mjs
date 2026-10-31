@@ -45,6 +45,15 @@ for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css
   stylesheetVersions.set(name, versionedName);
   await writeFile(new URL(versionedName, destination), content);
 }
+// Keep the shared styles in the same cascade order, but deliver one blocking
+// stylesheet instead of three separate downloads on all main marketing pages.
+const coreCssParts = await Promise.all(['styles.css', 'experience.css', 'polish.css']
+  .map(name => readFile(new URL(name, destination), 'utf8')));
+const coreCss = coreCssParts.join('\n');
+const coreCssHash = createHash('sha256').update(coreCss).digest('hex').slice(0, 12);
+const coreCssName = `dayridge-core.${coreCssHash}.css`;
+await writeFile(new URL(coreCssName, destination), coreCss);
+let coreBundlePages = 0;
 // Fingerprint the main navigation script so old browser caches do not keep stale menu links.
 const mainScript = await readFile(new URL('main.js', destination));
 const mainHash = createHash('sha256').update(mainScript).digest('hex').slice(0, 12);
@@ -71,9 +80,17 @@ async function versionStyles(directory) {
     const withTrainingVersion = withSocialVersion.replace(/(src=["'])([^"']*\/)knowledge-base\.js(?:\?[^"']*)?(["'])/g, (_, attribute, prefix, quote) => attribute + prefix + trainingScriptName + quote);
     const withMainVersion = withTrainingVersion.replace(/(src=["'])([^"']*\/)main\.js(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, quote) => attribute + prefix + mainScriptName + quote);
-    await writeFile(file, withMainVersion);
+    const withSharedCss = withMainVersion.replace(
+      /<link rel="stylesheet" href="([^"]*\/)styles\.[a-f0-9]{12}\.css">\s*<link rel="stylesheet" href="[^"]*\/experience\.[a-f0-9]{12}\.css">\s*<link rel="stylesheet" href="[^"]*\/polish\.[a-f0-9]{12}\.css">/g,
+      (_, prefix) => {
+        coreBundlePages++;
+        return `<link rel="stylesheet" href="${prefix}${coreCssName}">`;
+      },
+    );
+    await writeFile(file, withSharedCss);
   }
 }
 await versionStyles(fileURLToPath(destination));
+if (coreBundlePages < 3) throw new Error('Expected core CSS bundle on the main marketing pages.');
 await writeFile(new URL('.nojekyll', destination), '');
 console.log('Built plain HTML, CSS and JavaScript into dist/ for ' + (siteURL?.href || basePath + '/') + '.');

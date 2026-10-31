@@ -20,6 +20,8 @@ jobs:
         run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.64.0
       - name: Install browsers
         run: npx playwright install --with-deps chromium webkit
+      - name: Measure mobile page loading (local throttled browser)
+        run: node tests/site-performance.mjs
       - name: Exercise website and capture previews
         run: node tests/showcase-smoke.mjs
       - name: Build and check GitHub Pages project paths
