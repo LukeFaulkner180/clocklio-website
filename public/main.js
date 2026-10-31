@@ -62,7 +62,7 @@ if (navActions) {
     signInLink.classList.add('button', 'button-dark', 'nav-signin-primary');
     signInLink.setAttribute('aria-label', 'Sign in to DayRidge');
   }
-  $('a', navActions).forEach(link => {
+  $$('a', navActions).forEach(link => {
     if (link !== signInLink) link.remove();
   });
 }
