@@ -45,6 +45,11 @@ for (const name of ['styles.css', 'experience.css', 'polish.css', 'resources.css
   stylesheetVersions.set(name, versionedName);
   await writeFile(new URL(versionedName, destination), content);
 }
+// Fingerprint the main navigation script so old browser caches do not keep stale menu links.
+const mainScript = await readFile(new URL('main.js', destination));
+const mainHash = createHash('sha256').update(mainScript).digest('hex').slice(0, 12);
+const mainScriptName = `main.${mainHash}.js`;
+await writeFile(new URL(mainScriptName, destination), mainScript);
 const socialScript = await readFile(new URL('social-profiles.js', destination));
 const socialHash = createHash('sha256').update(socialScript).digest('hex').slice(0, 12);
 const socialScriptName = `social-profiles.${socialHash}.js`;
@@ -64,7 +69,9 @@ async function versionStyles(directory) {
     const withSocialVersion = versioned.replace(/(src=["'])([^"']*\/)social-profiles\.js(?:\?[^"']*)?(["'])/g,
       (_, attribute, prefix, quote) => attribute + prefix + socialScriptName + quote);
     const withTrainingVersion = withSocialVersion.replace(/(src=["'])([^"']*\/)knowledge-base\.js(?:\?[^"']*)?(["'])/g, (_, attribute, prefix, quote) => attribute + prefix + trainingScriptName + quote);
-    await writeFile(file, withTrainingVersion);
+    const withMainVersion = withTrainingVersion.replace(/(src=["'])([^"']*\/)main\.js(?:\?[^"']*)?(["'])/g,
+      (_, attribute, prefix, quote) => attribute + prefix + mainScriptName + quote);
+    await writeFile(file, withMainVersion);
   }
 }
 await versionStyles(fileURLToPath(destination));

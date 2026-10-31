@@ -52,6 +52,20 @@ const menuToggle = $('[data-menu-toggle]');
 const navigation = $('#site-navigation');
 const platformToggle = $('[data-platform-toggle]');
 const platformMenu = $('#platform-menu');
+// Give existing customers a single, prominent Sign in action in the header.
+// The demo and tester pages remain accessible elsewhere on the website.
+const navActions = $('.nav-actions', navigation);
+if (navActions) {
+  const signInLink = $('.sign-in', navActions);
+  if (signInLink) {
+    signInLink.href = 'https://app.dayridge.co.uk/';
+    signInLink.classList.add('button', 'button-dark', 'nav-signin-primary');
+    signInLink.setAttribute('aria-label', 'Sign in to DayRidge');
+  }
+  $('a', navActions).forEach(link => {
+    if (link !== signInLink) link.remove();
+  });
+}
 function closePlatform(focus = false) {
   platformMenu.hidden = true;
   platformToggle.setAttribute('aria-expanded', 'false');
