@@ -49,3 +49,11 @@
 .seo-feature-related nav{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:16px}
 @media(max-width:800px){.seo-feature-breadcrumb{padding-top:110px}.seo-discovery-grid,.seo-feature-benefits,.seo-feature-steps ol{grid-template-columns:1fr}.seo-discovery{margin-top:50px}.seo-feature-hero{grid-template-columns:1fr;gap:32px;padding-block:30px 38px}.seo-feature-benefits{gap:24px;padding-block:22px 40px}.seo-feature-cta{align-items:flex-start;flex-direction:column;padding:26px}.seo-feature-copy h1{max-width:650px}.seo-feature-example{padding:24px}.seo-feature-steps{padding-block:40px}}
 @media(prefers-reduced-motion:reduce){.seo-discovery-card{transition:none}}
+
+/* Mobile: keep the feature discovery section and cards inside the page gutter. */
+@media(max-width:700px){
+.seo-discovery{box-sizing:border-box;width:100%;max-width:100%;min-width:0;margin:42px auto 18px;padding-inline:0}
+.seo-discovery>h2,.seo-discovery>p{max-width:100%;overflow-wrap:break-word}
+.seo-discovery-grid{box-sizing:border-box;width:100%;min-width:0;gap:15px}
+.seo-discovery-card{box-sizing:border-box;width:100%;min-width:0;padding:24px 22px;gap:11px;border-radius:18px}
+}
