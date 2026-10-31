@@ -71,6 +71,23 @@ try {
     });
     console.log('[Mobile simulation] ' + path + ': ' + JSON.stringify({ status: response.status(), ...measurements }));
     if (response.status() !== 200) throw new Error('Page failed to load: ' + path);
+    // Regression test: the mobile navigation must open, reveal the dropdown,
+    // close its nested platform menu, then close cleanly.
+    const menu = page.locator('[data-menu-toggle]');
+    const navigation = page.locator('#site-navigation');
+    await menu.click();
+    await navigation.waitFor({ state: 'visible', timeout: 4000 });
+    if (await menu.getAttribute('aria-expanded') !== 'true')
+      throw new Error('Mobile navigation failed to open: ' + path);
+    await page.locator('[data-platform-toggle]').click();
+    await page.locator('#platform-menu').waitFor({ state: 'visible', timeout: 4000 });
+    await page.keyboard.press('Escape');
+    if (await page.locator('#platform-menu').isVisible())
+      throw new Error('Platform submenu failed to close: ' + path);
+    await menu.click();
+    if (await navigation.isVisible() || await menu.getAttribute('aria-expanded') !== 'false')
+      throw new Error('Mobile navigation failed to close: ' + path);
+    console.log('[Mobile navigation] ' + path + ': open / dropdown / close passed');
     await context.close();
   }
 } finally {
