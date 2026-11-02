@@ -1,7 +1,7 @@
 import './website-stats.js?v=1';
 // Add the verified DayRidge page URLs here when the profiles are ready.
 const socialProfiles = {
-  facebook: null,
+  facebook: 'https://www.facebook.com/share/1EoVw6wNHD/?mibextid=wwXIfr',
   tiktok: 'https://www.tiktok.com/@dayridge.app',
   instagram: null,
 };
