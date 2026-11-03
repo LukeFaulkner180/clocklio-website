@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="350" viewBox="150 38 1080 285">
+<title>DayRidge with a remembrance poppy</title>
+<g transform="translate(156 49) scale(3.9375)" fill="none">
+<defs>
+    <linearGradient id="tile" x1="7" y1="4" x2="58" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B7AF1"/>
+      <stop offset="1" stop-color="#5949C5"/>
+    </linearGradient>
+    <linearGradient id="check" x1="34" y1="43" x2="49" y2="29" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#73E0BD"/>
+      <stop offset="1" stop-color="#9CF0D3"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="19" fill="url(#tile)"/>
+  <rect x="4" y="4" width="56" height="56" rx="18" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>
+  <path d="M14.4 43.7c1.05-7.45 5.23-11.7 11.45-11.7 5.53 0 9.28 3.16 11.02 8.73" stroke="#fff" stroke-width="4.1" stroke-linecap="round"/>
+  <circle cx="25.6" cy="22.5" r="6.25" fill="#fff"/>
+  <circle cx="42.4" cy="22.3" r="4.45" fill="#fff" fill-opacity=".94"/>
+  <path d="m35.3 41.2 5.5 5.25 10.75-12.1" stroke="url(#check)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="446" y="225" font-family="DejaVu Sans, Arial, sans-serif" font-size="120" font-weight="700" letter-spacing="-3"><tspan fill="#10234b">Day</tspan><tspan fill="#6047e8">Ridge</tspan></text>
+<g id="remembrance-poppy" transform="translate(351 44) scale(.9)" aria-hidden="true">
+  <path d="M45 58c3 13 5 24 3 36" fill="none" stroke="#28753b" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M45 32C54 12 70 1 88 4c-2 18-13 34-32 37Z" fill="#397f42"/>
+  <path d="M49 34c-3-12-16-17-28-13C7 22 0 32 3 44c-4 9 1 19 9 23 2 12 16 17 27 11 10 5 20-3 20-13Z" fill="#e42832"/>
+  <path d="M43 35c5-13 22-18 34-10 12 7 15 19 8 30 5 12-4 24-17 25-14 3-25-4-29-16Z" fill="#d91f2b"/>
+  <circle cx="45" cy="51" r="13.5" fill="#191a20"/>
+</g>
+</svg>
+

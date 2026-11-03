@@ -27,6 +27,12 @@ async function prepare(directory) {
     let content = await readFile(file, 'utf8');
     if (siteURL) content = content.replaceAll(sourceSiteURL, siteURL.href);
     content = content.replaceAll(sourceAppURL, siteConfig.appURL);
+    // Use the approved remembrance logo in the main navigation only.
+    if (entry.name.endsWith('.html')) {
+      content = content.replace(/<header\b[^>]*\bdata-header\b[^>]*>[\s\S]*?<\/header>/gi, header =>
+        header.replace(/(\bsrc=["'][^"']*\/)dayridge-logo-horizontal\.svg(?:\?[^"']*)?(["'])/gi,
+          '$1dayridge-logo-horizontal-remembrance.svg?v=1$2'));
+    }
     if (basePath && entry.name.endsWith('.html')) content = content.replace(/(\b(?:href|src)=["'])\/(?!\/)/gi, '$1' + basePath + '/');
     if (basePath && entry.name.endsWith('.css')) content = content.replace(/(url\(["']?)\/(?!\/)/gi, '$1' + basePath + '/');
     await writeFile(file, content);
