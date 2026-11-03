@@ -375,7 +375,7 @@ try {
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
       await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','knowledge-base/','knowledge-base/rotas/','knowledge-base/tasks/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','subscriptions/','referrals/'];
+      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','knowledge-base/','knowledge-base/rotas/','knowledge-base/tasks/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','coming-soon/','subscriptions/','referrals/'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {
@@ -384,6 +384,11 @@ try {
           await noOverflow(page, name + ' ' + width + ' ' + route, errors);
           assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
           if (route === 'platform/') await readableAddons(page);
+          if (route === 'coming-soon/') {
+            assert.equal(await page.locator('.roadmap-milestone').count(), 3);
+            assert.equal(await page.locator('.roadmap-card h3').first().textContent(), 'DayRidge Assets');
+            assert.equal(await page.locator('#site-navigation a.nav-roadmap').count(), 1);
+          }
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
             await page.screenshot({ path: artifactDirectory + '/' + slug + '-' + width + '.png', fullPage: true });
