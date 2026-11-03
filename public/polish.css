@@ -776,3 +776,30 @@ body.menu-open{overflow:hidden}
 @media(max-width:1000px){
   .site-navigation.is-open .nav-actions > .sign-in{width:100%;min-height:49px;padding:14px 18px}
 }
+
+
+/* Compact 2027 roadmap teaser on the homepage. Separate from the main site navigation. */
+.home-roadmap-teaser{margin-top:22px;margin-bottom:32px}
+.home-roadmap-teaser-inner{position:relative;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.82fr);gap:36px;align-items:center;overflow:hidden;border:1px solid #e2d8f8;border-radius:25px;background:linear-gradient(115deg,#f9f6ff 5%,#f0eaff 100%);padding:35px 43px;box-shadow:0 14px 40px #5136a80b}
+.home-roadmap-teaser-inner:after{content:"";position:absolute;width:310px;height:310px;right:-115px;bottom:-180px;pointer-events:none;border:1px solid #d9cff3;border-radius:50%;box-shadow:0 0 0 34px #ffffff25,0 0 0 67px #ffffff1d}
+.home-roadmap-teaser-copy{position:relative;z-index:1}
+.home-roadmap-kicker{display:inline-flex;align-items:center;gap:9px;font:800 10px/1.5 "DM Sans",sans-serif;letter-spacing:.115em;color:#6c45d6}
+.home-roadmap-kicker i{display:block;width:7px;height:7px;flex:none;background:#794fe3;border-radius:50%;box-shadow:0 0 0 5px #7955d71e}
+.home-roadmap-teaser h2{margin:12px 0 10px;max-width:530px;font:800 clamp(28px,3.2vw,40px)/1.22 Manrope,"DM Sans",sans-serif;letter-spacing:-.058em;color:#282038}
+.home-roadmap-teaser h2 em{font-style:normal;color:#7050df}
+.home-roadmap-teaser p{max-width:520px;margin:0 0 21px;color:#6b627b;font-size:14px;line-height:1.76}
+.home-roadmap-teaser .home-roadmap-cta{min-height:45px;padding:11px 17px;gap:13px;font-size:12px;border-radius:11px}
+.home-roadmap-preview{position:relative;z-index:1;max-width:385px;width:100%;justify-self:end;padding:19px 22px;background:#ffffffce;border:1px solid #e5ddf3;border-radius:17px;box-shadow:0 17px 35px #59429c15}
+.home-roadmap-preview-title{display:flex;justify-content:space-between;gap:12px;font:800 10px/1.4 "DM Sans",sans-serif;letter-spacing:.08em;color:#826db5}
+.home-roadmap-preview-track{position:relative;margin-top:16px}
+.home-roadmap-preview-track:before{content:"";position:absolute;top:12px;bottom:13px;left:7px;width:2px;background:linear-gradient(#8155e1,#d5c5f2)}
+.home-roadmap-preview-step{display:grid;grid-template-columns:18px 44px 1fr;align-items:center;gap:9px;min-height:46px}
+.home-roadmap-preview-node{z-index:1;width:15px;height:15px;background:#fff;border:3px solid #9c82e0;border-radius:50%}
+.home-roadmap-preview-step:first-child .home-roadmap-preview-node{background:#7552df;border-color:#7552df;box-shadow:0 0 0 4px #eee8ff}
+.home-roadmap-preview-month{color:#704fe1;font:800 10px/1.4 Manrope,sans-serif}
+.home-roadmap-preview-detail{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:5px}
+.home-roadmap-preview-detail strong{font-size:11px;color:#3e3550;font-weight:800}
+.home-roadmap-preview-detail small{font-size:10px;color:#877e97;white-space:nowrap}
+@media(max-width:1000px){.home-roadmap-teaser-inner{gap:20px;padding:30px}.home-roadmap-preview{padding:16px}}
+@media(max-width:760px){.home-roadmap-teaser{margin-top:6px;margin-bottom:18px}.home-roadmap-teaser-inner{grid-template-columns:1fr;gap:24px;padding:30px 25px}.home-roadmap-preview{justify-self:stretch;max-width:none}.home-roadmap-teaser h2{font-size:clamp(28px,6vw,37px)}}
+@media(max-width:430px){.home-roadmap-teaser-inner{padding:25px 19px;border-radius:18px}.home-roadmap-teaser h2{font-size:29px}.home-roadmap-teaser p{font-size:13px}.home-roadmap-teaser .home-roadmap-cta{width:100%;justify-content:center}.home-roadmap-preview{padding:15px 13px}.home-roadmap-preview-detail strong{font-size:10px}.home-roadmap-preview-detail small{font-size:9px}.home-roadmap-preview-step{grid-template-columns:18px 38px 1fr;gap:5px}}
