@@ -24,6 +24,11 @@
     "description": "Manage staff holiday requests, review leave balances and record decisions with DayRidge. Try it with your team.",
     "label": "Annual leave management"
   },
+  "/app-privacy/": {
+    "title": "Application Privacy Notice — DayRidge",
+    "description": "Privacy information for DayRidge accounts, business contacts and application use.",
+    "label": "Application Privacy"
+  },
   "/brochure/": {
     "title": "Download the product brochure - DayRidge",
     "description": "Download the DayRidge product brochure with Clockx and Full Workspace packages, annual prices and monthly add-ons.",
@@ -34,10 +39,20 @@
     "description": "Explore DayRidge clocking-in software for recorded hours, breaks and payroll handover. Coming in 2027. Register your business for early access.",
     "label": "Clocking-in software"
   },
+  "/coming-soon/": {
+    "title": "Coming Soon | DayRidge Product Roadmap",
+    "description": "Explore the DayRidge upcoming roadmap: asset management planned for January 2027, a design milestone for May and ideas being explored for September.",
+    "label": "Coming soon"
+  },
   "/contact/": {
     "title": "Contact DayRidge | Rota & Staff Management Software",
     "description": "Ask about DayRidge plans, staff rotas, clocking in or business testing. Send your enquiry to the DayRidge team through our contact form.",
     "label": "Contact DayRidge"
+  },
+  "/data-processing/": {
+    "title": "Data Processing Agreement — DayRidge",
+    "description": "UK GDPR controller–processor contract for DayRidge business workspaces and staff data.",
+    "label": "Data Processing Agreement"
   },
   "/early-access/": {
     "title": "Test DayRidge | Early Access to Rota & Clocking Software",
@@ -99,6 +114,106 @@
     "description": "Use units that fit your business, save unfinished counts and record a clear stock history.",
     "label": "Set up products and complete a stocktake"
   },
+  "/knowledge-base/": {
+    "title": "Knowledge base and training guides | DayRidge Training",
+    "description": "Step-by-step DayRidge training for Employees, Managers, Team Leaders and Business Owners. Search by topic or role and download the owner handbook.",
+    "label": "Knowledge base and training guides"
+  },
+  "/knowledge-base/activity-and-routines/": {
+    "title": "Activity, notifications and daily routines | DayRidge Training",
+    "description": "Follow recorded changes and build a repeatable daily, weekly and payroll-review routine.",
+    "label": "Activity, notifications and daily routines"
+  },
+  "/knowledge-base/annual-leave/": {
+    "title": "Manage annual leave and balances | DayRidge Training",
+    "description": "Review requests, check cover and estimated hours, record decisions and undo supported upcoming approvals.",
+    "label": "Manage annual leave and balances"
+  },
+  "/knowledge-base/clocking-and-breaks/": {
+    "title": "Manage clocking, kiosks and breaks | DayRidge Training",
+    "description": "Set up the shared kiosk, review active staff and correct worked time without deducting a break twice.",
+    "label": "Manage clocking, kiosks and breaks"
+  },
+  "/knowledge-base/documents/": {
+    "title": "Contracts, policies and read receipts | DayRidge Training",
+    "description": "Share the right document with the right audience and understand acknowledgement, drafts and archiving.",
+    "label": "Contracts, policies and read receipts"
+  },
+  "/knowledge-base/employee-start/": {
+    "title": "Get started as an employee | DayRidge Training",
+    "description": "Set up your account, find your own shifts and understand which sections your employer makes available.",
+    "label": "Get started as an employee"
+  },
+  "/knowledge-base/geo-clockin-employee/": {
+    "title": "Clock in with a workplace location check | DayRidge Training",
+    "description": "Allow precise location, clock in when you arrive and understand outside-area or permission messages.",
+    "label": "Clock in with a workplace location check"
+  },
+  "/knowledge-base/geo-clockin/": {
+    "title": "Set up Geo Clock-in for your workplace | DayRidge Training",
+    "description": "Enable the add-on, choose the workplace on a map, set the radius, test employee arrival checks and handle Manager overrides.",
+    "label": "Set up Geo Clock-in for your workplace"
+  },
+  "/knowledge-base/getting-started/": {
+    "title": "Set up your business workspace | DayRidge Training",
+    "description": "From your first sign-in to a checked pay schedule, a pilot team and your first published shift.",
+    "label": "Set up your business workspace"
+  },
+  "/knowledge-base/my-shifts/": {
+    "title": "Check your upcoming and past shifts | DayRidge Training",
+    "description": "Find your own published schedule, move through the calendar and understand shifts, overtime and time away.",
+    "label": "Check your upcoming and past shifts"
+  },
+  "/knowledge-base/my-time-clock/": {
+    "title": "Clock in and out as an employee | DayRidge Training",
+    "description": "Record your own attendance, check the active shift and understand the timer and earnings estimate.",
+    "label": "Clock in and out as an employee"
+  },
+  "/knowledge-base/payroll-hours/": {
+    "title": "Review and export payroll hours | DayRidge Training",
+    "description": "Check pay periods, worked time, breaks and owner-only gross estimates before the payroll handover.",
+    "label": "Review and export payroll hours"
+  },
+  "/knowledge-base/people-and-access/": {
+    "title": "Manage people, onboarding and permissions | DayRidge Training",
+    "description": "Add employees and management accounts, review starter information and control access to personal records.",
+    "label": "Manage people, onboarding and permissions"
+  },
+  "/knowledge-base/request-time-away/": {
+    "title": "Request holiday and report time away | DayRidge Training",
+    "description": "Send a leave request, check its decision and keep sickness separate from holiday.",
+    "label": "Request holiday and report time away"
+  },
+  "/knowledge-base/rotas/": {
+    "title": "Rotas: plan, publish and manage the week | DayRidge Training",
+    "description": "Create and edit shifts, check clashes and leave, publish the rota, review budgets and use the month calendar.",
+    "label": "Rotas: plan, publish and manage the week"
+  },
+  "/knowledge-base/sickness/": {
+    "title": "Record sickness and return to work | DayRidge Training",
+    "description": "Keep absence dates up to date, mark the actual return and review date-only absence trends.",
+    "label": "Record sickness and return to work"
+  },
+  "/knowledge-base/stock/": {
+    "title": "Stock counts, takings and investigations | DayRidge Training",
+    "description": "Create consistent products, run stocktakes, reconcile till figures and explain differences.",
+    "label": "Stock counts, takings and investigations"
+  },
+  "/knowledge-base/tasks/": {
+    "title": "Tasks and shared shift checklists | DayRidge Training",
+    "description": "Assign work, build reusable checklists, let staff take ownership and capture live photo evidence.",
+    "label": "Tasks and shared shift checklists"
+  },
+  "/knowledge-base/troubleshooting/": {
+    "title": "Fix common access and record problems | DayRidge Training",
+    "description": "Practical checks for invitations, missing menus, camera permissions, hours, leave and stock totals.",
+    "label": "Fix common access and record problems"
+  },
+  "/legal/": {
+    "title": "Legal and policies — DayRidge",
+    "description": "DayRidge legal documents for trials and paying business customers.",
+    "label": "Legal & Policies"
+  },
   "/platform/": {
     "title": "Staff Management Software for UK Businesses | DayRidge",
     "description": "Explore DayRidge for staff rotas, time tracking, annual leave and team management. Explore the tools for your working day.",
@@ -144,129 +259,19 @@
     "description": "A practical guide to bringing existing team records into Clockx or Full Workspace and preparing your first working week.",
     "label": "Switching to DayRidge"
   },
-  "/updates/": {
-    "title": "Product updates & roadmap - DayRidge",
-    "description": "See released DayRidge improvements and clearly labelled ideas being considered for the future.",
-    "label": "Product updates & roadmap"
-  },
-  "/knowledge-base/": {
-    "title": "Knowledge base and training guides | DayRidge Training",
-    "description": "Step-by-step DayRidge training for Employees, Managers, Team Leaders and Business Owners. Search by topic or role and download the owner handbook.",
-    "label": "Knowledge base and training guides"
-  },
-  "/knowledge-base/getting-started/": {
-    "title": "Set up your business workspace | DayRidge Training",
-    "description": "From your first sign-in to a checked pay schedule, a pilot team and your first published shift.",
-    "label": "Set up your business workspace"
-  },
-  "/knowledge-base/rotas/": {
-    "title": "Rotas: plan, publish and manage the week | DayRidge Training",
-    "description": "Create and edit shifts, check clashes and leave, publish the rota, review budgets and use the month calendar.",
-    "label": "Rotas: plan, publish and manage the week"
-  },
-  "/knowledge-base/my-shifts/": {
-    "title": "Check your upcoming and past shifts | DayRidge Training",
-    "description": "Find your own published schedule, move through the calendar and understand shifts, overtime and time away.",
-    "label": "Check your upcoming and past shifts"
-  },
-  "/knowledge-base/clocking-and-breaks/": {
-    "title": "Manage clocking, kiosks and breaks | DayRidge Training",
-    "description": "Set up the shared kiosk, review active staff and correct worked time without deducting a break twice.",
-    "label": "Manage clocking, kiosks and breaks"
-  },
-  "/knowledge-base/annual-leave/": {
-    "title": "Manage annual leave and balances | DayRidge Training",
-    "description": "Review requests, check cover and estimated hours, record decisions and undo supported upcoming approvals.",
-    "label": "Manage annual leave and balances"
-  },
-  "/knowledge-base/sickness/": {
-    "title": "Record sickness and return to work | DayRidge Training",
-    "description": "Keep absence dates up to date, mark the actual return and review date-only absence trends.",
-    "label": "Record sickness and return to work"
-  },
-  "/knowledge-base/people-and-access/": {
-    "title": "Manage people, onboarding and permissions | DayRidge Training",
-    "description": "Add employees and management accounts, review starter information and control access to personal records.",
-    "label": "Manage people, onboarding and permissions"
-  },
-  "/knowledge-base/documents/": {
-    "title": "Contracts, policies and read receipts | DayRidge Training",
-    "description": "Share the right document with the right audience and understand acknowledgement, drafts and archiving.",
-    "label": "Contracts, policies and read receipts"
-  },
-  "/knowledge-base/payroll-hours/": {
-    "title": "Review and export payroll hours | DayRidge Training",
-    "description": "Check pay periods, worked time, breaks and owner-only gross estimates before the payroll handover.",
-    "label": "Review and export payroll hours"
-  },
-  "/knowledge-base/tasks/": {
-    "title": "Tasks and shared shift checklists | DayRidge Training",
-    "description": "Assign work, build reusable checklists, let staff take ownership and capture live photo evidence.",
-    "label": "Tasks and shared shift checklists"
-  },
-  "/knowledge-base/stock/": {
-    "title": "Stock counts, takings and investigations | DayRidge Training",
-    "description": "Create consistent products, run stocktakes, reconcile till figures and explain differences.",
-    "label": "Stock counts, takings and investigations"
-  },
-  "/knowledge-base/activity-and-routines/": {
-    "title": "Activity, notifications and daily routines | DayRidge Training",
-    "description": "Follow recorded changes and build a repeatable daily, weekly and payroll-review routine.",
-    "label": "Activity, notifications and daily routines"
-  },
-  "/knowledge-base/troubleshooting/": {
-    "title": "Fix common access and record problems | DayRidge Training",
-    "description": "Practical checks for invitations, missing menus, camera permissions, hours, leave and stock totals.",
-    "label": "Fix common access and record problems"
-  },
-  "/knowledge-base/employee-start/": {
-    "title": "Get started as an employee | DayRidge Training",
-    "description": "Set up your account, find your own shifts and understand which sections your employer makes available.",
-    "label": "Get started as an employee"
-  },
-  "/knowledge-base/my-time-clock/": {
-    "title": "Clock in and out as an employee | DayRidge Training",
-    "description": "Record your own attendance, check the active shift and understand the timer and earnings estimate.",
-    "label": "Clock in and out as an employee"
-  },
-  "/knowledge-base/request-time-away/": {
-    "title": "Request holiday and report time away | DayRidge Training",
-    "description": "Send a leave request, check its decision and keep sickness separate from holiday.",
-    "label": "Request holiday and report time away"
-  },
-  "/knowledge-base/geo-clockin/": {
-    "title": "Set up Geo Clock-in for your workplace | DayRidge Training",
-    "description": "Enable the add-on, choose the workplace on a map, set the radius, test employee arrival checks and handle Manager overrides.",
-    "label": "Set up Geo Clock-in for your workplace"
-  },
-  "/knowledge-base/geo-clockin-employee/": {
-    "title": "Clock in with a workplace location check | DayRidge Training",
-    "description": "Allow precise location, clock in when you arrive and understand outside-area or permission messages.",
-    "label": "Clock in with a workplace location check"
-  },
   "/terms/": {
     "title": "Software Terms and Conditions — DayRidge",
     "description": "DayRidge business subscription, trial, billing, service and liability terms.",
     "label": "Software Terms"
-  },
-  "/data-processing/": {
-    "title": "Data Processing Agreement — DayRidge",
-    "description": "UK GDPR controller–processor contract for DayRidge business workspaces and staff data.",
-    "label": "Data Processing Agreement"
-  },
-  "/app-privacy/": {
-    "title": "Application Privacy Notice — DayRidge",
-    "description": "Privacy information for DayRidge accounts, business contacts and application use.",
-    "label": "Application Privacy"
   },
   "/trial-terms/": {
     "title": "Trial and Early Access Terms — DayRidge",
     "description": "How free and introductory DayRidge business trials work.",
     "label": "Trial Terms"
   },
-  "/legal/": {
-    "title": "Legal and policies — DayRidge",
-    "description": "DayRidge legal documents for trials and paying business customers.",
-    "label": "Legal & Policies"
+  "/updates/": {
+    "title": "Product updates & roadmap - DayRidge",
+    "description": "See released DayRidge improvements and clearly labelled ideas being considered for the future.",
+    "label": "Product updates & roadmap"
   }
 }
