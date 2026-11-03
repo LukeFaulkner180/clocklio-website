@@ -33,6 +33,19 @@ async function prepare(directory) {
         header.replace(/(\bsrc=["'][^"']*\/)dayridge-logo-horizontal\.svg(?:\?[^"']*)?(["'])/gi,
           '$1dayridge-logo-horizontal-remembrance.svg?v=1$2'));
     }
+    if (entry.name.endsWith('.html')) {
+      // Google Search supports PNG/ICO favicons. Use stable root URLs on
+      // every page so crawlers find the same brand icon across the site.
+      content = content.replace(/<link\b[^>]*\brel=["'](?:icon|shortcut icon|apple-touch-icon)["'][^>]*>\s*/gi, '');
+      content = content.replace('</head>', [
+        '<link rel="icon" type="image/x-icon" href="/favicon.ico">',
+        '<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">',
+        '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '<link rel="icon" type="image/svg+xml" href="/assets/dayridge-favicon.svg">',
+        '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+        '</head>',
+      ].join('\n'));
+    }
     if (basePath && entry.name.endsWith('.html')) content = content.replace(/(\b(?:href|src)=["'])\/(?!\/)/gi, '$1' + basePath + '/');
     if (basePath && entry.name.endsWith('.css')) content = content.replace(/(url\(["']?)\/(?!\/)/gi, '$1' + basePath + '/');
     await writeFile(file, content);
