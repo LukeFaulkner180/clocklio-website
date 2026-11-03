@@ -8,6 +8,7 @@ const seo = JSON.parse(readFileSync(new URL('../content/seo.json', import.meta.u
 const home = readFileSync(new URL('../public/index.html', import.meta.url), 'utf8');
 const updates = readFileSync(new URL('../public/updates/index.html', import.meta.url), 'utf8');
 const nav = readFileSync(new URL('../public/main.js', import.meta.url), 'utf8');
+const homeStyles = readFileSync(new URL('../public/polish.css', import.meta.url), 'utf8');
 const build = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
 
 test('a distinct 2027 Coming Soon page has one heading and three ordered milestone dates', () => {
@@ -39,9 +40,14 @@ test('animated illustrations are decorative, readable, and reduce motion when re
   assert.match(page, /aria-label="Animated idea illustration/);
 });
 
-test('roadmap is discoverable across navigation, footer, existing updates and homepage', () => {
+test('roadmap stays out of primary navigation but remains in the footer and homepage teaser', () => {
   assert.match(nav, /sitePath\('coming-soon\/'\)/);
-  assert.match(nav, /nav-roadmap/);
+  assert.doesNotMatch(nav, /nav-roadmap/);
+  assert.match(nav, /Coming soon · Roadmap/);
+  assert.match(home, /class="home-roadmap-teaser wrap"/);
+  assert.match(home, /class="button button-dark home-roadmap-cta" href="\/coming-soon\/"/);
+  assert.match(homeStyles, /\.home-roadmap-teaser-inner/);
+  assert.match(homeStyles, /@media\(max-width:430px\)/);
   assert.match(nav, /Explore DayRidge/);
   assert.match(home, /href="\/coming-soon\/"/);
   assert.match(updates, /href="\/coming-soon\/"/);
