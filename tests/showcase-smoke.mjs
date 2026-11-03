@@ -384,10 +384,15 @@ try {
           await noOverflow(page, name + ' ' + width + ' ' + route, errors);
           assert.equal(await page.locator('[data-motion-toggle]').count(), 0);
           if (route === 'platform/') await readableAddons(page);
+          if (route === '') {
+            assert.equal(await page.locator('.home-roadmap-teaser').count(), 1);
+            assert.equal(await page.locator('.home-roadmap-cta[href$="/coming-soon/"]').count(), 1);
+          }
           if (route === 'coming-soon/') {
             assert.equal(await page.locator('.roadmap-milestone').count(), 3);
             assert.equal(await page.locator('.roadmap-card h3').first().textContent(), 'DayRidge Assets');
-            assert.equal(await page.locator('#site-navigation a.nav-roadmap').count(), 1);
+            assert.equal(await page.locator('#site-navigation a[href$="/coming-soon/"]').count(), 0, 'Roadmap is not in the main nav');
+            assert.equal(await page.locator('footer a[href$="/coming-soon/"]').count(), 1, 'Roadmap is in the footer');
           }
           if (name === 'chromium' && [1440, 390].includes(width)) {
             const slug = route.replaceAll('/', '') || 'home';
