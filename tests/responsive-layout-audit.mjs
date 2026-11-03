@@ -38,7 +38,7 @@ try {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: width >= 1024 ? 960 : 844 });
     for (const route of routes) {
-      await page.goto(origin + '/' + route, { waitUntil: 'domcontentloaded' });
+      await page.goto(origin + '/' + route, { waitUntil: 'load' });
       const result = await page.evaluate(() => {
         const main = document.querySelector('main');
         const heading = main?.querySelector('h1');
