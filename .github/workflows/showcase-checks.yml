@@ -22,6 +22,8 @@ jobs:
         run: npx playwright install --with-deps chromium webkit
       - name: Measure mobile page loading (local throttled browser)
         run: node tests/site-performance.mjs
+      - name: Check every public page at desktop tablet and mobile widths
+        run: node tests/responsive-layout-audit.mjs
       - name: Exercise website and capture previews
         run: node tests/showcase-smoke.mjs
       - name: Build and check GitHub Pages project paths
