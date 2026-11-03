@@ -50,6 +50,31 @@ function animatePanel(panel) {
 // Navigation works with pointer, keyboard and touch.
 const menuToggle = $('[data-menu-toggle]');
 const navigation = $('#site-navigation');
+// Give the roadmap a consistent home in the desktop and mobile navigation.
+// Insert before the menu listeners are attached so the existing close-on-tap
+// handling also covers this link.
+if (navigation && !navigation.querySelector('a[href$="/coming-soon/"]')) {
+  const link = document.createElement('a');
+  link.href = sitePath('coming-soon/');
+  link.className = 'nav-link nav-roadmap';
+  link.textContent = 'Coming soon';
+  if (location.pathname.replace(/\/index\.html$/, '/').endsWith('/coming-soon/')) {
+    link.setAttribute('aria-current', 'page');
+  }
+  const before = [...navigation.querySelectorAll(':scope > a.nav-link')]
+    .find(item => item.textContent.trim() === 'About us');
+  navigation.insertBefore(link, before || navigation.querySelector('.nav-actions'));
+}
+const roadmapFooter = document.querySelector('.footer-directory nav[aria-label="Explore DayRidge"]');
+if (roadmapFooter && !roadmapFooter.querySelector('a[href$="/coming-soon/"]')) {
+  const link = document.createElement('a');
+  link.href = sitePath('coming-soon/');
+  link.textContent = 'Coming soon · Roadmap';
+  const before = [...roadmapFooter.querySelectorAll('a')]
+    .find(item => item.textContent.trim() === 'About us');
+  roadmapFooter.insertBefore(link, before || null);
+}
+
 const platformToggle = $('[data-platform-toggle]');
 const platformMenu = $('#platform-menu');
 // Give existing customers a single, prominent Sign in action in the header.
