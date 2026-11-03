@@ -84,10 +84,10 @@ try {
       await text(page, 'h1', /Your team\. Your business\.[\s\S]*In good rhythm\./);
       assert.equal(await page.locator('.holding-main').count(), 0, 'Homepage shows the full product site');
       assert.equal(await page.locator('form').count(), 0, 'Enquiries have their own page');
-      await text(page, '[data-social-platform="facebook"]', /Coming soon/);
+      assert.equal(await page.locator('a[data-social-platform="facebook"]').getAttribute('href'), 'https://www.facebook.com/share/1EoVw6wNHD/?mibextid=wwXIfr');
       await text(page, '[data-social-platform="instagram"]', /Coming soon/);
       assert.equal(await page.locator('a[data-social-platform="tiktok"]').getAttribute('href'), 'https://www.tiktok.com/@dayridge.app');
-      assert.equal(await page.locator('a[data-social-platform="facebook"], a[data-social-platform="instagram"]').count(), 0, 'Unlinked profiles do not act as links');
+      assert.equal(await page.locator('a[data-social-platform="instagram"]').count(), 0, 'The unlinked Instagram profile does not act as a link');
       await page.screenshot({ path: artifactDirectory + '/home-desktop-' + name + '.png', fullPage: true });
       for (const [slug, heading] of [
         ['clocking-in-software', /Clocking-in software that keeps every shift/],
