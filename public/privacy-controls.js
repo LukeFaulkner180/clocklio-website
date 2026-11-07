@@ -3,6 +3,7 @@
 // has no optional marketing tags or visitor-identifying analytics cookies.
 const NOTICE_KEY = 'dayridge_privacy_notice_v1';
 const STATS_KEY = 'dayridge_website_stats_disabled_v1';
+const publicBase = location.hostname === 'lukefaulkner180.github.io' && location.pathname.startsWith('/clocklio-website/') ? '/clocklio-website' : '';
 
 function saved(key) {
   try { return window.localStorage.getItem(key); } catch { return null; }
@@ -14,11 +15,11 @@ function setSaved(key, value) {
 function statsDisabled() { return saved(STATS_KEY) === '1'; }
 
 for (const footer of document.querySelectorAll('.site-footer .footer-legal')) {
-  if (footer.querySelector('a[href="/cookies/"]')) continue;
+  if (footer.querySelector('a[href$="/cookies/"]')) continue;
   const link = document.createElement('a');
-  link.href = '/cookies/';
+  link.href = publicBase + '/cookies/';
   link.textContent = 'Privacy & cookies';
-  const privacyLink = footer.querySelector('a[href="/privacy/"]');
+  const privacyLink = footer.querySelector('a[href$="/privacy/"]');
   if (privacyLink) privacyLink.after(link);
   else footer.append(link);
 }
@@ -43,7 +44,7 @@ notice.innerHTML = `
     <div class="dr-privacy-option"><div><strong>Anonymous website statistics</strong><small>Broad page and device counts, without cookies or a persistent visitor ID.</small></div><button type="button" class="dr-privacy-switch" role="switch" aria-label="Allow anonymous website statistics" data-privacy-stat-toggle><span></span></button></div>
     <small class="dr-privacy-explainer">Turning this off stops future DayRidge website statistics from this browser. It does not remove counts already collected.</small>
   </div>
-  <a class="dr-privacy-policy" href="/cookies/">Read our Privacy & cookies information</a>
+  <a class="dr-privacy-policy" href="${publicBase}/cookies/">Read our Privacy & cookies information</a>
 `;
 document.body.append(notice);
 const toggle = notice.querySelector('[data-privacy-stat-toggle]');
