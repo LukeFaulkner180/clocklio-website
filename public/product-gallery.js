@@ -16,7 +16,7 @@ if (gallery) {
     if (!shown.length) return;
     index = (index + shown.length) % shown.length;
     const item = shown[index];
-    image.src = item.dataset.galleryImage;
+    image.src = item.querySelector('img')?.currentSrc || item.dataset.galleryImage;
     image.alt = item.querySelector('img')?.alt || 'DayRidge illustrative product preview';
     title.textContent = item.dataset.galleryTitle || 'DayRidge preview';
     description.textContent = item.dataset.galleryDescription || '';
