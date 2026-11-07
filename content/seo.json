@@ -273,5 +273,10 @@
     "title": "Product updates & roadmap - DayRidge",
     "description": "See released DayRidge improvements and clearly labelled ideas being considered for the future.",
     "label": "Product updates & roadmap"
+  },
+  "/cookies/": {
+    "title": "Privacy & cookies — DayRidge",
+    "description": "How DayRidge uses essential browser storage, anonymous website statistics and your privacy preferences.",
+    "label": "Privacy & cookies"
   }
 }
