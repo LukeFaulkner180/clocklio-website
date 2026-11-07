@@ -82,6 +82,31 @@ try {
     try {
       await page.goto(origin);
       await text(page, 'h1', /Your team\. Your business\.[\s\S]*In good rhythm\./);
+      // The privacy notice informs rather than pretending to request tracking consent.
+      await page.locator('.dr-privacy-notice').waitFor({state:'visible'});
+      await page.getByRole('button',{name:'Privacy controls'}).click();
+      const statsSwitch=page.getByRole('switch',{name:'Allow anonymous website statistics'});
+      assert.equal(await statsSwitch.getAttribute('aria-checked'),'true');
+      await statsSwitch.click();
+      assert.equal(await statsSwitch.getAttribute('aria-checked'),'false');
+      await statsSwitch.click();
+      await page.getByRole('button',{name:'Got it'}).click();
+      assert.equal(await page.locator('.dr-privacy-notice').isVisible(),false);
+      // Seven illustrated previews are available, including paid add-ons.
+      assert.equal(await page.locator('[data-gallery-item]').count(),7);
+      await page.locator('[data-gallery-filter="addons"]').click();
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),2,'Add-on filter hides core screens');
+      await page.locator('[data-gallery-item]:visible').first().click();
+      const lightbox=page.locator('#dr-gallery-dialog');
+      await lightbox.waitFor({state:'visible'});
+      const originalImage=await lightbox.locator('img').getAttribute('src');
+      await lightbox.getByRole('button',{name:'Next app screen'}).click();
+      assert.notEqual(await lightbox.locator('img').getAttribute('src'),originalImage);
+      await page.keyboard.press('Escape');
+      await lightbox.waitFor({state:'hidden'});
+      await page.locator('[data-gallery-filter="all"]').click();
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),7);
+
       assert.equal(await page.locator('.holding-main').count(), 0, 'Homepage shows the full product site');
       assert.equal(await page.locator('form').count(), 0, 'Enquiries have their own page');
       assert.equal(await page.locator('a[data-social-platform="facebook"]').getAttribute('href'), 'https://www.facebook.com/share/1EoVw6wNHD/?mibextid=wwXIfr');

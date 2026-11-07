@@ -4,13 +4,14 @@ import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 
 const script = (await readFile(new URL('../public/website-stats.js', import.meta.url), 'utf8')).replace(/^import .*;\n/, '');
-function page({ hostname = 'dayridge.co.uk', pathname = '/', referrer = '', query = '', visible = true, agent = 'Mozilla/5.0', pageType = 'home', fail = false } = {}) {
+function page({ hostname = 'dayridge.co.uk', pathname = '/', referrer = '', query = '', visible = true, agent = 'Mozilla/5.0', pageType = 'home', fail = false, optOut = false } = {}) {
   const listeners = new Map(), requests = [], retry = [];
   const document = { visibilityState: visible ? 'visible' : 'hidden', referrer, body: { dataset: { page: pageType } },
     addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: name => listeners.delete(name) };
   const context = { URL, location: { hostname, pathname, href: `https://${hostname}${pathname}${query}`, origin: `https://${hostname}` }, navigator: { userAgent: agent }, document,
     crypto: { randomUUID: () => '93000000-0000-4000-8000-000000000001' }, publicAnonKey: 'public-browser-key',
     window: { setTimeout: fn => retry.push(fn) },
+    localStorage: { getItem: key => key === 'dayridge_website_stats_disabled_v1' && optOut ? '1' : null },
     fetch: async (url, options) => { requests.push({ url, ...options }); return { status: fail ? 503 : 204 }; } };
   vm.runInNewContext(script, context);
   return { listeners, requests, retry, document };
@@ -85,4 +86,14 @@ test('training visits use the existing Help bucket and never transmit training s
     assert.equal(JSON.parse(request.body).pagePath, '/help/');
     assert.equal(request.body.includes('private-search'), false);
   }
+});
+
+
+test('anonymous statistics can be disabled without blocking the website', () => {
+  const excluded = page({ optOut:true });
+  assert.equal(excluded.requests.length,0,'No page count when browser has opted out');
+  const click = excluded.listeners.get('click');
+  click({target:{closest:()=>({href:'https://dayridge.co.uk/downloads/dayridge-product-brochure.pdf'})}});
+  assert.equal(excluded.requests.length,0,'No brochure count when opted out');
+  assert.equal(page({ optOut:false }).requests.length,1,'Existing anonymous counts remain available');
 });

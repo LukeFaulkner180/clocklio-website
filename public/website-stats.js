@@ -1,6 +1,7 @@
 import { publicAnonKey } from './contact-config.js';
 
 // Anonymous aggregates only. No cookies, browser storage or persistent visitor ID.
+const statisticsDisabled = () => { try { return localStorage.getItem('dayridge_website_stats_disabled_v1') === '1'; } catch { return false; } };
 const onWebsite = ['dayridge.co.uk', 'www.dayridge.co.uk'].includes(location.hostname) ||
   (location.hostname === 'lukefaulkner180.github.io' && /^\/clocklio-website(?:\/|$)/.test(location.pathname));
 const bot = /bot\b|crawler|spider|slurp|facebookexternalhit|facebot|whatsapp|telegrambot|preview|headless|lighthouse/i.test(navigator.userAgent);
@@ -28,6 +29,7 @@ if (onWebsite && !bot && !['404', 'not-found'].includes(document.body?.dataset.p
     if (campaign && Object.hasOwn(known,campaign)) source = known[campaign];
   } catch { /* An unavailable referrer remains direct / unknown. */ }
   const send = async (payload, retry = false) => {
+    if (statisticsDisabled()) return;
     try {
       const response = await fetch('https://gfqewchszhnaupukjcyb.supabase.co/functions/v1/dayridge-website-view', {
         method:'POST', credentials:'omit', referrerPolicy:'no-referrer', keepalive:true,
@@ -39,7 +41,7 @@ if (onWebsite && !bot && !['404', 'not-found'].includes(document.body?.dataset.p
   };
   const payload = eventType => ({ eventId:crypto.randomUUID(), pagePath, device, source, eventType });
   const countWhenVisible = () => {
-    if (sent || document.visibilityState !== 'visible' || document.prerendering) return;
+    if (sent || statisticsDisabled() || document.visibilityState !== 'visible' || document.prerendering) return;
     sent = true;
     document.removeEventListener('visibilitychange',countWhenVisible);
     document.removeEventListener('prerenderingchange',countWhenVisible);
@@ -49,7 +51,7 @@ if (onWebsite && !bot && !['404', 'not-found'].includes(document.body?.dataset.p
   document.addEventListener('prerenderingchange',countWhenVisible);
   document.addEventListener('click',event => {
     const link = event.target?.closest?.('a[href]');
-    if (!link || document.visibilityState !== 'visible') return;
+    if (!link || statisticsDisabled() || document.visibilityState !== 'visible') return;
     try {
       const url = new URL(link.href,location.href);
       if (url.origin === location.origin && /\/(?:downloads)\/(?:dayridge|clocknexa)-product-brochure\.pdf$/.test(url.pathname)) void send(payload('brochure_download'));

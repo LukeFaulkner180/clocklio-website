@@ -1,0 +1,53 @@
+/* DayRidge product gallery — consistent with public-site navy, lavender and mint. */
+.dr-gallery-section{position:relative;padding-block:96px 102px;isolation:isolate}
+.dr-gallery-header{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:29px}
+.dr-gallery-heading{max-width:740px}
+.dr-gallery-heading .eyebrow{font-weight:800}
+.dr-gallery-heading h2{font-family:Manrope,'DM Sans',system-ui,sans-serif;font-size:clamp(34px,5.1vw,61px);font-weight:800;line-height:1.09;letter-spacing:-.064em;color:#1b2740;margin:18px 0}
+.dr-gallery-heading h2 em{font-style:normal;color:#6d5bdb}
+.dr-gallery-heading p{font-size:14px;line-height:1.85;color:#68738a;max-width:680px;margin:0}
+.dr-gallery-count{border:1px solid #e7e3f3;border-radius:100px;padding:10px 15px;color:#6a5bca;background:#f3f0ff;font-size:11px;font-weight:800;letter-spacing:.06em;white-space:nowrap}
+.dr-gallery-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px}
+.dr-gallery-filter{border:1px solid #dddfe9;background:#fff;color:#667289;min-height:40px;padding:9px 17px;border-radius:100px;font-weight:700;font-size:12px;line-height:1.4;font-family:inherit;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.dr-gallery-filter:hover{transform:translateY(-1px);border-color:#a9a0ec}
+.dr-gallery-filter[aria-pressed=true]{color:#fff;background:#7165df;border-color:#7165df}
+.dr-gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+.dr-gallery-card{display:block;min-width:0;padding:0;border:1px solid #e9e9f1;border-radius:19px;overflow:hidden;background:#fff;box-shadow:0 14px 40px #19243a0c;text-align:left;cursor:pointer;font:inherit;color:inherit;transition:transform .25s,box-shadow .25s,border-color .25s}
+.dr-gallery-card:hover{transform:translateY(-5px);box-shadow:0 23px 48px #28275020;border-color:#bdb4f5}
+.dr-gallery-card:focus-visible,.dr-gallery-filter:focus-visible,.dr-gallery-dialog button:focus-visible{outline:3px solid #8c7fea;outline-offset:4px}
+.dr-gallery-card[hidden]{display:none!important}
+.dr-gallery-visual{display:block;position:relative;overflow:hidden;aspect-ratio:8/5;background:#eff1f9}
+.dr-gallery-visual img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.dr-gallery-card:hover .dr-gallery-visual img{transform:scale(1.035)}
+.dr-gallery-view{position:absolute;right:12px;bottom:12px;padding:9px 12px;color:#fff;background:#272e52e8;border:1px solid #ffffff2e;border-radius:9px;font-weight:750;font-size:10px;line-height:1.3;font-family:inherit;opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s}
+.dr-gallery-card:hover .dr-gallery-view,.dr-gallery-card:focus-visible .dr-gallery-view{opacity:1;transform:translateY(0)}
+.dr-gallery-card-content{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 19px 22px}
+.dr-gallery-card-content strong{display:block;color:#25304a;font:800 17px/1.35 Manrope,'DM Sans',sans-serif;letter-spacing:-.035em;margin-bottom:6px}
+.dr-gallery-card-content small{display:block;font-size:11px;line-height:1.7;color:#7b879b;font-weight:500}
+.dr-gallery-card-category{flex:none;display:inline-block;background:#efecff;color:#695bc8;border-radius:6px;padding:6px 8px;font-size:9px;letter-spacing:.04em;font-weight:800}
+.dr-gallery-card-category.is-addon{background:#e5f8f0;color:#227d5d}
+.dr-gallery-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 28px;margin-top:25px;padding-top:22px;border-top:1px solid #e7e8f1}
+.dr-gallery-note{max-width:605px;display:flex;align-items:flex-start;gap:10px;color:#7a8597;font-size:11px;line-height:1.75}
+.dr-gallery-note svg{flex:none;width:16px;height:16px;margin-top:2px;color:#6e62d4}
+.dr-gallery-links{display:flex;align-items:center;flex-wrap:wrap;gap:11px}
+.dr-gallery-links a{min-height:43px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:10px 16px;background:#1d2743;color:#fff;text-decoration:none;font-size:11px;font-weight:750;transition:background .2s}
+.dr-gallery-links a:hover{background:#584ab7}
+.dr-gallery-links a.dr-gallery-outline{border:1px solid #d9dcf0;background:#fff;color:#5146ab}
+.dr-gallery-links a.dr-gallery-outline:hover{background:#f3efff}
+/* Native dialog provides focus management and Escape support. */
+.dr-gallery-dialog{border:0;border-radius:19px;padding:0;width:min(1040px,calc(100vw - 34px));max-height:calc(100dvh - 34px);overflow:auto;background:#fff;box-shadow:0 30px 100px #10172b7d;color:#25304a}
+.dr-gallery-dialog::backdrop{background:#0d1427c9;backdrop-filter:blur(5px)}
+.dr-gallery-dialog-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 23px 16px;border-bottom:1px solid #e8ebf2}
+.dr-gallery-dialog-title{font-size:15px;font-weight:850;letter-spacing:-.025em}
+.dr-gallery-dialog-sub{font-size:11px;color:#8490a4}
+.dr-gallery-close{width:39px;height:39px;display:grid;place-items:center;border:1px solid #e0e3ee;background:#f8f9fd;border-radius:10px;color:#3e4963;cursor:pointer;font-size:24px}
+.dr-gallery-dialog-media{display:flex;align-items:center;justify-content:center;max-height:min(65dvh,720px);background:#f1f3fa;padding:14px}
+.dr-gallery-dialog-media img{width:100%;height:auto;max-height:calc(65dvh - 28px);object-fit:contain;filter:drop-shadow(0 9px 28px #29354d1e);border-radius:10px}
+.dr-gallery-dialog-footer{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 23px 20px}
+.dr-gallery-dialog-footer p{margin:4px 0 0;color:#7b889d;font-size:11px;line-height:1.6}
+.dr-gallery-dialog-controls{display:flex;gap:8px;align-items:center;flex:none}
+.dr-gallery-dialog-controls button{border:1px solid #dce0ea;background:#fff;color:#6352c6;border-radius:10px;padding:10px 13px;min-width:43px;min-height:43px;font-size:11px;font-weight:800;cursor:pointer}
+.dr-gallery-dialog-controls button:hover{background:#f1edff}
+@media(max-width:1030px){.dr-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dr-gallery-header{align-items:start}.dr-gallery-section{padding-block:76px}}
+@media(max-width:620px){.dr-gallery-section{padding-block:64px 72px}.dr-gallery-header{flex-direction:column;gap:16px;margin-bottom:24px}.dr-gallery-heading h2{margin:13px 0 17px}.dr-gallery-heading p{font-size:13px}.dr-gallery-count{font-size:10px}.dr-gallery-grid{grid-template-columns:minmax(0,1fr);gap:15px}.dr-gallery-card-content{padding:17px}.dr-gallery-card-content strong{font-size:16px}.dr-gallery-foot{align-items:stretch}.dr-gallery-links{width:100%}.dr-gallery-links a{flex:1 1 130px}.dr-gallery-dialog-top{padding:12px 14px}.dr-gallery-dialog-footer{flex-direction:column;align-items:stretch;padding:14px}.dr-gallery-dialog-controls{justify-content:space-between}.dr-gallery-dialog-media{padding:8px}.dr-gallery-dialog-title{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.dr-gallery-card,.dr-gallery-card img,.dr-gallery-filter,.dr-gallery-view{transition:none!important;transform:none!important;animation:none!important}}
