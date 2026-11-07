@@ -8,7 +8,7 @@
 .dr-gallery-heading p{font-size:14px;line-height:1.85;color:#68738a;max-width:680px;margin:0}
 .dr-gallery-count{border:1px solid #e7e3f3;border-radius:100px;padding:10px 15px;color:#6a5bca;background:#f3f0ff;font-size:11px;font-weight:800;letter-spacing:.06em;white-space:nowrap}
 .dr-gallery-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px}
-.dr-gallery-filter{border:1px solid #dddfe9;background:#fff;color:#667289;min-height:40px;padding:9px 17px;border-radius:100px;font:700 12px/1.4 inherit;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.dr-gallery-filter{border:1px solid #dddfe9;background:#fff;color:#667289;min-height:40px;padding:9px 17px;border-radius:100px;font-weight:700;font-size:12px;line-height:1.4;font-family:inherit;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
 .dr-gallery-filter:hover{transform:translateY(-1px);border-color:#a9a0ec}
 .dr-gallery-filter[aria-pressed=true]{color:#fff;background:#7165df;border-color:#7165df}
 .dr-gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
@@ -19,7 +19,7 @@
 .dr-gallery-visual{display:block;position:relative;overflow:hidden;aspect-ratio:8/5;background:#eff1f9}
 .dr-gallery-visual img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .dr-gallery-card:hover .dr-gallery-visual img{transform:scale(1.035)}
-.dr-gallery-view{position:absolute;right:12px;bottom:12px;padding:9px 12px;color:#fff;background:#272e52e8;border:1px solid #ffffff2e;border-radius:9px;font:750 10px/1.3 inherit;opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s}
+.dr-gallery-view{position:absolute;right:12px;bottom:12px;padding:9px 12px;color:#fff;background:#272e52e8;border:1px solid #ffffff2e;border-radius:9px;font-weight:750;font-size:10px;line-height:1.3;font-family:inherit;opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s}
 .dr-gallery-card:hover .dr-gallery-view,.dr-gallery-card:focus-visible .dr-gallery-view{opacity:1;transform:translateY(0)}
 .dr-gallery-card-content{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 19px 22px}
 .dr-gallery-card-content strong{display:block;color:#25304a;font:800 17px/1.35 Manrope,'DM Sans',sans-serif;letter-spacing:-.035em;margin-bottom:6px}
