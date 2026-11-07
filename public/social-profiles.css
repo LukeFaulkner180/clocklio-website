@@ -19,3 +19,39 @@ a.social-profile:focus-visible{outline:2px solid #8660e3;outline-offset:4px}
 .launch-footer-inner{flex-wrap:wrap}
 .launch-footer-inner>.social-profiles{flex:1 1 100%;padding:0 0 20px;border-bottom:1px solid #e2e3db}
 @media(max-width:600px){.social-profiles{align-items:flex-start;gap:15px}.social-profiles-copy{flex-basis:100%}.social-profile-list{gap:8px}.social-profile{padding:10px 12px}.holding-footer>.social-profiles{padding-bottom:20px}}
+
+/* DayRidge website privacy notice: an honest information panel, never a fake consent prompt. */
+.dr-privacy-notice[hidden], .dr-privacy-options[hidden] {display:none!important}
+.dr-privacy-notice {position:fixed;z-index:1000;bottom:22px;left:22px;width:min(445px,calc(100vw - 44px));max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(135deg,#162039 0%,#20254a 75%,#3b3267 100%);border:1px solid #ffffff30;border-radius:19px;padding:24px;color:#f9f9ff;box-shadow:0 22px 60px #121b3680;font-family:inherit;scrollbar-width:thin;animation:dr-privacy-appear .35s ease-out both}
+.dr-privacy-notice-head {display:flex;align-items:center;gap:13px;margin:0 0 13px}
+.dr-privacy-icon {display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:13px;color:#b7efdb;background:#45b99025;border:1px solid #89e8c54a;font-size:23px}
+.dr-privacy-notice-head>div {display:flex;flex-direction:column;gap:3px}
+.dr-privacy-notice-head strong {color:#fff;font-size:16px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
+.dr-privacy-notice-head span:not(.dr-privacy-icon) {font-size:11px;color:#c9cde5;line-height:1.55}
+.dr-privacy-notice>p {font-size:12px;line-height:1.75;color:#d5d9eb;margin:0 0 18px}
+.dr-privacy-buttons {display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.dr-privacy-buttons button {min-height:42px;flex:1 1 145px;border-radius:10px;padding:10px 14px;font:700 12px/1.35 inherit;cursor:pointer;transition:background .18s,transform .18s}
+.dr-privacy-buttons button:hover {transform:translateY(-1px)}
+.dr-privacy-primary {background:#8e7df1;border:1px solid #9c8ff1;color:#fff}
+.dr-privacy-primary:hover {background:#a095f9}
+.dr-privacy-secondary {color:#fff;background:#ffffff13;border:1px solid #ffffff40}
+.dr-privacy-secondary:hover {background:#ffffff26}
+.dr-privacy-options {border-top:1px solid #ffffff27;border-bottom:1px solid #ffffff27;padding:12px 0;margin:17px 0 11px}
+.dr-privacy-option {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
+.dr-privacy-option>div {display:flex;flex-direction:column;gap:4px;min-width:0}
+.dr-privacy-option strong {font-size:12px;color:#fff;font-weight:700;line-height:1.4}
+.dr-privacy-option small,.dr-privacy-explainer {font-size:10px;color:#cbd0e6;line-height:1.6}
+.dr-privacy-essential {font-size:9px;font-weight:800;white-space:nowrap;letter-spacing:.02em;color:#bcebd7}
+.dr-privacy-switch {background:#747d96;border:1px solid #ffffff35;flex:0 0 43px;width:43px;height:25px;border-radius:99px;padding:2px;display:flex;align-items:center;cursor:pointer;transition:background .2s}
+.dr-privacy-switch span {width:19px;height:19px;display:block;background:#fff;border-radius:50%;box-shadow:0 1px 3px #10204030;transition:transform .2s}
+.dr-privacy-switch.active {background:#45b990}
+.dr-privacy-switch.active span {transform:translateX(18px)}
+.dr-privacy-explainer {display:block;margin-top:9px}
+.dr-privacy-policy {display:inline-block;margin-top:14px;color:#b9ece1;font-size:11px;font-weight:650;line-height:1.5;text-decoration:underline;text-underline-offset:3px}
+.dr-privacy-notice button:focus-visible,.dr-privacy-policy:focus-visible {outline:2px solid #b8f7e0;outline-offset:4px}
+@keyframes dr-privacy-appear {from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+  .dr-privacy-notice {bottom:calc(12px + env(safe-area-inset-bottom));left:12px;right:12px;width:auto;max-height:calc(100dvh - 24px - env(safe-area-inset-bottom));padding:20px 17px;border-radius:16px}
+  .dr-privacy-buttons button {flex-basis:120px}
+}
+@media(prefers-reduced-motion:reduce){.dr-privacy-notice,.dr-privacy-notice *{animation:none!important;transition:none!important}}
