@@ -30,7 +30,7 @@ a.social-profile:focus-visible{outline:2px solid #8660e3;outline-offset:4px}
 .dr-privacy-notice-head span:not(.dr-privacy-icon) {font-size:11px;color:#c9cde5;line-height:1.55}
 .dr-privacy-notice>p {font-size:12px;line-height:1.75;color:#d5d9eb;margin:0 0 18px}
 .dr-privacy-buttons {display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
-.dr-privacy-buttons button {min-height:42px;flex:1 1 145px;border-radius:10px;padding:10px 14px;font:700 12px/1.35 inherit;cursor:pointer;transition:background .18s,transform .18s}
+.dr-privacy-buttons button {min-height:42px;flex:1 1 145px;border-radius:10px;padding:10px 14px;font-weight:700;font-size:12px;line-height:1.35;font-family:inherit;cursor:pointer;transition:background .18s,transform .18s}
 .dr-privacy-buttons button:hover {transform:translateY(-1px)}
 .dr-privacy-primary {background:#8e7df1;border:1px solid #9c8ff1;color:#fff}
 .dr-privacy-primary:hover {background:#a095f9}
