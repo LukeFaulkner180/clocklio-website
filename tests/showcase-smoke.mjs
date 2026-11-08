@@ -84,6 +84,7 @@ try {
       await text(page, 'h1', /Your team\. Your business\.[\s\S]*In good rhythm\./);
       // The privacy notice informs rather than pretending to request tracking consent.
       await page.locator('.dr-privacy-notice').waitFor({state:'visible'});
+      assert.equal(await page.locator('.dr-privacy-icon svg path').count(),3,'Branded shield and check replace the old decorative icon');
       await page.getByRole('button',{name:'Privacy controls'}).click();
       const statsSwitch=page.getByRole('switch',{name:'Allow anonymous website statistics'});
       assert.equal(await statsSwitch.getAttribute('aria-checked'),'true');
