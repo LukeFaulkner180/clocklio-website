@@ -25,6 +25,7 @@
 <text x="544" y="154" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="800" fill="#25344f" >My pay history</text>
 <text x="544" y="173" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="550" fill="#8390a5" >Your DayRidge employee workspace</text>
 <rect x="543" y="186" width="291" height="135" rx="16" fill="url(#heroGradient)" stroke="none"/>
+<g opacity=".8"><rect x="742" y="211" width="81" height="79" rx="13" fill="#fff" fill-opacity=".12"/><rect x="753" y="258" width="12" height="23" rx="3" fill="#b3f3d3"/><rect x="772" y="243" width="12" height="38" rx="3" fill="#ccc4fa"/><rect x="791" y="224" width="12" height="57" rx="3" fill="#b3f3d3"/><rect x="809" y="236" width="7" height="45" rx="3" fill="#ccc4fa"/></g>
 <text x="559" y="211" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="800" fill="#c8c1fa" letter-spacing="1">ESTIMATED GROSS PAY</text>
 <text x="559" y="257" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#fff" >£428.75</text>
 <text x="559" y="287" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="600" fill="#e1ddfa" >Current period · before deductions</text>
