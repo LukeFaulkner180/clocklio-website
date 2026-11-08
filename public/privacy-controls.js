@@ -31,7 +31,19 @@ notice.setAttribute('aria-label', 'DayRidge website privacy information');
 notice.hidden = true;
 notice.innerHTML = `
   <div class="dr-privacy-notice-head">
-    <span class="dr-privacy-icon" aria-hidden="true">✳</span>
+    <span class="dr-privacy-icon" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none" focusable="false">
+        <defs>
+          <linearGradient id="dr-privacy-shield-gradient" x1="11" y1="8" x2="37" y2="40" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#64D7B1"/>
+            <stop offset="1" stop-color="#36A882"/>
+          </linearGradient>
+        </defs>
+        <path d="M24 7.5 37 12.7v10.4c0 8.2-5.3 14.3-13 17.4-7.7-3.1-13-9.2-13-17.4V12.7L24 7.5Z" fill="url(#dr-privacy-shield-gradient)"/>
+        <path d="M24 7.5 37 12.7v10.4c0 8.2-5.3 14.3-13 17.4-7.7-3.1-13-9.2-13-17.4V12.7L24 7.5Z" stroke="#B5F5D8" stroke-width="1"/>
+        <path d="m18.5 24.1 4.2 4.2 7.3-8.1" stroke="#142B37" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
     <div><strong>Your privacy matters</strong><span>Clear, simple and in your control.</span></div>
   </div>
   <p>DayRidge's public website uses cookieless statistics rather than advertising trackers. We may use essential browser storage to remember your privacy choice.</p>
