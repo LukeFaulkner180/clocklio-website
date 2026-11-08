@@ -51,3 +51,22 @@
 @media(max-width:1030px){.dr-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dr-gallery-header{align-items:start}.dr-gallery-section{padding-block:76px}}
 @media(max-width:620px){.dr-gallery-section{padding-block:64px 72px}.dr-gallery-header{flex-direction:column;gap:16px;margin-bottom:24px}.dr-gallery-heading h2{margin:13px 0 17px}.dr-gallery-heading p{font-size:13px}.dr-gallery-count{font-size:10px}.dr-gallery-grid{grid-template-columns:minmax(0,1fr);gap:15px}.dr-gallery-card-content{padding:17px}.dr-gallery-card-content strong{font-size:16px}.dr-gallery-foot{align-items:stretch}.dr-gallery-links{width:100%}.dr-gallery-links a{flex:1 1 130px}.dr-gallery-dialog-top{padding:12px 14px}.dr-gallery-dialog-footer{flex-direction:column;align-items:stretch;padding:14px}.dr-gallery-dialog-controls{justify-content:space-between}.dr-gallery-dialog-media{padding:8px}.dr-gallery-dialog-title{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.dr-gallery-card,.dr-gallery-card img,.dr-gallery-filter,.dr-gallery-view{transition:none!important;transform:none!important;animation:none!important}}
+
+/* Employee-first product gallery extensions */
+.dr-gallery-audiences{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 20px}
+.dr-gallery-audiences>div{display:flex;align-items:center;flex-wrap:wrap;gap:8px 11px;padding:16px 18px;background:linear-gradient(110deg,#fff,#f8f7ff);border:1px solid #e7e7f2;border-radius:13px;color:#8390a3}
+.dr-gallery-audiences strong{font-size:13px;font-weight:800;color:#293750}
+.dr-gallery-audiences span:last-child{font-size:11px;line-height:1.5}
+.dr-gallery-audience-dot{width:9px;height:9px;flex:none;border-radius:99px;background:#7664e2;box-shadow:0 0 0 4px #eeeaff}
+.dr-gallery-audience-dot.is-employee{background:#3eb48c;box-shadow:0 0 0 4px #e4f7f0}
+.dr-gallery-filter-count{display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;margin-left:4px;padding:0 5px;border-radius:6px;background:#f3f1fb;color:#6e60cb;font-size:10px;font-weight:800}
+.dr-gallery-filter[aria-pressed=true] .dr-gallery-filter-count{background:#ffffff34;color:#fff}
+.dr-gallery-card-category.is-employee{background:#e4f7f0;color:#248866}
+.dr-gallery-card[data-gallery-category~="employee"] .dr-gallery-visual{background:linear-gradient(140deg,#eae7ff,#e4f5ec)}
+@media(max-width:620px){
+ .dr-gallery-audiences{grid-template-columns:1fr;gap:8px}
+ .dr-gallery-audiences>div{padding:13px 14px}
+ .dr-gallery-filters{gap:7px}
+ .dr-gallery-filter{padding:8px 12px;font-size:11px}
+ .dr-gallery-filter-count{min-width:19px;height:19px;padding:0 4px}
+}
