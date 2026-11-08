@@ -24,7 +24,8 @@ a.social-profile:focus-visible{outline:2px solid #8660e3;outline-offset:4px}
 .dr-privacy-notice[hidden], .dr-privacy-options[hidden] {display:none!important}
 .dr-privacy-notice {position:fixed;z-index:1000;bottom:22px;left:22px;width:min(445px,calc(100vw - 44px));max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(135deg,#162039 0%,#20254a 75%,#3b3267 100%);border:1px solid #ffffff30;border-radius:19px;padding:24px;color:#f9f9ff;box-shadow:0 22px 60px #121b3680;font-family:inherit;scrollbar-width:thin;animation:dr-privacy-appear .35s ease-out both}
 .dr-privacy-notice-head {display:flex;align-items:center;gap:13px;margin:0 0 13px}
-.dr-privacy-icon {display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:13px;color:#b7efdb;background:#45b99025;border:1px solid #89e8c54a;font-size:23px}
+.dr-privacy-icon {display:grid;place-items:center;flex:none;width:52px;height:52px;border-radius:17px;background:linear-gradient(145deg,#27344e,#24374a);border:1px solid #77d9b14d;box-shadow:inset 0 1px 0 #ffffff19,0 6px 20px #0b162b32}
+.dr-privacy-icon svg{display:block;width:36px;height:36px;overflow:visible}
 .dr-privacy-notice-head>div {display:flex;flex-direction:column;gap:3px}
 .dr-privacy-notice-head strong {color:#fff;font-size:16px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
 .dr-privacy-notice-head span:not(.dr-privacy-icon) {font-size:11px;color:#c9cde5;line-height:1.55}
