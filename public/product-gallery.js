@@ -24,7 +24,7 @@ if (gallery) {
   };
   filters.forEach(filter => filter.addEventListener('click', () => {
     const selection = filter.dataset.galleryFilter;
-    cards.forEach(card => { card.hidden = selection !== 'all' && card.dataset.galleryCategory !== selection; });
+    cards.forEach(card => { const categories = (card.dataset.galleryCategory || '').split(/\s+/); card.hidden = selection !== 'all' && !categories.includes(selection); });
     filters.forEach(button => button.setAttribute('aria-pressed', String(button === filter)));
     if (dialog?.open) { index = 0; render(); }
   }));

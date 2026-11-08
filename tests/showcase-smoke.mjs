@@ -92,20 +92,27 @@ try {
       await statsSwitch.click();
       await page.getByRole('button',{name:'Got it'}).click();
       assert.equal(await page.locator('.dr-privacy-notice').isVisible(),false);
-      // Seven illustrated previews are available, including paid add-ons.
-      assert.equal(await page.locator('[data-gallery-item]').count(),7);
-      await page.locator('[data-gallery-filter="addons"]').click();
-      assert.equal(await page.locator('[data-gallery-item]:visible').count(),2,'Add-on filter hides core screens');
-      await page.locator('[data-gallery-item]:visible').first().click();
+      // Manager and employee illustrations must be independently discoverable.
+      assert.equal(await page.locator('[data-gallery-item]').count(),15);
+      await page.locator('[data-gallery-filter="manager"]').click();
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),7,'Manager view includes optional manager add-ons');
+      await page.locator('[data-gallery-filter="employee"]').click();
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),8,'Eight employee previews are available');
+      const employeePreview=page.locator('[data-gallery-item]:visible').first();
+      assert.match(await employeePreview.getAttribute('data-gallery-image'),/employee-dashboard\.svg$/);
+      await employeePreview.click();
       const lightbox=page.locator('#dr-gallery-dialog');
       await lightbox.waitFor({state:'visible'});
+      assert.match(await lightbox.locator('img').getAttribute('src'),/employee-dashboard\.svg$/);
       const originalImage=await lightbox.locator('img').getAttribute('src');
       await lightbox.getByRole('button',{name:'Next app screen'}).click();
       assert.notEqual(await lightbox.locator('img').getAttribute('src'),originalImage);
       await page.keyboard.press('Escape');
       await lightbox.waitFor({state:'hidden'});
+      await page.locator('[data-gallery-filter="addons"]').click();
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),3,'Manager and employee add-ons are visible together');
       await page.locator('[data-gallery-filter="all"]').click();
-      assert.equal(await page.locator('[data-gallery-item]:visible').count(),7);
+      assert.equal(await page.locator('[data-gallery-item]:visible').count(),15);
 
       assert.equal(await page.locator('.holding-main').count(), 0, 'Homepage shows the full product site');
       assert.equal(await page.locator('form').count(), 0, 'Enquiries have their own page');
