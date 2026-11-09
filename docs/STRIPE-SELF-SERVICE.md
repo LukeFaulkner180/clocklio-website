@@ -1,3 +1,23 @@
+# DayRidge checkout-preview launch
+
+**Public website only — payment processing is intentionally disabled.**
+The `/pricing/#checkout` form quotes the selected package and annual/monthly
+billing cycle, then navigates to `/checkout/` with only plan, count and cycle
+in the URL. The checkout page displays an unavailable-payments notice and
+a contact link. It does not send requests to Stripe or Supabase, collect any
+personal or card details, or activate customer accounts. The checkout page
+is **noindex** and excluded from the sitemap while direct navigation remains
+available. The public website can deploy safely without Stripe API keys,
+billing database migrations, or additional hosting.
+
+**Important:** Never turn the preview button into a live payment action without
+a tested and authorised server-side checkout, signed payment webhooks,
+reconciliation, business onboarding/invitations and an explicit go-live review.
+The separate app Stripe checkout PR remains draft and is not included
+in this website-only deployment.
+
+---
+
 # DayRidge self-service checkout — development notes
 
 **Status:** frontend draft only. Not deployed and **not enabled**. No payment is collected by the code in this branch.
