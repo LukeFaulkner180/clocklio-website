@@ -6,16 +6,16 @@
 
 Build the real DayRidge purchase path with Stripe Checkout, testing against the already connected Stripe sandbox account. Do not create live customer accounts from sandbox payments. Before end-to-end testing, use a separate Supabase staging environment or explicitly isolated test businesses that cannot access production data.
 
-## Pricing contract (GBP, annual)
+## Pricing contract (GBP, annual or monthly)
 
 - Clockx: 1–5 employees £149.99; 6–10 £219.99; 11–20 £369.99.
 - Full Workspace: 1–5 £299.99; 6–9 add £45/year per extra employee; 10–15 £649.99; 16–30 £1,149.99; 31–50 £1,899.99.
-- Higher counts: manual quote. Optional add-ons billed separately.
+- **Proposed monthly recurring subscriptions:** one monthly Stripe price per applicable annual tier, approximately 20% more over twelve months. Existing annual prices are unchanged. For a plan priced at `annualPence`, the recommended monthly price is `Math.round(annualPence / 10) - 1` pence (e.g. Clockx 5: £14.99/month, Full 5: £29.99/month). This is a genuinely month-to-month subscription, not twelve instalments of an annual liability.\n- Annual subscriptions renew every 12 months; monthly subscriptions renew each month. Show both the actual charge and full-year cost comparison before checkout. Cancellation terms, access at period end, VAT presentation and add-on charging must be displayed clearly.\n- Higher counts: manual quote. Optional add-ons billed separately.
 - Backend must calculate price from fixed server-side values. **Never trust a browser-provided price or Stripe plan identifier.**
 
 ## Implementation milestones
 
-1. Create checkout selection UI on the pricing page. The accompanying `public/checkout.js` and `public/checkout.css` are an initial draft; they are not linked or activated yet. Preserve existing functionality and SEO.
+1. Create checkout selection UI (package, employee count, annual/monthly choice) on the pricing page. The accompanying `public/checkout.js` and `public/checkout.css` are an initial draft; they are not linked or activated yet. Preserve existing functionality and SEO.
 2. Add an Edge Function to create a subscription-mode Stripe-hosted Checkout Session. Validate packages/counts, business name/email, application origin, rate limits and abuse controls. Store a short-lived pending intent. Accept payment details **only** on Stripe.
 3. Build a signed Stripe webhook with raw-body signature validation, event deduplication and retry-safe fulfilment. Only a confirmed paid session may trigger business setup.
 4. Provision the business account via privileged server code, create its plan, membership, owner identity, and subscription state. Invite the owner to set their password and complete onboarding (pay schedules, location, kiosk PIN). Support duplicate email and partial-failure recovery.
