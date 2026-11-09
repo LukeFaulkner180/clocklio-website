@@ -18,3 +18,17 @@
 .checkout-actions button:disabled{background:#e1dce9;color:#5a5468;cursor:not-allowed}
 .checkout-feedback{font-size:.87rem;color:#58546a;max-width:28rem;line-height:1.5}
 @media(max-width:650px){.checkout-form{grid-template-columns:1fr}.checkout-section{border-radius:18px}.checkout-total{align-items:flex-start;flex-direction:column}}
+
+/* Billing-frequency selector: larger touch targets and clear recurring terms. */
+.checkout-billing{grid-column:1/-1;border:0;padding:0;margin:0}
+.checkout-billing legend{font-size:.91rem;font-weight:750;color:#29253f;margin-bottom:.75rem}
+.checkout-billing-options{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.checkout-form label.checkout-billing-option{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:.32rem;padding:1rem 1.1rem;min-height:105px;border:1px solid #d6cede;border-radius:16px;background:#fff;color:#322b45;cursor:pointer;transition:background .15s,border-color .15s}
+.checkout-billing-option input{position:absolute;opacity:0;pointer-events:none}
+.checkout-billing-option:has(input:checked){border:2px solid #7453ba;background:#f5f0ff;padding:calc(1rem - 1px) calc(1.1rem - 1px)}
+.checkout-billing-option:has(input:focus-visible){outline:3px solid #9b7ce9;outline-offset:2px}
+.checkout-billing-option strong{font-size:1.05rem}
+.checkout-billing-option small{font-size:.8rem;font-weight:500;color:#666078}
+.checkout-billing-option .checkout-discount{border-radius:40px;background:#e5f4ec;color:#246341;padding:.18rem .55rem;font-size:.72rem;font-weight:750}
+.checkout-saving{font-size:.86rem;color:#42654d;font-weight:650}
+@media(max-width:650px){.checkout-billing-options{grid-template-columns:1fr}.checkout-form label.checkout-billing-option{min-height:85px}}
