@@ -33,7 +33,7 @@ if (form) {
   employeesField.addEventListener('input', update);
   for (const field of frequencyFields) field.addEventListener('change', update);
   update();
-  // This is navigation only. No payment endpoint, customer data collection or Stripe request.
+  // This is navigation only. No payment endpoint, customer data collection or card handling.
   form.addEventListener('submit', event => {
     event.preventDefault();
     const interval = frequencyFields.find(field => field.checked)?.value || 'year';
