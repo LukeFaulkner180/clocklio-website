@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="/social-profiles.css?v=1">
 <script type="module" src="/social-profiles.js?v=1"></script>
 <link rel="stylesheet" href="/geo-clockin.css">
+ <link rel="stylesheet" href="/checkout.css">
+ <script type="module" src="/checkout.js"></script>
 <title>Staff Rota &amp; Clocking Software Pricing | DayRidge</title>
 <meta name="description" content="Compare DayRidge Clockx and Full Workspace annual plans, employee limits and optional add-ons. Compare the tools and choose the right package for your business.">
 <meta name="robots" content="index, follow">
@@ -62,11 +64,52 @@
  </header>
 <main id="main" tabindex="-1"><section class="inner-hero wrap pricing-hero"><span class="eyebrow">STRAIGHTFORWARD PLANS. ROOM TO GROW.</span><h1>The right tools.<br><span class="purple">A clear annual price.</span></h1><p>Choose the tools your business needs. Full workspace access is £299.99 a year for five employees. Add £45 per employee for teams of 6–9, then choose a fixed annual plan from 10 employees. Clockx is £149.99 for five, £219.99 for ten or £369.99 for twenty employees per year.</p><div class="pricing-model"><span><svg class="icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"/></svg> Annual app access</span><i>+</i><span><svg class="icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 5v9l9 5 9-5V8m-9 5v9M7.5 5.5l9 5"/></svg> Optional monthly add-ons</span></div></section>
 
- <section class="wrap package-pricing section" id="workspace-options" aria-labelledby="workspace-options-title">
+ 
+<section class="checkout-section wrap" id="checkout" aria-labelledby="dayridge-checkout-heading">
+  <div class="checkout-head">
+    <div>
+      <span class="eyebrow">CHOOSE YOUR DAYRIDGE PLAN</span>
+      <h2 id="dayridge-checkout-heading">Find your fit.<br><span class="purple">See your checkout.</span></h2>
+      <p>Compare annual and monthly subscription prices, then review your selection on our checkout preview. Online payments are not available yet, and no card details will be requested.</p>
+    </div>
+    <span class="checkout-pill">Checkout preview</span>
+  </div>
+  <form id="dayridge-checkout-form" class="checkout-form" action="/checkout/" method="get">
+    <label for="checkout-package">Your package
+      <select name="package" id="checkout-package" required><option value="clocking">Clockx</option><option value="full">Full Workspace</option></select>
+    </label>
+    <label for="checkout-employees">Number of employees
+      <input name="employees" id="checkout-employees" type="number" min="1" max="50" step="1" value="5" required>
+    </label>
+    <fieldset class="checkout-billing">
+      <legend>How would you like to pay when online checkout launches?</legend>
+      <div class="checkout-billing-options">
+        <label class="checkout-billing-option"><input type="radio" name="billing" value="year" checked>
+          <strong>Annually <span class="checkout-discount">Best value</span></strong>
+          <small>One recurring payment every 12 months.</small>
+        </label>
+        <label class="checkout-billing-option"><input type="radio" name="billing" value="month">
+          <strong>Monthly</strong>
+          <small>Flexible monthly subscription with a higher 12-month total.</small>
+        </label>
+      </div>
+    </fieldset>
+    <div class="checkout-total">
+      <div><small>Indicative recurring plan price</small><strong id="dayridge-checkout-quote" aria-live="polite">£149.99 / year</strong><span class="checkout-saving" id="dayridge-checkout-savings">Save £29.89 compared with twelve monthly payments.</span></div>
+      <small id="dayridge-checkout-band">Up to 5 employees · Annual recurring price. Add-ons billed separately.</small>
+    </div>
+    <div class="checkout-actions">
+      <button type="submit">Continue to checkout preview</button>
+      <span class="checkout-feedback" id="dayridge-checkout-feedback" role="status" aria-live="polite">View your selection. No payments can be made yet.</span>
+    </div>
+  </form>
+</section>
+
+<section class="wrap package-pricing section" id="workspace-options" aria-labelledby="workspace-options-title">
  <div class="section-heading package-pricing-heading" data-reveal><span class="eyebrow">START WITH WHAT YOU NEED</span><h2 id="workspace-options-title">Your workspace.<br>Your way of working.</h2><p>Essential tools for the working day, or the complete workforce platform. Choose the package that fits how you run your team.</p></div>
  <div class="package-pricing-grid">
-  <article class="package-price-card" data-reveal><span class="label">CLOCKX</span><h3>Everyday staff.<br>All in hand.</h3><p>Plan rotas, record attendance and annual leave, and prepare payroll hours in one clear place.</p><div class="package-annual-price"><strong>£149.99</strong><span>/ year</span></div><small>Up to 5 employees · Manager access included</small><ul class="tick-list"><li>Create and publish rotas</li><li>Clock in, clock out and record breaks</li><li>Attendance, timesheets and payroll hours</li><li>Annual leave requests and manager approvals</li><li>Basic employee details and CSV exports</li></ul><dl class="clockx-tier-list" aria-label="Clockx annual employee tiers"><div><dt>Up to 5 employees</dt><dd>£149.99 <span>/ year</span></dd></div><div><dt>Up to 10 employees</dt><dd>£219.99 <span>/ year</span></dd></div><div><dt>Up to 20 employees</dt><dd>£369.99 <span>/ year</span></dd></div></dl><p class="package-price-note">Every Clockx tier includes the same tools. Open shifts, extra-hours requests and employee or business documents require Full workspace. Above 20 employees? Contact us to agree a quote.</p><a class="button button-outline" href="/contact/?topic=plan&amp;package=clocking&amp;employees=5">Discuss Clockx <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></article>
-  <article class="package-price-card" data-reveal><span class="label">FULL WORKSPACE</span><h3>The whole team.<br>More connected.</h3><p>Everything in Clockx, with the people tools that support the rest of the working relationship.</p><div class="package-annual-price"><strong>£299.99</strong><span>/ year</span></div><small>Up to 5 employees · Manager access included</small><ul class="tick-list"><li>All Clockx tools</li><li>Sickness and return-to-work records</li><li>Employee onboarding and personnel files</li><li>Wider personnel permissions and absence analytics</li><li>Optional monthly Tasks and Stock add-ons</li></ul><p class="package-price-note">Employees 6–9 add £45 each per year. Fixed annual plans take over from 10 employees.</p><a class="button button-outline" href="/contact/?topic=plan&amp;package=full&amp;employees=5">Discuss the full workspace <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></article>
+  <article class="package-price-card" data-reveal><span class="label">CLOCKX</span><h3>Everyday staff.<br>All in hand.</h3><p>Plan rotas, record attendance and annual leave, and prepare payroll hours in one clear place.</p><div class="package-annual-price"><strong>£149.99</strong><span>/ year</span></div><small>Up to 5 employees · Manager access included</small><ul class="tick-list"><li>Create and publish rotas</li><li>Clock in, clock out and record breaks</li><li>Attendance, timesheets and payroll hours</li><li>Annual leave requests and manager approvals</li><li>Basic employee details and CSV exports</li></ul><dl class="clockx-tier-list" aria-label="Clockx annual employee tiers"><div><dt>Up to 5 employees</dt><dd>£149.99 <span>/ year</span></dd></div><div><dt>Up to 10 employees</dt><dd>£219.99 <span>/ year</span></dd></div><div><dt>Up to 20 employees</dt><dd>£369.99 <span>/ year</span></dd></div></dl><p class="package-price-note">Every Clockx tier includes the same tools. Open shifts, extra-hours requests and employee or business documents require Full workspace. Above 20 employees? Contact us to agree a quote.</p><a class="button button-outline" href="/checkout/?package=clocking&amp;employees=5&amp;billing=year">Preview Clockx checkout <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></article>
+  <article class="package-price-card" data-reveal><span class="label">FULL WORKSPACE</span><h3>The whole team.<br>More connected.</h3><p>Everything in Clockx, with the people tools that support the rest of the working relationship.</p><div class="package-annual-price"><strong>£299.99</strong><span>/ year</span></div><small>Up to 5 employees · Manager access included</small><ul class="tick-list"><li>All Clockx tools</li><li>Sickness and return-to-work records</li><li>Employee onboarding and personnel files</li><li>Wider personnel permissions and absence analytics</li><li>Optional monthly Tasks and Stock add-ons</li></ul><p class="package-price-note">Employees 6–9 add £45 each per year. Fixed annual plans take over from 10 employees.</p><a class="button button-outline" href="/checkout/?package=full&amp;employees=5&amp;billing=year">Preview Full Workspace checkout <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></article>
  </div></section>
  <section class="wrap geo-price-card" data-geo-price-card><div><div class="geo-kicker"><span class="geo-new">NEW</span><span>GEO CLOCK-IN · BOTH PACKAGES</span></div><h2>A location check.<br>A clear business price.</h2><p>Add Geo Clock-in to Clockx or Full Workspace. £4.99 per business per month or £49.99 per business per year, covering your agreed employee allowance.</p><a class="inline-link" href="/add-ons/#geo-clockin">See how Geo Clock-in works →</a></div><div class="geo-price"><strong>£4.99<small>/ business / month</small></strong><span>or <b>£49.99 / business / year</b></span></div></section><section class="wrap full-workspace-pricing-heading"><span class="eyebrow">THE FULL WORKSPACE</span><h2>Room to grow.<br>A plan you can follow.</h2><p>Start with five employees for £299.99 a year. Employees six to nine add £45 each per year. At ten employees, move to Team’s fixed annual price with room for up to fifteen.</p></section>
  <section class="wrap pricing-plans"><div class="team-size-picker"><label for="team-size">How many active employees are in your team?</label><div><input id="team-size" type="range" min="1" max="60" value="10" data-team-range><label class="team-number"><input type="number" min="1" max="10000" value="10" aria-label="Number of active employees" data-team-number><span>employees</span></label></div><p>Full workspace: five included, £45 for each extra employee up to nine, then fixed annual plans from ten. Enter your team size to see the correct plan.</p></div>

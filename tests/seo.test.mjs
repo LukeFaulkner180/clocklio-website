@@ -25,3 +25,9 @@ test('404 pages are excluded from indexing without pointing their canonical at h
   assert.match(result, /content="noindex, follow"/);
   assert.doesNotMatch(result, /rel="canonical"|application\/ld\+json/);
 });
+
+test('unavailable checkout preview is not indexed or added to the public sitemap', () => {
+  const result=applySeo(sample,'/checkout/');
+  assert.match(result,/content="noindex, follow"/);
+  assert.doesNotMatch(result,/rel="canonical"|application\/ld\+json/);
+});

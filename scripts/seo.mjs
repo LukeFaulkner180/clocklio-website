@@ -16,7 +16,7 @@ export function applySeo(html, pathname) {
   const entry = metadata[pathname];
   if (!entry) throw new Error(`Missing SEO content for ${pathname}`);
   const canonical = absolute(pathname);
-  const noindex = pathname === '/404.html';
+  const noindex = pathname === '/404.html' || pathname === '/checkout/';
   html = setHeadTag(html, /<title\b[^>]*>[\s\S]*?<\/title>/gi, `<title>${escape(entry.title)}</title>`);
   for (const [name, value] of Object.entries({ description: entry.description, robots: noindex ? 'noindex, follow' : 'index, follow', 'twitter:card': 'summary_large_image', 'twitter:title': entry.title, 'twitter:description': entry.description, 'twitter:image': absolute('assets/dayridge-social-banner.jpg') })) {
     html = setHeadTag(html, new RegExp(`<meta\\b[^>]*\\bname=["']${name}["'][^>]*>`, 'gi'), `<meta name="${name}" content="${escape(value)}">`);
@@ -54,7 +54,7 @@ export async function prepareSeo(directory) {
         const relative = path.relative(directory, file).split(path.sep).join('/');
         const pathname = '/' + (relative === 'index.html' ? '' : relative.replace(/index\.html$/, ''));
         await writeFile(file, applySeo(await readFile(file, 'utf8'), pathname));
-        if (pathname !== '/404.html') pages.push(absolute(pathname));
+        if (pathname !== '/404.html' && pathname !== '/checkout/') pages.push(absolute(pathname));
       }
     }
   }

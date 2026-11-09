@@ -278,5 +278,10 @@
     "title": "Privacy & cookies — DayRidge",
     "description": "How DayRidge uses essential browser storage, anonymous website statistics and your privacy preferences.",
     "label": "Privacy & cookies"
+  },
+  "/checkout/": {
+    "title": "Checkout Preview | DayRidge",
+    "description": "Review the DayRidge plan and pricing you selected. Online checkout is being prepared; no payment is taken.",
+    "label": "Checkout preview"
   }
 }
