@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { checkoutQuote, monthlyPricePence } from '../public/pricing.js';
@@ -41,3 +42,15 @@ test('Invalid package, size and billing interval cannot produce a quote', () => 
   assert.equal(checkoutQuote('full', 5, 'weekly'), null);
   assert.equal(monthlyPricePence(-10), null);
 });
+
+test('approved pricing checkout displays monthly and annual options but cannot take live payment yet',async()=>{
+  const html=await readFile(new URL('../public/pricing/index.html', import.meta.url),'utf8')
+  assert.match(html,/id="dayridge-checkout-form"/)
+  assert.match(html,/name="billingInterval" value="year" checked/)
+  assert.match(html,/name="billingInterval" value="month"/)
+  assert.match(html,/id="dayridge-checkout-savings"/)
+  assert.match(html,/name="dayridge-checkout-enabled" content="false"/)
+  assert.match(html,/name="dayridge-checkout-endpoint" content=""/)
+  assert.match(html,/href="\/terms\/"/)
+  assert.match(html,/<button type="submit" disabled>/)
+})
