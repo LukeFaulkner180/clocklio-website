@@ -1,0 +1,20 @@
+.checkout-section{margin-block:2.5rem 4.5rem;border:1px solid #dedbea;border-radius:24px;background:linear-gradient(140deg,#fff 60%,#f5f1ff);box-shadow:0 18px 55px rgba(40,29,80,.07);padding:clamp(1.4rem,4vw,3rem)}
+.checkout-head{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.checkout-head h2{margin:.45rem 0;font-size:clamp(1.7rem,3.6vw,2.6rem);line-height:1.16;letter-spacing:-.04em}
+.checkout-head p{max-width:49rem;margin:.4rem 0 1.5rem;color:#59566a}
+.checkout-head .checkout-pill{background:#ece4ff;color:#4d318d;font-size:.77rem;letter-spacing:.04em;text-transform:uppercase;font-weight:750;border-radius:40px;padding:.55rem .8rem}
+.checkout-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.4rem}
+.checkout-form label:not(.checkout-consent){display:flex;flex-direction:column;gap:.4rem;font-size:.91rem;font-weight:700;color:#29253f}
+.checkout-form input:not([type=checkbox]),.checkout-form select{width:100%;border:1px solid #cbc6d9;background:#fff;border-radius:12px;min-height:48px;padding:.7rem .9rem;font:inherit;color:#2e2645}
+.checkout-form input:focus-visible,.checkout-form select:focus-visible,.checkout-form button:focus-visible{outline:3px solid #9b7ce9;outline-offset:2px}
+.checkout-form .checkout-consent,.checkout-form .checkout-total,.checkout-form .checkout-actions{grid-column:1/-1}
+.checkout-consent{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;line-height:1.6;color:#49435e}
+.checkout-consent input{margin-top:.25rem;accent-color:#6646b7}
+.checkout-total{border-top:1px solid #e3deeb;padding-top:1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.checkout-total strong{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-.04em}
+.checkout-total small{display:block;max-width:33rem;color:#5e596f}
+.checkout-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.checkout-actions button{border:0;border-radius:14px;background:#2f2253;color:white;padding:.9rem 1.4rem;font-size:1rem;font-weight:750;cursor:pointer}
+.checkout-actions button:disabled{background:#e1dce9;color:#5a5468;cursor:not-allowed}
+.checkout-feedback{font-size:.87rem;color:#58546a;max-width:28rem;line-height:1.5}
+@media(max-width:650px){.checkout-form{grid-template-columns:1fr}.checkout-section{border-radius:18px}.checkout-total{align-items:flex-start;flex-direction:column}}
