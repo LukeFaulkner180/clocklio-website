@@ -43,14 +43,27 @@ test('Invalid package, size and billing interval cannot produce a quote', () => 
   assert.equal(monthlyPricePence(-10), null);
 });
 
-test('approved pricing checkout displays monthly and annual options but cannot take live payment yet',async()=>{
-  const html=await readFile(new URL('../public/pricing/index.html', import.meta.url),'utf8')
+test('pricing can navigate to checkout without sending a payment request', async () => {
+  const html=await readFile(new URL('../public/pricing/index.html',import.meta.url),'utf8')
+  const script=await readFile(new URL('../public/checkout.js',import.meta.url),'utf8')
   assert.match(html,/id="dayridge-checkout-form"/)
-  assert.match(html,/name="billingInterval" value="year" checked/)
-  assert.match(html,/name="billingInterval" value="month"/)
-  assert.match(html,/id="dayridge-checkout-savings"/)
-  assert.match(html,/name="dayridge-checkout-enabled" content="false"/)
-  assert.match(html,/name="dayridge-checkout-endpoint" content=""/)
-  assert.match(html,/href="\/terms\/"/)
-  assert.match(html,/<button type="submit" disabled>/)
+  assert.match(html,/action="\/checkout\/" method="get"/)
+  assert.match(html,/name="billing" value="year" checked/)
+  assert.match(html,/name="billing" value="month"/)
+  assert.match(html,/Continue to checkout preview/)
+  assert.match(script,/window.location.assign\('\/checkout\/\?'/)
+  assert.doesNotMatch(script,/fetch\(|stripe|STRIPE_SECRET_KEY/i)
+  assert.doesNotMatch(html,/name="ownerEmail"|name="businessName"|name="cardNumber"/)
+})
+test('checkout page shows a clear coming-soon message and cannot process payment', async () => {
+  const html=await readFile(new URL('../public/checkout/index.html',import.meta.url),'utf8')
+  const script=await readFile(new URL('../public/checkout-page.js',import.meta.url),'utf8')
+  assert.match(html,/Online checkout isn't set up just yet/)
+  assert.match(html,/No payment will be taken/)
+  assert.match(html,/disabled aria-disabled="true"/)
+  assert.match(html,/href="\/contact\/\?topic=plan"/)
+  assert.match(html,/id="checkout-selected-total"/)
+  assert.match(html,/content="noindex, follow"/)
+  assert.doesNotMatch(html,/<form|<iframe|<input|stripe\.com|type="submit"/i)
+  assert.doesNotMatch(script,/fetch\(|functions\/v1|stripe/i)
 })

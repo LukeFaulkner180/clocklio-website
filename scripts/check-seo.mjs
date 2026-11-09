@@ -25,7 +25,7 @@ async function walk(directory) {
     assert.equal(descriptions.length, 1, pathname + ': one description');
     assert.equal(decode(descriptions[0][1]), expected.description);
     for (const property of ['og:title', 'og:description', 'og:image', 'og:image:alt', 'og:locale']) assert.equal([...html.matchAll(new RegExp(`<meta property="${property}" content="[^"]+">`, 'g'))].length, 1, pathname + ': ' + property);
-    if (pathname === '/404.html') {
+    if (pathname === '/404.html' || pathname === '/checkout/') {
       assert.match(html, /<meta name="robots" content="noindex, follow">/);
       assert.equal((html.match(/rel="canonical"/g) || []).length, 0);
       continue;
