@@ -20,4 +20,4 @@ const contact = document.getElementById('checkout-contact');
 if(contact) contact.href = '/contact/?' + new URLSearchParams({topic:'plan',package:packageCode,employees:String(employees)}).toString();
 const change = document.getElementById('checkout-change-plan');
 if(change) change.href = '/pricing/?' + new URLSearchParams({package:packageCode,employees:String(employees),billing:billingInterval}).toString() + '#checkout';
-// This page deliberately contains no payment form, API requests, or Stripe integration.
+// This page deliberately contains no payment form, API requests, or card processing.
