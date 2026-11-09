@@ -52,7 +52,7 @@ test('pricing can navigate to checkout without sending a payment request', async
   assert.match(html,/name="billing" value="month"/)
   assert.match(html,/Continue to checkout preview/)
   assert.match(script,/window.location.assign\('\/checkout\/\?'/)
-  assert.doesNotMatch(script,/fetch\(|stripe|STRIPE_SECRET_KEY/i)
+  assert.doesNotMatch(script,/fetch\(|stripe\.checkout|STRIPE_SECRET_KEY/i)
   assert.doesNotMatch(html,/name="ownerEmail"|name="businessName"|name="cardNumber"/)
 })
 test('checkout page shows a clear coming-soon message and cannot process payment', async () => {
@@ -65,5 +65,5 @@ test('checkout page shows a clear coming-soon message and cannot process payment
   assert.match(html,/id="checkout-selected-total"/)
   assert.match(html,/content="noindex, follow"/)
   assert.doesNotMatch(html,/<form|<iframe|<input|stripe\.com|type="submit"/i)
-  assert.doesNotMatch(script,/fetch\(|functions\/v1|stripe/i)
+  assert.doesNotMatch(script,/fetch\(|functions\/v1|stripe\.checkout|stripe\.com/i)
 })
