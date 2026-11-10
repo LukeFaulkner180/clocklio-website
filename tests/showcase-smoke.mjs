@@ -368,6 +368,36 @@ try {
       assert.equal(contactSubmissions[2].message,'Please show me the platform. <script>alert(1)</script>');
       await text(page, '.contact-email', /Reviewed in the DayRidge management dashboard/);
 
+      // Business Owner checkout enquiries use the existing contact endpoint;
+      // they must never request card details, create a user or charge a card.
+      await page.goto(origin + '/checkout/?package=full&employees=8&billing=month');
+      await text(page, '#checkout-selected-total', '£43.49');
+      await text(page, '#checkout-selected-cycle', 'Monthly recurring');
+      assert.equal(await page.locator('.checkout-payment-disabled').isDisabled(), true);
+      await page.locator('#checkout-owner-name').fill('Jane Owner');
+      await page.locator('#checkout-owner-email').fill('jane@example.invalid');
+      await page.locator('#checkout-business-name').fill('Sample Pub Ltd');
+      await page.locator('#checkout-owner-agree').check();
+      await page.waitForTimeout(2600);
+      await page.locator('#checkout-owner-submit').click();
+      await page.locator('#checkout-owner-confirmed').waitFor({ state: 'visible' });
+      assert.equal(contactSubmissions.length, 4);
+      const checkoutRequest = contactSubmissions[3];
+      assert.equal(checkoutRequest.name, 'Jane Owner');
+      assert.equal(checkoutRequest.email, 'jane@example.invalid');
+      assert.equal(checkoutRequest.business, 'Sample Pub Ltd');
+      assert.equal(checkoutRequest.package, 'full');
+      assert.equal(checkoutRequest.employees, '6–9');
+      assert.equal(checkoutRequest.topic, 'plan');
+      assert.match(checkoutRequest.message, /monthly/);
+      assert.match(checkoutRequest.message, /No payment has been made/);
+      assert.equal(await page.locator('#checkout-owner-details').isVisible(), false);
+      assert.equal(await page.locator('.checkout-payment-disabled').isDisabled(), true);
+      assert.equal(contactConfigPaths.at(-1), basePath + '/contact-config.js');
+      await page.setViewportSize({ width: 390, height: 844 });
+      await noOverflow(page, 'Checkout owner form mobile', errors);
+      await page.setViewportSize({ width: 1440, height: 1000 });
+
       await page.goto(origin + '/contact/?topic=plan&package=clocking&employees=5');
       assert.equal(await page.locator('[name="package"]').inputValue(), 'clocking');
       assert.equal(await page.locator('[name="employees"]').inputValue(), '1–5');
@@ -408,7 +438,7 @@ try {
       assert.equal(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded'), 'false');
       await text(page, '.about-location', 'Based in Suffolk, United Kingdom');
 
-      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','knowledge-base/','knowledge-base/rotas/','knowledge-base/tasks/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','coming-soon/','subscriptions/','referrals/'];
+      const routes = ['', 'platform/', 'early-access/', 'features/', 'pricing/', 'checkout/', 'add-ons/', 'about/', 'contact/', 'privacy/', '404.html','resources/','knowledge-base/','knowledge-base/rotas/','knowledge-base/tasks/','help/','help/stocktakes/','help/contracts-and-policies/','security/','brochure/','switching/','updates/','coming-soon/','subscriptions/','referrals/'];
       for (const width of name === 'chromium' ? [1440, 1024, 768, 390, 320] : [390]) {
         await page.setViewportSize({ width, height: width >= 1024 ? 1000 : 844 });
         for (const route of routes) {
