@@ -63,3 +63,25 @@
 .checkout-summary-foot{margin:1rem 0 0}
 @media(max-width:780px){.checkout-preview-grid{grid-template-columns:1fr}.checkout-summary-card{max-width:590px}.checkout-preview-page{padding-block:2rem 4rem}}
 @media(max-width:420px){.checkout-preview-links{align-items:stretch;flex-direction:column}.checkout-preview-links .button{justify-content:center;text-align:center}.checkout-unavailable{gap:.7rem}.checkout-unavailable-icon{flex-basis:36px;height:36px}}
+
+/* Checkout Business Owner enquiry: same existing secure contact endpoint,
+   with a clear separation between requesting setup and purchasing a plan. */
+.checkout-owner-card{margin-top:2rem;padding:clamp(1.2rem,3vw,2rem);background:#fff;border:1px solid #e2ddeb;border-radius:20px;box-shadow:0 12px 40px rgba(40,29,80,.05)}
+.checkout-owner-card h2{font-size:clamp(1.3rem,2.4vw,1.7rem);color:#382a59;line-height:1.25;margin:.5rem 0 .7rem}
+.checkout-owner-card>p{color:#686074;font-size:.91rem;line-height:1.7;margin:0 0 1.4rem}
+.checkout-owner-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.checkout-owner-fields label{display:flex;flex-direction:column;gap:.45rem;font-size:.88rem;font-weight:700;color:#3f3456}
+.checkout-owner-fields input{box-sizing:border-box;width:100%;min-width:0;border:1px solid #cfc8da;border-radius:11px;min-height:46px;padding:.75rem .85rem;font-size:1rem;background:#fff;color:#34264f}
+.checkout-owner-fields input:focus-visible,.checkout-owner-consent input:focus-visible{outline:3px solid #a88bdc;outline-offset:2px}
+.checkout-owner-wide{grid-column:1/-1}
+.checkout-owner-consent{display:flex;align-items:flex-start;gap:.7rem;font-size:.83rem;line-height:1.6;color:#635c70;margin:1.1rem 0}
+.checkout-owner-consent input{margin-top:.25rem;accent-color:#7251ae;flex-shrink:0}
+.checkout-owner-consent a{color:#60439b;text-decoration:underline;text-underline-offset:2px}
+.checkout-owner-feedback{font-size:.88rem;border-radius:10px;padding:.8rem 1rem;background:#fff3f0;color:#963b2b}
+.checkout-owner-feedback[hidden],.checkout-owner-confirmed[hidden]{display:none}
+.checkout-owner-footnote{display:block;max-width:36rem;font-size:.8rem;color:#756d7f;line-height:1.6;margin-top:1rem}
+.checkout-owner-confirmed{background:#eff8f1;border:1px solid #bcd6c4;border-radius:14px;padding:1.2rem;color:#255b39}
+.checkout-owner-confirmed strong{display:block;font-size:1.05rem}
+.checkout-owner-confirmed p{margin:.4rem 0 0;line-height:1.65;font-size:.87rem}
+.checkout-owner-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:700px){.checkout-owner-fields{grid-template-columns:1fr}.checkout-owner-wide{grid-column:auto}.checkout-owner-card{margin-top:1.3rem}}

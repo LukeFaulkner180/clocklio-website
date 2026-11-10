@@ -1,5 +1,24 @@
 # DayRidge checkout-preview launch
 
+## Business Owner setup request (safe live preview)
+
+The public checkout preview now includes a Business Owner's name, business
+name and email **enquiry** form. It sends a validated and rate-limited request
+to the existing DayRidge contact function, which is already stored in the
+Owner's contact-request dashboard. The plan, employee count and preferred
+billing frequency are included in the message.
+
+**This is not automatic account provisioning or Stripe checkout.** The
+customer is told explicitly that the request does not create an account,
+trigger an invitation or charge a card. The existing DayRidge administrator
+can manually review the lead and arrange an invitation with the current
+business creation and manual payment tools. No new database tables or
+chargeable hosted infrastructure are required. The form never places names,
+emails or business details in a URL. Production Stripe remains disabled.
+
+---
+
+
 **Public website only — payment processing is intentionally disabled.**
 The `/pricing/#checkout` form quotes the selected package and annual/monthly
 billing cycle, then navigates to `/checkout/` with only plan, count and cycle
