@@ -69,6 +69,36 @@
       <p>We're working on secure online payments for DayRidge. You can review your selected package here, but purchases are temporarily unavailable.</p>
       <p><strong>No payment will be taken, and we won't ask for your card details.</strong></p></div>
     </div>
+    <section class="checkout-owner-card" aria-labelledby="checkout-owner-title">
+      <span class="eyebrow">BUSINESS OWNER DETAILS</span>
+      <h2 id="checkout-owner-title">Who should receive your account invitation?</h2>
+      <p>When automated payments launch, we'll use these details to create your business workspace after payment. For now, you can <strong>request a manual setup</strong> and we'll review your enquiry. An invitation is not sent automatically.</p>
+      <form id="checkout-owner-details" novalidate>
+        <label class="checkout-owner-honeypot" aria-hidden="true" tabindex="-1">Website<input type="text" name="website" autocomplete="off" tabindex="-1"></label>
+        <div class="checkout-owner-fields">
+          <label for="checkout-owner-name">Business Owner's full name
+            <input id="checkout-owner-name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Alex Taylor" required>
+          </label>
+          <label for="checkout-owner-email">Business Owner's email address
+            <input id="checkout-owner-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="owner@yourbusiness.co.uk" required>
+          </label>
+          <label class="checkout-owner-wide" for="checkout-business-name">Business name
+            <input id="checkout-business-name" name="business" type="text" autocomplete="organization" maxlength="150" placeholder="Your business" required>
+          </label>
+        </div>
+        <label class="checkout-owner-consent" for="checkout-owner-agree">
+          <input type="checkbox" id="checkout-owner-agree" required>
+          <span>I agree for DayRidge to store these details and contact me about setting up my business. This is an enquiry, not a purchase. <a href="/privacy/">Website privacy</a>.</span>
+        </label>
+        <p class="checkout-owner-feedback" id="checkout-owner-status" role="status" aria-live="polite" hidden></p>
+        <button type="submit" id="checkout-owner-submit" class="button button-dark" disabled>Request my business setup</button>
+        <small class="checkout-owner-footnote">Your request goes to the private DayRidge management dashboard. No card details are collected and no payment or invitation is triggered.</small>
+      </form>
+      <div id="checkout-owner-confirmed" class="checkout-owner-confirmed" role="status" tabindex="-1" hidden>
+        <strong>Thanks — your request has been received.</strong>
+        <p>We'll review your business details and contact you about the next steps. Your account hasn't been created and no payment has been taken.</p>
+      </div>
+    </section>
     <div class="checkout-preview-links">
       <a id="checkout-contact" class="button button-dark" href="/contact/?topic=plan">Contact DayRidge about this plan</a>
       <a id="checkout-change-plan" class="checkout-change-link" href="/pricing/#checkout">Change my selection</a>
