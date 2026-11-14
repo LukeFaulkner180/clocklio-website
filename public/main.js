@@ -1,4 +1,4 @@
-import { fullWorkspacePlan } from './pricing.js?v=3';
+import { fullWorkspacePlan, quoteWebsiteBasket, dayridgeSignupUrl } from './pricing.js?v=3';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = pence => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
@@ -269,51 +269,69 @@ if (featureCards.length) {
   filter();
 }
 
-// Annual charges include annual add-ons; monthly extras stay separate.
+// One monthly or annual billing frequency applies to every selected Stripe item.
+// Public website prices are only previews; the payment backend verifies prices.
 if ($('[data-team-number]')) {
-
-  const number = $('[data-team-number]'), range = $('[data-team-range]'), tasks = $('[data-quote-tasks]'), stock = $('[data-quote-stock]'), taskUsers = $('[data-tasks-users]'), geo = $('[data-quote-geo]'), geoBilling = $('[data-geo-billing]');
-  function quote() {
-    const size = Number(number.value), users = Number(taskUsers.value);
-    const valid = number.value !== '' && Number.isInteger(size) && size >= 1 && size <= 10000;
-    const validUsers = !tasks.checked || (taskUsers.value !== '' && Number.isInteger(users) && users >= 0 && users <= 10000);
-    $('[data-tasks-users-wrap]').hidden = !tasks.checked;
-    const plan = valid ? fullWorkspacePlan(size) : null;
-    $$('[data-plan-card]').forEach(card => {
-      const selected = valid && plan && card.dataset.planCard === plan.code;
-      card.classList.toggle('is-recommended', Boolean(selected));
-      $('[data-recommendation]', card).hidden = !selected;
+  const number=$('[data-team-number]'),range=$('[data-team-range]'),
+    tasks=$('[data-quote-tasks]'),stock=$('[data-quote-stock]'),
+    taskUsers=$('[data-tasks-users]'),geo=$('[data-quote-geo]'),
+    billing=$('[data-quote-billing]'),cta=$('[data-quote-checkout]');
+  function quote(){
+    const size=Number(number.value),users=Number(taskUsers.value),interval=billing.value;
+    const valid=number.value!==''&&Number.isSafeInteger(size)&&size>=1&&size<=10000;
+    const addons=[tasks.checked?'tasks':null,stock.checked?'stock':null,geo.checked?'geo_clockin':null].filter(Boolean);
+    const validUsers=!tasks.checked||(taskUsers.value!==''&&Number.isSafeInteger(users)&&users>=1&&users<=size&&users<=50);
+    $('[data-tasks-users-wrap]').hidden=!tasks.checked;
+    taskUsers.max=String(Math.min(Number.isSafeInteger(size)&&size>0?size:50,50));
+    const plan=valid?fullWorkspacePlan(size):null;
+    const basket=valid&&validUsers?quoteWebsiteBasket({
+      packageCode:'full',employees:size,interval,addons,tasksUsers:tasks.checked?users:0}):null;
+    $$('[data-plan-card]').forEach(card=>{
+      const selected=Boolean(plan&&card.dataset.planCard===plan.code);
+      card.classList.toggle('is-recommended',selected);
+      $('[data-recommendation]',card).hidden=!selected;
     });
-    const tasksTotal = tasks.checked ? 499 + 235 * users : 0;
-    const stockTotal = stock.checked ? 999 : 0;
-    const geoMonthly = geo?.checked && geoBilling.value === 'monthly' ? 499 : 0;
-    const monthlyTotal = tasksTotal + stockTotal + geoMonthly;
-    const geoAnnual = geo?.checked && geoBilling.value === 'annual' ? 4999 : 0;
-    const annualTotal = plan ? plan.price + geoAnnual : null;
-    if (geo) $('[data-geo-billing-wrap]').hidden = !geo.checked;
-    if (geo) $('[data-quote-geo-total]').textContent = geo.checked ? (geoBilling.value === 'annual' ? '£49.99 / year' : '£4.99 / month') : 'Not selected';
-    $('[data-quote-plan]').textContent = valid ? (plan?.name || 'Custom') : 'Your';
-    $('[data-quote-employees]').textContent = valid ? String(size) : '—';
-    const annual = $('[data-quote-annual]');
-    annual.textContent = valid ? (plan ? money(plan.price) : 'Let’s talk') : '—';
-    if (plan) { const suffix = document.createElement('small'); suffix.textContent = '/ year'; annual.append(suffix); }
-    const totalAnnual = $('[data-quote-annual-total]');
-    totalAnnual.textContent = valid ? (plan ? money(annualTotal) : 'Let’s talk') : '—';
-    $('[data-quote-custom]').hidden = !valid || size <= 5;
-    $('[data-quote-tasks-total]').textContent = validUsers ? (tasks.checked ? money(tasksTotal) : 'Not selected') : 'Check user count';
-    $('[data-quote-stock-total]').textContent = stock.checked ? money(stockTotal) : 'Not selected';
-    $('[data-quote-monthly]').textContent = valid && validUsers ? money(monthlyTotal) : '—';
-    $('[data-quote-status]').textContent = !valid ? 'Enter a whole employee count from 1 to 10,000.' : !validUsers ? 'Enter a whole Tasks user count from 0 to 10,000.' : (!plan ? 'A Custom annual quote is needed for teams above 50 employees. ' : size < 10 ? (size <= 5 ? 'Starter includes up to five employees. ' : 'Starter includes five employees, with ' + (size - 5) + ' extra ' + (size === 6 ? 'employee' : 'employees') + ' at £45 each per year, up to nine employees. ') : plan.name + ' is a fixed annual plan covering up to ' + plan.employeeLimit + ' employees. No per-employee £45 charge applies within that allowance. ') + (plan ? 'Total annual price is ' + money(annualTotal) + (geoAnnual ? ', including Geo Clock-in' : '') + '. ' : (geoAnnual ? 'Geo Clock-in adds £49.99 per year to your agreed Custom price. ' : '')) + 'Monthly extras total ' + money(monthlyTotal) + ' per month.';
-    const params = new URLSearchParams({ topic: 'plan', package: 'full' });
-    if (valid && validUsers) { params.set('employees', String(size)); params.set('plan', plan?.name || 'Custom'); if (tasks.checked) params.set('tasks', String(users)); if (stock.checked) params.set('stock', 'yes'); if (geo?.checked) params.set('geo', geoBilling.value); }
-    $('[data-quote-contact]').href = sitePath('/contact/?' + params);
+    $('[data-quote-plan]').textContent=valid?(plan?.name||'Custom'):'Your';
+    $('[data-quote-employees]').textContent=valid?String(size):'—';
+    const core=$('[data-quote-annual]');
+    core.textContent=basket?money(basket.recurringPence):'—';
+    if(basket){
+      const suffix=document.createElement('small');suffix.textContent='/ '+(interval==='year'?'year':'month');
+      core.append(suffix);
+    }
+    for(const [code,selector] of [['tasks','[data-quote-tasks-total]'],['stock','[data-quote-stock-total]'],['geo_clockin','[data-quote-geo-total]']]){
+      const item=basket?.breakdown.find(x=>x.code===code);
+      $(selector).textContent=item?money(item.amountPence)+' / '+(interval==='year'?'year':'month'):basket?'Not selected':'—';
+    }
+    $('[data-quote-annual-total]').textContent=basket?money(basket.totalPence):'—';
+    $('[data-quote-cycle]').textContent='/ '+(interval==='year'?'year':'month');
+    $('[data-quote-monthly]').textContent=basket?(interval==='year'?
+      'Save '+money(basket.annualSavingPence)+' compared with twelve monthly payments.':
+      '12-month estimate: '+money(basket.monthlyTotalPence*12)+' if you remain subscribed.'):'';
+    $('[data-quote-custom]').hidden=!valid||size<=50;
+    const url=dayridgeSignupUrl(basket);
+    const label=cta.querySelector('[data-quote-checkout-label]');
+    if(label)label.textContent=url?'Review and buy this plan':!validUsers?'Check Tasks licences':'Ask about a custom plan';
+    if(url){
+      cta.href=url;
+      cta.removeAttribute('aria-disabled');
+    }else if(valid&&size>50){
+      cta.href=sitePath('contact/?topic=plan&package=full&employees='+encodeURIComponent(String(size)));
+      cta.removeAttribute('aria-disabled');
+    }else{
+      cta.href='#quote-heading';
+      cta.setAttribute('aria-disabled','true');
+    }
+    $('[data-quote-status]').textContent=!valid?'Enter a whole employee count from 1 to 10,000.':
+      !validUsers?'Tasks licences must be between 1 and your employee count (up to 50).':
+      !basket?'Teams above 50 employees require a tailored quote.':
+      'Selected add-ons are included in this '+(interval==='year'?'annual':'monthly')+' recurring total.';
   }
-  range.addEventListener('input', () => { number.value = range.value; quote(); });
-  number.addEventListener('input', () => { range.value = String(Math.min(60, Math.max(1, Number(number.value) || 1))); quote(); });
-  [tasks, stock].forEach(input => input.addEventListener('change', quote));
-  taskUsers.addEventListener('input', quote);
-  geo?.addEventListener('change', quote);
-  geoBilling?.addEventListener('change', quote);
+  range.addEventListener('input',()=>{number.value=range.value;quote()});
+  number.addEventListener('input',()=>{range.value=String(Math.min(60,Math.max(1,Number(number.value)||1)));quote()});
+  for(const field of [tasks,stock,geo,billing])field.addEventListener('change',quote);
+  taskUsers.addEventListener('input',quote);
+  cta.addEventListener('click',event=>{if(cta.getAttribute('aria-disabled')==='true')event.preventDefault()});
   quote();
 }
 const demoTasks = $$('[data-demo-task]');
