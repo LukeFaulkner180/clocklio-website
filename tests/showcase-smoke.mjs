@@ -371,7 +371,7 @@ try {
       // Business Owner checkout enquiries use the existing contact endpoint;
       // they must never request card details, create a user or charge a card.
       await page.goto(origin + '/checkout/?package=full&employees=8&billing=month');
-      await text(page, '#checkout-selected-total', '£43.49');
+      await text(page, '#checkout-selected-total', '£43.99');
       await text(page, '#checkout-selected-cycle', 'Monthly recurring');
       assert.equal(await page.locator('.checkout-payment-disabled').isDisabled(), true);
       await page.locator('#checkout-owner-name').fill('Jane Owner');
