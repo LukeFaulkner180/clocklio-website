@@ -29,7 +29,11 @@ export function checkoutQuote(packageCode, employees, billingInterval = 'year') 
     ? clockxPlan(employees)
     : packageCode === 'full' ? fullWorkspacePlan(employees) : null;
   if (!plan) return null;
-  const monthlyPence = monthlyPricePence(plan.price);
+  // The 6–9 employee monthly prices are the approved Stripe tiers,
+  // not estimates derived by rounding the annual price.
+  const fullMonthlyTiers = { 6: 3499, 7: 3899, 8: 4399, 9: 4799 };
+  const monthlyPence = packageCode === 'full' && employees >= 6 && employees <= 9
+    ? fullMonthlyTiers[employees] : monthlyPricePence(plan.price);
   return {
     ...plan,
     packageCode,
