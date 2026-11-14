@@ -192,3 +192,38 @@
   .checkout-actions button { width: 100%; }
   .checkout-feedback { max-width: 100%; }
 }
+
+/* Customer-configurable signup basket on the plans page. */
+.checkout-addons{grid-column:1/-1;border:0;padding:0;margin:0;min-width:0}
+.checkout-addons legend{font-weight:750;font-size:.95rem;color:#29253f;margin-bottom:.25rem}
+.checkout-optional{font-weight:500;color:#787187;font-size:.85rem}
+.checkout-addon-intro{color:#696177;font-size:.9rem;line-height:1.6;margin:.3rem 0 1rem}
+.checkout-addon-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.checkout-form label.checkout-addon-option{
+  display:flex;flex-direction:column;gap:.7rem;align-items:flex-start;justify-content:space-between;
+  padding:1.1rem;min-height:154px;background:#fff;border:1px solid #ded7eb;
+  border-radius:14px;cursor:pointer;position:relative;transition:border-color .18s,background .18s;
+}
+.checkout-addon-option input{accent-color:#7250c6;width:19px;height:19px;margin:0}
+.checkout-addon-option span{display:block;line-height:1.3}
+.checkout-addon-option b{display:block;color:#32274d;font-size:.92rem}
+.checkout-addon-option small{display:block;margin-top:.35rem;color:#706981;font-size:.78rem;font-weight:450;line-height:1.5}
+.checkout-addon-option strong{font-size:.85rem;color:#573c94;line-height:1.4}
+.checkout-addon-option:has(input:checked){border:2px solid #7250c6;background:#f6f2ff;padding:calc(1.1rem - 1px)}
+.checkout-addon-option:has(input:disabled){opacity:.5;cursor:not-allowed;background:#f7f6f8}
+.checkout-addon-option:has(input:focus-visible){outline:3px solid #9b7ce9;outline-offset:3px}
+.checkout-form label.checkout-tasks-users{display:flex;flex-direction:column;gap:.45rem;max-width:27rem;margin-top:1rem}
+.checkout-tasks-users input{max-width:12rem}
+.checkout-tasks-users small{font-size:.8rem;font-weight:450;color:#675d77;line-height:1.5}
+.quote-billing-select{margin-top:1.6rem;max-width:450px;display:flex;flex-direction:column;gap:.5rem}
+.quote-billing-select label{font-weight:650;font-size:.9rem;color:#433c52}
+.quote-billing-select select{min-height:48px;padding:.7rem .9rem;border:1px solid #d5cfbd;border-radius:10px;background:#fff;color:#332b44}
+.quote-comparison{font-size:.82rem!important;line-height:1.6!important;color:#766f81!important;margin-top:.9rem}
+.quote-card>.button[aria-disabled="true"]{background:#c9c3ce;color:#4d4657;cursor:not-allowed}
+@media(max-width:920px){.checkout-addon-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){
+ .checkout-addon-grid{grid-template-columns:1fr}
+ .checkout-form label.checkout-addon-option{min-height:0;padding:1rem}
+ .checkout-addon-option:has(input:checked){padding:calc(1rem - 1px)}
+ .quote-billing-select{max-width:100%}
+}
