@@ -45,3 +45,46 @@ export function checkoutQuote(packageCode, employees, billingInterval = 'year') 
     annualSavingPence: monthlyPence * 12 - plan.price,
   };
 }
+
+/** Display-only basket; Stripe independently resolves and verifies every price. */
+export const DAYRIDGE_ADDON_RATES = Object.freeze({
+  tasks:{label:'Tasks',fullOnly:true,month:499,year:4999,perUserMonth:235,perUserYear:2399},
+  stock:{label:'Stock Management',fullOnly:true,month:999,year:9999},
+  geo_clockin:{label:'Geo Clock-in',fullOnly:false,month:499,year:4999},
+});
+export function quoteWebsiteBasket({packageCode='clocking',employees=5,interval='year',addons=[],tasksUsers=0}={}){
+  const plan=checkoutQuote(packageCode,employees,interval);
+  if(!plan||!Array.isArray(addons)||addons.length>3||new Set(addons).size!==addons.length||
+    addons.some(code=>!Object.hasOwn(DAYRIDGE_ADDON_RATES,code)||(DAYRIDGE_ADDON_RATES[code].fullOnly&&packageCode!=='full')))return null;
+  if(addons.includes('tasks')&&(!Number.isSafeInteger(tasksUsers)||tasksUsers<1||tasksUsers>employees))return null;
+  const totalFor=term=>{
+    const planPrice=checkoutQuote(packageCode,employees,term).recurringPence;
+    return planPrice+addons.reduce((total,code)=>{
+      const rate=DAYRIDGE_ADDON_RATES[code];
+      const seats=code==='tasks'?tasksUsers*(term==='year'?rate.perUserYear:rate.perUserMonth):0;
+      return total+rate[term]+seats;
+    },0);
+  };
+  const breakdown=addons.map(code=>{
+    const rate=DAYRIDGE_ADDON_RATES[code];
+    return {code,label:rate.label,amountPence:rate[interval]+(code==='tasks'?tasksUsers*(interval==='year'?rate.perUserYear:rate.perUserMonth):0)};
+  });
+  const annualTotalPence=totalFor('year'),monthlyTotalPence=totalFor('month');
+  return {...plan,requestedEmployees:employees,addons,breakdown,
+    tasksUsers:addons.includes('tasks')?tasksUsers:0,
+    addonPence:breakdown.reduce((sum,x)=>sum+x.amountPence,0),
+    totalPence:interval==='year'?annualTotalPence:monthlyTotalPence,
+    annualTotalPence,monthlyTotalPence,annualSavingPence:monthlyTotalPence*12-annualTotalPence};
+}
+
+/** Website navigation only: the checkout service never trusts these inputs. */
+export function dayridgeSignupUrl(basket){
+  if(!basket)return null;
+  const url=new URL('https://app.dayridge.co.uk/start');
+  url.searchParams.set('package',basket.packageCode);
+  url.searchParams.set('employees',String(basket.requestedEmployees));
+  url.searchParams.set('billing',basket.billingInterval);
+  if(basket.addons.length)url.searchParams.set('addons',basket.addons.join(','));
+  if(basket.addons.includes('tasks'))url.searchParams.set('tasksUsers',String(basket.tasksUsers));
+  return url.toString();
+}

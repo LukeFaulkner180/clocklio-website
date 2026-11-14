@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { checkoutQuote, monthlyPricePence } from '../public/pricing.js';
+import { checkoutQuote, monthlyPricePence, quoteWebsiteBasket, dayridgeSignupUrl } from '../public/pricing.js';
 
 test('Clockx monthly and yearly options use server-compatible tier prices', () => {
   for (const [employees, yearly, monthly, seats] of [
@@ -50,8 +50,8 @@ test('pricing can navigate to checkout without sending a payment request', async
   assert.match(html,/action="\/contact\/" method="get"/)
   assert.match(html,/name="billing" value="year" checked/)
   assert.match(html,/name="billing" value="month"/)
-  assert.match(html,/Continue to business signup/)
-  assert.match(script,/window.location.assign\('https:\/\/app\.dayridge\.co\.uk\/start\?plan='/)
+  assert.match(html,/Continue to secure checkout/)
+  assert.match(script,/window.location.assign\(url\)/)
   assert.doesNotMatch(script,/fetch\(|stripe\.checkout|STRIPE_SECRET_KEY/i)
   assert.doesNotMatch(html,/name="ownerEmail"|name="businessName"|name="cardNumber"/)
 })
@@ -78,3 +78,51 @@ test('checkout page shows a clear coming-soon message and cannot process payment
   assert.match(script,/response\.ok/)
   assert.doesNotMatch(script,/stripe\.checkout|stripe\.com|create-business|createUser|paymentIntent/i)
 })
+
+test('build a monthly Full Workspace basket with all three add-ons and licensed users',()=>{
+  const quote=quoteWebsiteBasket({packageCode:'full',employees:8,interval:'month',
+    addons:['tasks','stock','geo_clockin'],tasksUsers:4});
+  assert.equal(quote.recurringPence,4399);
+  assert.equal(quote.totalPence,4399+499+4*235+999+499);
+  assert.equal(quote.breakdown.length,3);
+  const url=new URL(dayridgeSignupUrl(quote));
+  assert.equal(url.hostname,'app.dayridge.co.uk');
+  assert.equal(url.pathname,'/start');
+  assert.equal(url.searchParams.get('package'),'full');
+  assert.equal(url.searchParams.get('employees'),'8');
+  assert.equal(url.searchParams.get('billing'),'month');
+  assert.equal(url.searchParams.get('addons'),'tasks,stock,geo_clockin');
+  assert.equal(url.searchParams.get('tasksUsers'),'4');
+  assert.equal(url.searchParams.has('price'),false);
+});
+test('annual quote bundles use approved annual add-on prices',()=>{
+  const quote=quoteWebsiteBasket({packageCode:'full',employees:10,interval:'year',
+    addons:['tasks','stock','geo_clockin'],tasksUsers:5});
+  assert.equal(quote.totalPence,64999+4999+5*2399+9999+4999);
+  assert.equal(quote.annualSavingPence,quote.monthlyTotalPence*12-quote.totalPence);
+});
+test('Clockx only allows geo, and invalid Tasks licences never produce a checkout link',()=>{
+  assert.equal(quoteWebsiteBasket({packageCode:'clocking',employees:5,interval:'month',
+    addons:['tasks'],tasksUsers:1}),null);
+  assert.equal(quoteWebsiteBasket({packageCode:'clocking',employees:5,interval:'month',
+    addons:['stock']}),null);
+  assert.equal(quoteWebsiteBasket({packageCode:'full',employees:5,interval:'month',
+    addons:['tasks'],tasksUsers:6}),null);
+  assert.equal(quoteWebsiteBasket({packageCode:'full',employees:5,interval:'month',
+    addons:['tasks'],tasksUsers:0}),null);
+  const geo=quoteWebsiteBasket({packageCode:'clocking',employees:5,interval:'month',
+    addons:['geo_clockin']});
+  assert.equal(geo.totalPence,1499+499);
+  assert.equal(new URL(dayridgeSignupUrl(geo)).searchParams.get('addons'),'geo_clockin');
+  assert.equal(dayridgeSignupUrl(null),null);
+});
+test('website pricing section offers each addon in both plan and builder sections',async()=>{
+  const html=await readFile(new URL('../public/pricing/index.html',import.meta.url),'utf8');
+  assert.match(html,/data-quote-billing/);
+  assert.match(html,/data-quote-checkout/);
+  for(const code of ['tasks','stock','geo_clockin']){
+    assert.match(html,new RegExp('name="addons" value="'+code+'"'));
+    assert.match(html,new RegExp('data-checkout-addon-price="'+code+'"'));
+  }
+  assert.doesNotMatch(html,/Discuss this workspace|Discuss this plan/);
+});

@@ -325,33 +325,55 @@ try {
       assert.ok(await page.locator('[data-feature]:visible').count() > 0, 'Business Owners also have Manager planning features');
 
       await page.goto(origin + '/pricing/');
-      for (const [size, plan, amount] of [[5, 'Starter', '£299.99'], [6, 'Starter', '£344.99'], [9, 'Starter', '£479.99'], [10, 'Team', '£649.99'], [15, 'Team', '£649.99'], [16, 'Business', '£1,149.99'], [30, 'Business', '£1,149.99'], [31, 'Scale', '£1,899.99'], [50, 'Scale', '£1,899.99'], [51, 'Custom', 'Let’s talk']]) {
+      for (const [size, plan, amount] of [[5, 'Starter', '£299.99'], [6, 'Starter', '£344.99'], [9, 'Starter', '£479.99'], [10, 'Team', '£649.99'], [15, 'Team', '£649.99'], [16, 'Business', '£1,149.99'], [30, 'Business', '£1,149.99'], [31, 'Scale', '£1,899.99'], [50, 'Scale', '£1,899.99'], [51, 'Custom', '—']]) {
         await page.locator('[data-team-number]').fill(String(size));
         await text(page, '[data-quote-plan]', plan);
         assert.ok((await page.locator('[data-quote-annual]').textContent()).startsWith(amount));
       }
       await text(page, '.package-price-card:first-child .package-annual-price strong', '£149.99');
       await text(page,'.clockx-tier-list','Up to 5 employees£149.99 / yearUp to 10 employees£219.99 / yearUp to 20 employees£369.99 / year');
+      // Main plan selector: compatible add-ons are included in the recurring total.
+      await page.locator('#checkout-package').selectOption('full');
+      await page.locator('#checkout-employees').fill('8');
+      await page.locator('.checkout-billing-option').nth(1).click();
+      await page.locator('input[name="addons"][value="tasks"]').check();
+      await page.locator('#checkout-tasks-users').fill('4');
+      await page.locator('input[name="addons"][value="stock"]').check();
+      await page.locator('input[name="addons"][value="geo_clockin"]').check();
+      await text(page, '#dayridge-checkout-quote', '£73.36 / month');
+      await page.locator('#checkout-package').selectOption('clocking');
+      assert.equal(await page.locator('input[name="addons"][value="tasks"]').isDisabled(),true);
+      assert.equal(await page.locator('input[name="addons"][value="stock"]').isDisabled(),true);
+      await text(page, '#dayridge-checkout-quote', '£26.98 / month');
+      await page.locator('#checkout-package').selectOption('full');
       await page.locator('[data-team-number]').fill('10');
       await page.locator('[data-quote-tasks]').check();
       await page.locator('[data-tasks-users]').fill('5');
-      await text(page, '[data-quote-monthly]', '£16.74');
+      await text(page, '[data-quote-annual-total]', '£819.93');
       await page.locator('[data-quote-stock]').check();
-      await text(page, '[data-quote-monthly]', '£26.73');
+      await text(page, '[data-quote-annual-total]', '£919.92');
       await page.locator('[data-quote-geo]').check();
-      await text(page,'[data-quote-monthly]','£31.72');
-      await page.locator('[data-geo-billing]').selectOption('annual');
-      await text(page,'[data-quote-monthly]','£26.73');
-      await text(page,'[data-quote-geo-total]','£49.99 / year');
+      await text(page, '[data-quote-annual-total]', '£969.91');
+      await page.locator('[data-quote-billing]').selectOption('month');
+      await text(page, '[data-quote-annual-total]', '£96.71');
+      await text(page, '[data-quote-geo-total]', '£4.99 / month');
       await page.locator('[data-quote-geo]').uncheck();
+      await text(page, '[data-quote-annual-total]', '£91.72');
       await page.locator('[data-tasks-users]').fill('');
-      await text(page, '[data-quote-monthly]', '—');
+      await text(page, '[data-quote-annual-total]', '—');
+      assert.equal(await page.locator('[data-quote-checkout]').getAttribute('aria-disabled'),'true');
       await page.locator('[data-tasks-users]').fill('5');
       await page.locator('[data-team-number]').fill('0');
       await text(page, '[data-quote-status]', /Enter a whole employee count/);
       await page.locator('[data-team-number]').fill('16');
-      const contactPath = await page.locator('[data-quote-contact]').getAttribute('href');
-      await page.goto(new URL(contactPath, hostOrigin).href);
+      const basketUrl = new URL(await page.locator('[data-quote-checkout]').getAttribute('href'));
+      assert.equal(basketUrl.hostname,'app.dayridge.co.uk');
+      assert.equal(basketUrl.searchParams.get('package'),'full');
+      assert.equal(basketUrl.searchParams.get('employees'),'16');
+      assert.equal(basketUrl.searchParams.get('billing'),'month');
+      assert.equal(basketUrl.searchParams.get('addons'),'tasks,stock');
+      assert.equal(basketUrl.searchParams.get('tasksUsers'),'5');
+      await page.goto(origin + '/contact/?topic=plan&package=full&employees=16&plan=Business&tasks=5&stock=yes');
       assert.equal(await page.locator('[name="employees"]').inputValue(), '16–30');
       assert.match(await page.locator('[name="message"]').inputValue(), /Tasks add-on: 5/);
       await page.locator('[name="name"]').fill('Test Visitor');
