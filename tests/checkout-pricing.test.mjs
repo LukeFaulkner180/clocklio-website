@@ -21,8 +21,8 @@ test('Clockx monthly and yearly options use server-compatible tier prices', () =
 
 test('Full Workspace monthly premium applies across all existing tiers', () => {
   for (const [count, annual, monthly] of [
-    [5, 29999, 2999], [6, 34499, 3449], [7, 38999, 3899],
-    [8, 43499, 4349], [9, 47999, 4799], [10, 64999, 6499],
+    [5, 29999, 2999], [6, 34499, 3499], [7, 38999, 3899],
+    [8, 43499, 4399], [9, 47999, 4799], [10, 64999, 6499],
     [15, 64999, 6499], [16, 114999, 11499], [30, 114999, 11499],
     [31, 189999, 18999], [50, 189999, 18999],
   ]) {

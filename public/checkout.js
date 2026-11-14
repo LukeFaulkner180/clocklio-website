@@ -29,7 +29,7 @@ if (form) {
     const quote = checkoutQuote(packageField.value, Number(employeesField.value), interval);
     amount.textContent = quote ? money(quote.recurringPence) + (interval === 'month' ? ' / month' : ' / year') : 'Custom quote';
     band.textContent = quote ? 'Up to ' + quote.employeeLimit + ' employees · ' + (interval === 'month' ? 'Monthly' : 'Annual') + ' recurring plan price. Add-ons billed separately.' : 'For teams above the available allowance, please contact DayRidge.';
-    saving.textContent = quote ? (interval === 'year' ? 'Save ' + money(quote.annualSavingPence) + ' compared with 12 monthly payments.' : money(quote.twelveMonthCostPence) + ' over 12 months if you remain subscribed.') : '';
+    saving.textContent = quote ? (interval === 'year' ? 'Save ' + money(quote.annualSavingPence) + ' compared with 12 monthly payments.' : '12-month estimate: ' + money(quote.twelveMonthCostPence) + ' if you remain subscribed.') : '';
     const live = signupPlan(quote, interval);
     button.textContent = live ? 'Continue to business signup' : 'Contact DayRidge about this plan';
     message.textContent = live ? 'Review your annual plan and business details before payment.' : 'Contact DayRidge to arrange this selection.';
